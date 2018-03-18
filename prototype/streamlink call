@@ -1,0 +1,2 @@
+Twitch: streamlink -o /home/gabriel/ICS5114_Practical_Assignment/twitch_live.wav https://www.twitch.tv/cohhcarnage audio_only
+YT Live: streamlink -o /home/gabriel/ICS5114_Practical_Assignment/yt_live.wav https://www.youtube.com/watch?v=7o4iA93XU1I worst
