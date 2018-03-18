@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a9db25ed-7cb3-4f47-ad58-bc365701fb45" name="Default" comment="" />
+    <list default="true" id="a9db25ed-7cb3-4f47-ad58-bc365701fb45" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/kapfka/__init__.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/neo4j/__init__.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/storm/__init__.py" />
+      <change beforePath="$PROJECT_DIR$/src/interfaces/__init__.py" afterPath="$PROJECT_DIR$/src/kapfka/__init__.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,8 +19,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+            <state relative-caret-position="198">
+              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding>
                 <element signature="e#65#112#0" expanded="true" />
               </folding>
@@ -39,7 +44,7 @@
         <entry file="file://$PROJECT_DIR$/prototype/streamlink call">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="18">
-              <caret line="1" column="68" lean-forward="true" selection-start-line="1" selection-start-column="68" selection-end-line="1" selection-end-column="68" />
+              <caret line="1" column="68" lean-forward="false" selection-start-line="1" selection-start-column="68" selection-end-line="1" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -53,6 +58,9 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -71,6 +79,7 @@
     <option name="width" value="575" />
     <option name="height" value="484" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -96,12 +105,25 @@
             <path>
               <item name="ICS5114_Practical_Assignment" type="b2602c69:ProjectViewProjectNode" />
               <item name="ICS5114_Practical_Assignment" type="462c0819:PsiDirectoryNode" />
-              <item name="prototype" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ICS5114_Practical_Assignment" type="b2602c69:ProjectViewProjectNode" />
               <item name="ICS5114_Practical_Assignment" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="kapfka" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ICS5114_Practical_Assignment" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ICS5114_Practical_Assignment" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="neo4j" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ICS5114_Practical_Assignment" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ICS5114_Practical_Assignment" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="storm" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -175,7 +197,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -231,7 +253,7 @@
         <state relative-caret-position="234">
           <caret line="14" column="55" lean-forward="false" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="55" />
           <folding>
-            <element signature="e#299#333#0" expanded="true" />
+            <element signature="e#299#333#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -288,7 +310,7 @@
         <state relative-caret-position="101">
           <caret line="14" column="55" lean-forward="false" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="55" />
           <folding>
-            <element signature="e#299#333#0" expanded="true" />
+            <element signature="e#299#333#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -296,15 +318,15 @@
     <entry file="file://$PROJECT_DIR$/prototype/streamlink call">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
-          <caret line="1" column="68" lean-forward="true" selection-start-line="1" selection-start-column="68" selection-end-line="1" selection-end-column="68" />
+          <caret line="1" column="68" lean-forward="false" selection-start-line="1" selection-start-column="68" selection-end-line="1" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        <state relative-caret-position="198">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
             <element signature="e#65#112#0" expanded="true" />
           </folding>
