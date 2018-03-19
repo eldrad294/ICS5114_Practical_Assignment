@@ -3,7 +3,7 @@
 from src.object_definitions import config_object
 import json
 #
-class CaptureInterface:
+class ConfigInterface:
     """"
     This class contains the required logic so as to
     integrate with online services. The class serves
@@ -11,13 +11,27 @@ class CaptureInterface:
     tool.
     """
     #
-    def __init__(self, input_channels_path, video_buffer_path):
+    def __init__(self, input_channels_path):
+        """
+        Default constructor
+        :param input_channels_path: Path to input_channels.json
+        """
         self.input_channels_path = input_channels_path
-        self.video_buffer_path = video_buffer_path
         self.input_channels = []
         self.load_input_channels()
     #
+    def get_input_channels(self):
+        """
+        Returns input_channels
+        :return:
+        """
+        return self.input_channels
+    #
     def get_input_channel_size(self):
+        """
+        Return size of input_channels data structure
+        :return:
+        """
         return len(self.input_channels)
     #
     def load_input_channels(self):
@@ -26,6 +40,7 @@ class CaptureInterface:
         each config structure as instances of the
         config_object_type. Each instance type is
         stored within a list.
+        :return:
         """
         #
         # Read input_channel file and load content as a single json string
@@ -34,14 +49,14 @@ class CaptureInterface:
         #
         # Iterate over json object
         for streams in json_string['streams']:
-            temp_value = []
+            temp_value = {}
             for attribute, value in streams.items():
-                temp_value.append(value)
+                temp_value[attribute.lower()] = value.lower()
             #
-            co = config_object.ConfigObject(temp_value[0],
-                                            temp_value[1],
-                                            temp_value[2],
-                                            temp_value[3])
+            co = config_object.ConfigObject(platform=temp_value['platform'],
+                                            url=temp_value['url'],
+                                            channel=temp_value['channel'],
+                                            genre=temp_value['genre'])
             self.input_channels.append(co)
         #
         print("Input channels loaded successfully -> Channel count: [" + str(self.get_input_channel_size()) + "]")
@@ -49,6 +64,7 @@ class CaptureInterface:
     def display_input_channels(self):
         """
         Displays the input channels structure
+        :return:
         """
         #
         if self.get_input_channel_size() != 0:

@@ -2,9 +2,13 @@
 # Main Class, which controls entire routine
 #
 # Module Imports
-from src.kapfka.capture_interface import CaptureInterface
+from src.kapfka.config_interface import ConfigInterface
+from src.kapfka.recording_interface import RecordingInterface
 from src.constants import path_consts as pc
 #
-ci = CaptureInterface(input_channels_path=pc.FILE_INPUT_CHANNELS,
-                      video_buffer_path=pc.DIR_VIDEO_BUFFER)
-ci.display_input_channels()
+# Loads config from input_channels.json
+ci = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
+#
+# Records video streams to disk locally
+ri = RecordingInterface(config_obj=ci.get_input_channels()[0])
+ri.capture()

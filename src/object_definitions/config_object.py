@@ -7,7 +7,7 @@ class ConfigObject:
     The class template for the input channel json structure
     """
     #
-    def __init__(self, channel, genre, platform, url):
+    def __init__(self, platform, url, channel, genre):
         self.platform = platform
         self.url = url
         self.channel = channel
