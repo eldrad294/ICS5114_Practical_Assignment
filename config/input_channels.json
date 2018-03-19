@@ -11,5 +11,17 @@
     "url":"https://www.twitch.tv/neuro",
     "channel":"Neuro",
     "genre":"strategy-gaming"
+  },
+  {
+    "platform":"youtube",
+    "url":"https://www.youtube.com/watch?v=BSjee-ond7w",
+    "channel":"BobRoss",
+    "genre":"Painting"
+  },
+  {
+    "platform":"youtube_live",
+    "url":"https://www.youtube.com/watch?v=8XiqrERZo_8",
+    "channel":"ChilledCow",
+    "genre":"Music"
   }
 ]}

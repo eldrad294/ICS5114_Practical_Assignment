@@ -1,6 +1,6 @@
 #
 # Module imports
-from subprocess import call
+from subprocess import run
 import subprocess
 from src.constants import path_consts as pc
 import datetime
@@ -40,16 +40,23 @@ class RecordingInterface:
             try:
                 print("Initiating file segmentation..")
                 segmented_file_name = self.get_segmented_file_name()
-                command = ["streamlink",
-                           "-o " + self.video_buffer_path + "/" + segmented_file_name,
-                           self.config_obj.get_details()['url'] + " " + self.quality]
+                command = "streamlink -o " + \
+                          self.video_buffer_path + \
+                          "/" + segmented_file_name + \
+                          " " + self.config_obj.get_details()['url'] + \
+                          " " + self.quality
                 #
-                call(args=command,
-                     timeout=self.segment_time_span)
+                output = run(args=command,
+                             timeout=self.segment_time_span,
+                             shell=True)
                 #
-                print("File [" + segmented_file_name + "] has been shipped to [" + self.video_buffer_path + "]")
-            except subprocess.TimeoutExpired:
+                print(command)
+                if (output.returncode == 0):
+                    print("File [" + segmented_file_name + "] has been shipped to [" + self.video_buffer_path + "]")
+            except subprocess.TimeoutExpired as te:
                 pass
+            except KeyboardInterrupt:
+                print("User Interrupt!")
             except Exception as e:
                 print("Capture method aborted in an unhandled manner!\n")
                 print(str(e))

@@ -51,7 +51,10 @@ class ConfigInterface:
         for streams in json_string['streams']:
             temp_value = {}
             for attribute, value in streams.items():
-                temp_value[attribute.lower()] = value.lower()
+                if attribute == "url":
+                    temp_value[attribute.lower()] = value
+                else:
+                    temp_value[attribute.lower()] = value.lower()
             #
             co = config_object.ConfigObject(platform=temp_value['platform'],
                                             url=temp_value['url'],
