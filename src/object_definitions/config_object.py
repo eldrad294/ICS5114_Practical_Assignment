@@ -15,11 +15,16 @@ class ConfigObject:
         self.id = self.get_hash()
     #
     def get_hash(self):
-        """ Calculates a unique hash based off input platform, genre and channel combined """
+        """
+        Calculates a unique hash based off input platform, genre and channel combined
+        https://www.pythoncentral.io/hashing-strings-with-python/
+        """
         return hashlib.md5((self.platform + self.channel + self.genre).encode()).hexdigest()
     #
     def get_details(self):
-        """" Returns instance details in the form of a dictionary """
+        """"
+        Returns instance details in the form of a dictionary
+        """
         detail_dict = {"platform": self.platform,
                        "url": self.url,
                        "channel": self.channel,
@@ -28,7 +33,9 @@ class ConfigObject:
         return detail_dict
     #
     def display_details(self):
-        """ Pretty print instance details """
+        """
+        Pretty print instance details
+        """
         print("Platform: " + str(self.platform) +
               "\nURL: " + str(self.url) +
               "\nChanel: " + str(self.channel) +

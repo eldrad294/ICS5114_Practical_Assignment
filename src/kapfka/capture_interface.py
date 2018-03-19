@@ -17,6 +17,9 @@ class CaptureInterface:
         self.input_channels = []
         self.load_input_channels()
     #
+    def get_input_channel_size(self):
+        return len(self.input_channels)
+    #
     def load_input_channels(self):
         """
         Parse the input_channels.json file and stores
@@ -40,13 +43,16 @@ class CaptureInterface:
                                             temp_value[2],
                                             temp_value[3])
             self.input_channels.append(co)
+        #
+        print("Input channels loaded successfully -> Channel count: [" + str(self.get_input_channel_size()) + "]")
     #
     def display_input_channels(self):
         """
         Displays the input channels structure
         """
         #
-        if len(self.input_channels) != 0:
+        if self.get_input_channel_size() != 0:
             [stream.display_details() for stream in self.input_channels]
         else:
             print("Input channels have not been loaded or might be corrupted!")
+
