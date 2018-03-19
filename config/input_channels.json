@@ -1,9 +1,15 @@
 {
-  "source":
+  "streams":[
   {
     "platform":"twitch_tv",
     "url":"https://www.twitch.tv/geekandsundry",
     "channel":"GeekandSundry",
     "genre":"tabletop-gaming"
+  },
+  {
+    "platform":"twitch_tv",
+    "url":"https://www.twitch.tv/neuro",
+    "channel":"Neuro",
+    "genre":"strategy-gaming"
   }
-}
+]}

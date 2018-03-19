@@ -1,17 +1,30 @@
+#
+# Module imports
+import hashlib
+#
 class ConfigObject:
     """
     The class template for the input channel json structure
     """
     #
-    def __init__(self, platform, url, channel, genre):
+    def __init__(self, channel, genre, platform, url):
         self.platform = platform
         self.url = url
         self.channel = channel
         self.genre = genre
+        self.id = self.get_hash()
+    #
+    def get_hash(self):
+        """ Calculates a unique hash based off input platform, genre and channel combined """
+        return hashlib.md5((self.platform + self.channel + self.genre).encode()).hexdigest()
     #
     def get_details(self):
         """" Returns instance details in the form of a dictionary """
-        detail_dict = {"platform":self.platform,"url":self.url,"channel":self.channel,"genre":self.genre}
+        detail_dict = {"platform": self.platform,
+                       "url": self.url,
+                       "channel": self.channel,
+                       "genre": self.genre,
+                       "id": self.id}
         return detail_dict
     #
     def display_details(self):
@@ -19,4 +32,5 @@ class ConfigObject:
         print("Platform: " + str(self.platform) +
               "\nURL: " + str(self.url) +
               "\nChanel: " + str(self.channel) +
-              "\nGenre: " + str(self.genre))
+              "\nGenre: " + str(self.genre) +
+              "\nId: " + str(self.id))

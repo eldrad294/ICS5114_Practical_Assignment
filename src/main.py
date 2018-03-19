@@ -2,10 +2,9 @@
 # Main Class, which controls entire routine
 #
 # Module Imports
-import prototype.universal_video_capture as uvc
-import prototype.youtube_livestream_capture as ylc
-import prototype.blob_downloader as bd
+from src.kapfka.capture_interface import CaptureInterface
+from src.constants import path_consts as pc
 #
-#uvc.record_video()
-#ylc.recrod_video()
-bd.record_video()
+ci = CaptureInterface(input_channels_path=pc.FILE_INPUT_CHANNELS,
+                      video_buffer_path=pc.DIR_VIDEO_BUFFER)
+ci.display_input_channels()
