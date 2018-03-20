@@ -2,8 +2,8 @@
 # Main Class, which controls entire routine
 #
 # Module Imports
-from src.kapfka.config_interface import ConfigInterface
-from src.kapfka.recording_interface import RecordingInterface
+from src.interfaces.config_interface import ConfigInterface
+from src.interfaces.recording_interface import RecordingInterface
 from src.constants import path_consts as pc
 #
 # Loads config from input_channels.json
