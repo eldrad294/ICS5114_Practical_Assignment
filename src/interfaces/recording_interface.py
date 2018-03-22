@@ -1,9 +1,8 @@
 #
 # Module imports
 from subprocess import run
-import subprocess
-from src.constants import path_consts as pc
-import datetime
+from constants import path_consts as pc
+import datetime, subprocess
 #
 class RecordingInterface:
     """
@@ -28,39 +27,79 @@ class RecordingInterface:
         self.quality = quality
         self.video_buffer_path = pc.DIR_VIDEO_BUFFER
     #
-    def capture(self):
+    def capture_and_save_indefinetly(self):
         """
-        Calls a never ending loop, ensuring that each
-        iteration of the loops never lasts longer as
-        that stated by the segment_time_span_parameter
+        Calls a never ending loop on the capture_and_save method
         :return:
         """
         #
         while True:
-            try:
-                print("Initiating file segmentation..")
-                segmented_file_name = self.get_segmented_file_name()
-                command = "streamlink -o " + \
-                          self.video_buffer_path + \
-                          "/" + segmented_file_name + \
-                          " " + self.config_obj.get_details()['url'] + \
-                          " " + self.quality
-                #
-                output = run(args=command,
-                             timeout=self.segment_time_span,
-                             shell=True)
-                #
-                print(command)
-                if (output.returncode == 0):
-                    print("File [" + segmented_file_name + "] has been shipped to [" + self.video_buffer_path + "]")
-            except subprocess.TimeoutExpired as te:
-                pass
-            except KeyboardInterrupt:
-                print("User Interrupt!")
-            except Exception as e:
-                print("Capture method aborted in an unhandled manner!\n")
-                print(str(e))
-                break
+            self.capture_and_save()
+    #
+    def capture_and_save(self):
+        """
+        Recording logic, using the streamlink CLI tool.
+        All captured footage is saved to disk. Footage
+        time is dicated by the segment_time_span_parameter
+        parameter
+        :return:
+        """
+        print("Initiating file segmentation..")
+        segmented_file_name = self.get_segmented_file_name()
+        try:
+            output = self.stream_link_wrapper(segmented_file_name)
+            #
+            if (output.returncode == 0):
+                print("File [" + segmented_file_name + "] has been shipped to [" + self.video_buffer_path + "]")
+        except subprocess.TimeoutExpired:
+            pass
+        except KeyboardInterrupt:
+            print("User Interrupt!")
+        except Exception as e:
+            print("Capture method aborted in an unhandled manner!\n")
+            print(str(e))
+            exit(1)
+    #
+    def capture_and_return(self):
+        """
+        Similar to the capture_and_save method, but returns the
+        recorded file path.
+        :return:
+        """
+        print("Initiating file segmentation..")
+        segmented_file_name = self.get_segmented_file_name()
+        try:
+            output = self.stream_link_wrapper(segmented_file_name)
+            #
+            if (output.returncode == 0):
+                print("File [" + segmented_file_name + "] has been shipped to [" + self.video_buffer_path + "]")
+                return self.video_buffer_path + "/" + segmented_file_name
+        except subprocess.TimeoutExpired:
+            return self.video_buffer_path + "/" + segmented_file_name
+        except KeyboardInterrupt:
+            print("User Interrupt!")
+            return None
+        except Exception as e:
+            print("Capture method aborted in an unhandled manner!\n")
+            print(str(e))
+            return None
+    #
+    def stream_link_wrapper(self, segmented_file_name):
+        """
+        Method which encapsulates the streamlink tools
+        :return:
+        """
+        command = "streamlink -o " + \
+                  self.video_buffer_path + \
+                  "/" + segmented_file_name + \
+                  " " + self.config_obj.get_details()['url'] + \
+                  " " + self.quality
+        #
+        output = run(args=command,
+                     timeout=self.segment_time_span,
+                     shell=True)
+        #
+        return output
     #
     def get_segmented_file_name(self):
         """

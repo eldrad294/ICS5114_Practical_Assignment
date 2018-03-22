@@ -1,6 +1,6 @@
 #
 # Module imports
-from src.object_definitions import config_object
+from object_definitions import config_object
 import json
 #
 class ConfigInterface:

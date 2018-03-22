@@ -11,7 +11,7 @@ ci = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
 #
 # Records video streams to disk locally
 ri = RecordingInterface(config_obj=ci.get_input_channels()[2],
-                        segment_time_span=300,
+                        segment_time_span=30,
                         extension="wav",
                         quality="worst")
-ri.capture()
+print(ri.capture_and_return())
