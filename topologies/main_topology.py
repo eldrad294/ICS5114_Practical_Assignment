@@ -12,7 +12,7 @@ class MainTopology(Topology):
     # variable declaration
     parallel_degree = 1
     #
-    print('Starting Topology')
+    print('Starting Topology..')
     video_recording_spout = VideoRecorder.spec()
     #
     count_bolt = VideoDecoder.spec(inputs={video_recording_spout: Grouping.fields('video')}

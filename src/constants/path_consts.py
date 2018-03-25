@@ -12,7 +12,3 @@ DIR_VIDEO_BUFFER = "/video_buffer"
 # File Path Constants
 #FILE_INPUT_CHANNELS = BASE_DIR + "/config/input_channels.json"
 FILE_INPUT_CHANNELS = "input_channels.json"
-
-
-
-# print(FILE_INPUT_CHANNELS)  # Uncomment this string to test paths

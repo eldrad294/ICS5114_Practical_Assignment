@@ -14,16 +14,16 @@ class VideoRecorder(Spout):
     the topology pipeline.
     """
     #
-    outputs = ['video'] #Grouping Mechanism
+    # Grouping Mechanism
+    outputs = ['video']
     #
-    def initialize(self, storm_conf, context):
+    def initialize(self, stormconf, context):
         """
         Storm Spout 'constructor method'
         :param storm_conf:
         :param context:
         :return:
         """
-        print("SPOUT HAS BEEN INITIALIZED!!")
         # Loads config from input_channels.json
         self.ci = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
         #
@@ -39,8 +39,12 @@ class VideoRecorder(Spout):
         and segmented video file paths
         :return:
         """
-        print("SPOUT IS EMITTING!!")
+        self.log("Entry!!!!!!")
         segment_video_path = self.ri.capture_and_return()
+        #segment_video_path = "******This is a path******"
         if segment_video_path is not None:
-            print(segment_video_path)
+            self.log(segment_video_path)
             self.emit([segment_video_path])
+        else:
+            self.log("None!")
+            self.emit(["None!"])

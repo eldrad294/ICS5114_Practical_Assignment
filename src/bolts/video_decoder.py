@@ -19,7 +19,7 @@ class VideoDecoder(Bolt):
         :param ctx:
         :return:
         """
-        self.pid = os.getpid()
+        pass
     #
     def process(self, tup):
         """
@@ -27,5 +27,5 @@ class VideoDecoder(Bolt):
         :param tup:
         :return:
         """
-        print(tup)
-        pass
+        video_path = tup.values[0]
+        self.emit([video_path])
