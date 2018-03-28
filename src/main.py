@@ -1,11 +1,9 @@
-#
-# Main Class, which controls entire routine
-#
-# Module Imports
-from src.interfaces.config_interface import ConfigInterface
-from src.interfaces.recording_interface import RecordingInterface
+# --------------------------------
+# Video Capture Tool - How TO
+# --------------------------------
+from src.recording.config_interface import ConfigInterface
+from src.recording.recording_interface import RecordingInterface
 from src.constants import path_consts as pc
-from src.kafka.producer import Producer
 # #
 # # Loads config from input_channels.json
 # ci = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
@@ -16,7 +14,22 @@ from src.kafka.producer import Producer
 #                         extension="wav",
 #                         quality="worst")
 # print(ri.capture_and_return())
+# --------------------------------
+# Kafka Producer - How TO
+# --------------------------------
+from src.kafka.producer import Producer
+from src.kafka.consumer import Consumer
+import pickle
 try:
-    p1 = Producer().connect_producer("localhost:2181")
+    p1 = Producer()
+    p1.connect("127.0.0.1:9092")
+    #print(p1.list_topics())
+    #p1.produce_message(topic='video', stream_object="Hello World!")
+    #
+    c1 = Consumer()
+    c1.connect("127.0.0.1:9092")
+    #print(c1.list_topics())
+    c1.simple_consumer(topic='video')
+    #c1.balanced_consumer(topic='video')
 except Exception as e:
     print(str(e))

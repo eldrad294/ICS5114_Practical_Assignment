@@ -1,16 +1,18 @@
 #
 # Module Imports
 from pykafka import KafkaClient
+from src.kafka.kafka_interface import KafkaInterface
 import pickle
 #
-class Producer:
+class Producer(KafkaInterface):
     """
     Class encapsulating producer functionality
     """
     def __init__(self):
+        KafkaInterface.__init__(self)
         self.client = None
     #
-    def connect_producer(self, address):
+    def connect(self, address):
         """
         Attempts to connect to Kafka broker
         :param address:
@@ -25,18 +27,21 @@ class Producer:
     #
     def list_topics(self):
         """
-        Gets list of topics from Kafka broker
+        Gets list of topics from Kafka broker.
+        WARNING: This method is likely to be incompatible
+        with python 3.x
         :return:
         """
         return self.client.topics
     #
     def get_topic(self, topic):
         """
-        Gets a particular topic from Kafka broker
+        Gets a particular topic from Kafka broker, and
+        returns an encoded version of the topic
         :param topic:
         :return:
         """
-        return self.client.topics[topic]
+        return self.client.topics[topic.encode()] #topic string is converted to bytes to appease Kafka
     #
     def produce_message(self, topic, stream_object):
         """
@@ -48,7 +53,7 @@ class Producer:
         #
         # Serializes stream object
         serialized_stream_object = pickle.dumps(stream_object)
-        with self.get_topic(topic).sync_producer() as producer:
+        with self.get_topic(topic).get_sync_producer() as producer:
             #
             # Pushes serialized object onto Kafka broker
             producer.produce(serialized_stream_object)
