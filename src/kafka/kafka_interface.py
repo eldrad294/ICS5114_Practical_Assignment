@@ -14,6 +14,17 @@ class KafkaInterface(object):
         """
         raise NotImplementedError
     #
+    def connect_ssl(self, address, cafile, certfile, keyfile, password):
+        """
+        Method which uses and SSL connection to Kafka broker
+        :param cafile:
+        :param certfile:
+        :param keyfile:
+        :param password:
+        :return:
+        """
+        raise NotImplementedError
+    #
     def list_topics(self):
         """
         Returns a list of topics from the Kafka Broker

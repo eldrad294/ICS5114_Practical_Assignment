@@ -1,6 +1,6 @@
 #
 # Module imports
-from object_definitions import config_object
+from src.object_definitions.config_object import ConfigObject
 import json
 #
 class ConfigInterface:
@@ -56,10 +56,10 @@ class ConfigInterface:
                 else:
                     temp_value[attribute.lower()] = value.lower()
             #
-            co = config_object.ConfigObject(platform=temp_value['platform'],
-                                            url=temp_value['url'],
-                                            channel=temp_value['channel'],
-                                            genre=temp_value['genre'])
+            co = ConfigObject(platform=temp_value['platform'],
+                              url=temp_value['url'],
+                              channel=temp_value['channel'],
+                              genre=temp_value['genre'])
             self.input_channels.append(co)
         #
         print("Input channels loaded successfully -> Channel count: [" + str(self.get_input_channel_size()) + "]")

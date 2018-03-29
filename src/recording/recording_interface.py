@@ -1,7 +1,7 @@
 #
 # Module imports
 from subprocess import run
-from constants import path_consts as pc
+from src.constants import path_consts as pc
 import datetime, subprocess
 #
 class RecordingInterface:
@@ -15,7 +15,7 @@ class RecordingInterface:
     This class will operate on data pulled off the config_interface.
     """
     #
-    def __init__(self, config_obj, segment_time_span=300, extension='wav', quality='worst'):
+    def __init__(self, config_obj, segment_time_span=300, extension='wav', quality='worst', video_buffer_path=pc.DIR_VIDEO_BUFFER):
         """
         Default constructor
         :param config_obj:
@@ -25,7 +25,7 @@ class RecordingInterface:
         self.segment_time_span = segment_time_span
         self.extension = extension
         self.quality = quality
-        self.video_buffer_path = pc.DIR_VIDEO_BUFFER
+        self.video_buffer_path = video_buffer_path
     #
     def capture_and_save_indefinetly(self):
         """
@@ -125,3 +125,18 @@ class RecordingInterface:
                str(currentDT.hour) + \
                str(currentDT.minute) + \
                str(currentDT.second)
+    #
+    def get_video(self, video_path):
+        """
+        NB: Beware using this method on large files!
+        This function will copy the file content as
+        binary data into memory.
+        :param video_path:
+        :return:
+        """
+        #
+        # Opening for [r]eading as [b]inary
+        with open(video_path, "rb") as file:
+            data = file.read()
+            file.close()
+        return data

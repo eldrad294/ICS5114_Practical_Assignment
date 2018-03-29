@@ -11,11 +11,12 @@ class StreamObject:
     the pipeline into Storm.
     """
     #
-    def __init__(self, platform, channel, genre, time_stamp, file_name, file=None):
+    def __init__(self, platform, url, channel, genre, time_stamp, file_path, file=None):
         self.platform = platform
+        self.url = url
         self.channel = channel
         self.genre = genre
-        self.file_name = file_name
+        self.file_path = file_path
         self.file = file
         self.time_stamp = time_stamp
     #
@@ -24,7 +25,8 @@ class StreamObject:
         Returns instance details in the form of a dictionary
         """
         detail_dict = {"platform": self.platform,
-                       "file_name": self.file_name,
+                       "url": self.url,
+                       "file path": self.file_path,
                        "file": self.file,
                        "channel": self.channel,
                        "genre": self.genre,
@@ -37,7 +39,8 @@ class StreamObject:
         Pretty print instance details
         """
         print("Platform: " + str(self.platform) +
-              "\nFile Name: " + str(self.file_name) +
+              "\nURL: " + str(self.url) +
+              "\nFile Path: " + str(self.file_path) +
               "\nChanel: " + str(self.channel) +
               "\nGenre: " + str(self.genre) +
               "\nTime Stamp: " + str(self.time_stamp))
