@@ -79,6 +79,7 @@ class Consumer(KafkaInterface):
         consumer = None
         try:
             consumer = self.get_topic(topic).get_simple_consumer()
+            print("stream_object consumed from broker!")
         except Exception as e:
             print("An error occurred whilst attempting retrieval from broker!")
             print(str(e))
@@ -87,7 +88,7 @@ class Consumer(KafkaInterface):
             if message is not None:
                 print(message.offset, message.value)
     #
-    def balanced_consumer(self, topic, consumer_group, zookeeper_connect, auto_commit_enable=False):
+    def set_balanced_consumer(self, topic, consumer_group, zookeeper_connect, auto_commit_enable=False):
         """
         Consumes messages from defined topic, and prints them.
         Uses the balanced consumer method for safe multi-topic
@@ -101,10 +102,11 @@ class Consumer(KafkaInterface):
             consumer = self.get_topic(topic).get_balanced_consumer(consumer_group=consumer_group.encode('utf-8'),
                                                                    auto_commit_enable=auto_commit_enable,
                                                                    zookeeper_connect=zookeeper_connect)
+            print("stream_object consumed from broker!")
+            return consumer
         except Exception as e:
             print("An error occurred whilst attempting retrieval from broker!")
             print(str(e))
-        #
-        for message in consumer:
-            if message is not None:
-                print(message.offset, message.value)
+        return None
+
+

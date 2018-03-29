@@ -38,9 +38,9 @@ producer = Producer()
 producer.connect(kafka_connection_strings)
 #
 while True:
-    #
-    # Initiates a call to Streamparse, and records the stream into a file locally
     try:
+        #
+        # Initiates a call to Streamparse, and records the stream into a file locally
         video_path = ri.capture_and_return()
         #
         # Copies the recorded file into memory, as a collection of binary data
@@ -61,5 +61,5 @@ while True:
     except Exception as e:
         print(str(e))
         # In the case of an exception arising in video capture, handling, Kafka Submission,
-        # we put the main thread to sleep for 5 seconds, to avoid resource exhaustion.
+        # we put the main thread to sleep for n seconds, to avoid resource exhaustion.
         time.sleep(exception_time_out)
