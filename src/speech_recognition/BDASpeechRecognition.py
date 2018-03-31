@@ -5,9 +5,9 @@ import shutil
 from abc import ABC, abstractmethod
 from subprocess import Popen, PIPE
 
-from src.speech_recognition.BDATimer import BDATimer
+from src.coding_framework.BDATimer import BDATimer
+from src.coding_framework.BDAConfigParser import g_config
 from src.speech_recognition.BDAVideoAudioUtilities import *
-from src.speech_recognition.BDAConfigParser import g_config
 
 # Imports the Google Cloud client library
 from google.cloud import speech
