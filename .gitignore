@@ -2,3 +2,7 @@
 _build
 _resources
 logs
+
+src/speech_recognition/__pycache__/
+
+\.idea/
