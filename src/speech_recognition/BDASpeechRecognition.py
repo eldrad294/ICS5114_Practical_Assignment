@@ -246,7 +246,7 @@ class BDAGoogleSpeechStorage(BDAGoogleSpeechAbstractBase):
 
     def __ensure_bucket_availability(self):
         """
-        Ensures the relevant bucket is availble on Google Storage.
+        Ensures the relevant bucket is available on Google Storage.
         :return: None
         """
         storage_client = storage.Client()

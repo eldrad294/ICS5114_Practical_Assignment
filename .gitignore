@@ -6,3 +6,5 @@ logs
 src/speech_recognition/__pycache__/
 
 \.idea/
+
+src/coding_framework/__pycache__/

@@ -1,5 +1,6 @@
 import os
 import datetime
+from subprocess import Popen, PIPE
 from ffmpy import FFmpeg
 
 
@@ -41,6 +42,42 @@ class BDAVideoToAudio:
         ff.run()
 
         return output_file
+
+    @staticmethod
+    def verify_audio_flac_format(path_to_file):
+        is_valid = True
+
+        if not os.path.isfile(path_to_file):
+            raise ValueError('File not found.')
+
+        process = Popen([
+            'ffprobe',
+            '-i',            path_to_file,
+            '-show_entries', 'stream=codec_name,channels,sample_rate',
+            '-print_format', 'csv',
+            '-hide_banner'
+        ], stdout=PIPE)
+
+        (output, err) = process.communicate()
+        file_info = None
+        if process.wait() == 0:
+            str_out = str(output).replace('\\n', '')[1:]
+            str_out = str_out.replace("'", '')
+
+            file_info = str_out.split(',')
+
+            if len(file_info) == 4:
+                is_valid &= file_info[0] == 'stream'
+                is_valid &= file_info[1] == 'flac'
+                is_valid &= file_info[2] == '48000'
+                is_valid &= file_info[3] == '1'
+            else:
+                is_valid = False
+                file_info = None
+        else:
+            raise ValueError('ffprobe failed.')
+
+        return is_valid, file_info
 
     @staticmethod
     def __split_video_file(path_to_video_file, output_directory, sec_per_file):
