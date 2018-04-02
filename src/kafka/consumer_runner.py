@@ -1,7 +1,6 @@
 #
 # Module imports
 from src.kafka.consumer import Consumer
-import time
 """
 This script is intended to run on consumer nodes. The
 consumer node will be responsible for polling the Kafka

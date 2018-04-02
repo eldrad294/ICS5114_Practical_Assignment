@@ -1,8 +1,10 @@
 #
 # Module Imports
+from pykafka.exceptions import ConsumerStoppedException
 from streamparse import Spout
 from kafka.consumer import Consumer
 import pickle
+import time
 #
 class VideoRecorder(Spout):
     """
@@ -31,6 +33,7 @@ class VideoRecorder(Spout):
         kafka_consumer_group = "testgroup"  # Kafka consumer group name for balanced consumers
         #
         print("Initiating KafkaSpout..")
+        self.log("Initiating KafkaSpout..");
         #
         # Creating an instance of the consumer logic, and connecting with brokers
         consumer = Consumer()
@@ -48,11 +51,19 @@ class VideoRecorder(Spout):
         and segmented video file paths
         :return:
         """
-        #
-        # Consumes message from Kafka Broker
-        message = self.bconsumer.consume()
-        #
-        # Deserializes kafka message value
-        stream_obj = pickle.loads(message.value)
-        self.log(stream_obj)
-        self.emit([stream_obj])
+        try:
+            #
+            # Consumes message from Kafka Broker
+            message = self.bconsumer.consume()
+            #
+            # De-serializes kafka message value
+            stream_obj = pickle.loads(message.value)
+            self.emit([stream_obj])
+        except ConsumerStoppedException:
+            self.bconsumer.stop()
+            self.log("Restarting stopped pykafka consumer..")
+            self.bconsumer.start()
+        except ImportError:
+            pass
+        except Exception as e:
+            self.log(str(e))
