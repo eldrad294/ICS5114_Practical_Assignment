@@ -1,7 +1,7 @@
 #
 # Module Imports
 from pykafka import KafkaClient, SslConfig
-from src.kafka.kafka_interface import KafkaInterface
+from kafka.kafka_interface import KafkaInterface
 #
 class Consumer(KafkaInterface):
     """
@@ -102,7 +102,7 @@ class Consumer(KafkaInterface):
             consumer = self.get_topic(topic).get_balanced_consumer(consumer_group=consumer_group.encode('utf-8'),
                                                                    auto_commit_enable=auto_commit_enable,
                                                                    zookeeper_connect=zookeeper_connect)
-            print("stream_object consumed from broker!")
+            print("Consumer established with broker.")
             return consumer
         except Exception as e:
             print("An error occurred whilst attempting retrieval from broker!")

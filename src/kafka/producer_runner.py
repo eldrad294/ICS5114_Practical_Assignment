@@ -44,17 +44,19 @@ while True:
         video_path = ri.capture_and_return()
         #
         # Copies the recorded file into memory, as a collection of binary data
-        video = ri.get_video(video_path=video_path)
+        # video = ri.get_video(video_path=video_path)
+        cloud_url = None  # THIS NEEDS TO BE REPLACED WITH THE RETURN HTTP URL FOR THE CLOUD STORED VIDEO
         #
         # Prepares the message to be submitted over to Kafka, by creating an object of type stream_object
         config_obj = ci.get_input_channels()[stream_offset].get_details()
         stream_object = StreamObject(platform=config_obj['platform'],
-                                     url=config_obj['url'],
+                                     src_url=config_obj['url'],
                                      channel=config_obj['channel'],
                                      genre=config_obj['genre'],
                                      time_stamp=time.ctime(),
                                      file_path=video_path,
-                                     file=video)
+                                     cloud_url=cloud_url,
+                                     file=None)
         #
         # Submits message to Kafka broker
         producer.produce_message(topic=kafka_topic, stream_object=stream_object)

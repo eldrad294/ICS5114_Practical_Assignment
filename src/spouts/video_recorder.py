@@ -1,16 +1,15 @@
 #
 # Module Imports
 from streamparse import Spout
-from interfaces.config_interface import ConfigInterface
-from interfaces.recording_interface import RecordingInterface
-from constants import path_consts as pc
+from kafka.consumer import Consumer
+import pickle
 #
 class VideoRecorder(Spout):
     """
     Storm Spout Logic
 
     Responsible for offloading data off streaming websites,
-    and emits data as a a series of chuncked videos down
+    and emits data as a series of segmented videos down
     the topology pipeline.
     """
     #
@@ -24,14 +23,24 @@ class VideoRecorder(Spout):
         :param context:
         :return:
         """
-        # Loads config from input_channels.json
-        self.ci = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
         #
-        # Records video streams to disk locally
-        self.ri = RecordingInterface(config_obj=self.ci.get_input_channels()[2],
-                                     segment_time_span=30,
-                                     extension="wav",
-                                     quality="worst")
+        # Script Parameters
+        kafka_connection_strings = ["127.0.0.1:9092"]  # Connection strings used to connect to a number of Kafka Brokers
+        zookeeper_connection = "127.0.0.1:2181"  # Connection string used to connect to Zookeeper
+        kafka_topic = "video"  # Kafka topic which this produces will subsribe to
+        kafka_consumer_group = "testgroup"  # Kafka consumer group name for balanced consumers
+        #
+        print("Initiating KafkaSpout..")
+        #
+        # Creating an instance of the consumer logic, and connecting with brokers
+        consumer = Consumer()
+        consumer.connect(kafka_connection_strings)
+        #
+        # Establishing consumer connection
+        self.bconsumer = consumer.set_balanced_consumer(topic=kafka_topic,
+                                                        consumer_group=kafka_consumer_group,
+                                                        zookeeper_connect=zookeeper_connection,
+                                                        auto_commit_enable=True)
     #
     def next_tuple(self):
         """
@@ -39,12 +48,11 @@ class VideoRecorder(Spout):
         and segmented video file paths
         :return:
         """
-        self.log("Entry!!!!!!")
-        segment_video_path = self.ri.capture_and_return()
-        #segment_video_path = "******This is a path******"
-        if segment_video_path is not None:
-            self.log(segment_video_path)
-            self.emit([segment_video_path])
-        else:
-            self.log("None!")
-            self.emit(["None!"])
+        #
+        # Consumes message from Kafka Broker
+        message = self.bconsumer.consume()
+        #
+        # Deserializes kafka message value
+        stream_obj = pickle.loads(message.value)
+        self.log(stream_obj)
+        self.emit([stream_obj])
