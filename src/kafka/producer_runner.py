@@ -37,18 +37,16 @@ ri = RecordingInterface(config_obj=ci.get_input_channels()[0],
 producer = Producer()
 producer.connect(kafka_connection_strings)
 #
+# Loads config object
+config_obj = ci.get_input_channels()[stream_offset].get_details()
+#
 while True:
     #
     # Initiates a call to Streamparse, and records the stream into a file locally
     video_path = ri.capture_and_return()
     #
-    # Copies the recorded file into memory, as a collection of binary data
     # video = ri.get_video(video_path=video_path)
-
-    config_obj = ci.get_input_channels()[stream_offset].get_details()
     ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
 
-    # [Nik]: - What is the execution frequency of this loop?
-    #        - Consider throttling this loop?
-    #        - config_obj creation can be pushed out of the loop?
-    #          (given stream_offset is never modified)
+    # [Nik]: - What is the execution frequency of this loop? - Denoted by video_segment_size
+    #        - Consider throttling this loop? (given stream_offset is never modified)- Any throttling results in delay/downtime of stream recording. Not recommended.

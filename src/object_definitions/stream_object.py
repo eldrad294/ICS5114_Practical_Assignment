@@ -1,5 +1,3 @@
-#
-# Module Imports
 class StreamObject:
     """
     Object which will form the basis off all stream messages
@@ -12,14 +10,15 @@ class StreamObject:
     """
     #
     def __init__(self, platform, src_url, channel, genre, time_stamp,
-                 file_path, cloud_url, file=None):
+                 file_path, cloud_bukect_name, cloud_bukect_path, file=None):
         self.platform = platform
         self.src_url = src_url
         self.channel = channel
         self.genre = genre
         self.file_path = file_path
         self.file = file
-        self.cloud_url = cloud_url
+        self.cloud_bukect_name = cloud_bukect_name
+        self.cloud_bukect_path = cloud_bukect_path
         self.time_stamp = time_stamp
     #
     def get_details(self):
@@ -28,7 +27,8 @@ class StreamObject:
         """
         detail_dict = {"platform": self.platform,
                        "Source URL": self.src_url,
-                       "Cloud URL":self.cloud_url,
+                       "Cloud Bucket Name":self.cloud_bukect_name,
+                       "Cloud Bucket Path":self.cloud_bukect_path,
                        "file path": self.file_path,
                        "file": self.file,
                        "channel": self.channel,
@@ -43,7 +43,8 @@ class StreamObject:
         """
         print("Platform: " + str(self.platform) +
               "\nSource URL: " + str(self.src_url) +
-              "\nCloud URL:" + str(self.cloud_url) +
+              "\nCloud Bucket Name:" + str(self.cloud_bukect_name) +
+              "\nCloud Bucket Path:" + str(self.cloud_bukect_path) +
               "\nFile Path: " + str(self.file_path) +
               "\nChanel: " + str(self.channel) +
               "\nGenre: " + str(self.genre) +

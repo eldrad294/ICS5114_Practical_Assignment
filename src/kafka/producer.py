@@ -1,16 +1,13 @@
 #
 # Module Imports
+from pykafka import KafkaClient, SslConfig
+from src.kafka.kafka_interface import KafkaInterface
+from src.speech_recognition.BDAGoogleStorage import BDAGoogleStorageConvertUpload
+from src.object_definitions.stream_object import StreamObject
 import os
 import time
 import pickle
 import threading
-
-from pykafka import KafkaClient, SslConfig
-from src.kafka.kafka_interface import KafkaInterface
-from src.recording.config_interface import ConfigInterface
-from src.speech_recognition.BDAGoogleStorage import BDAGoogleStorageConvertUpload
-from src.object_definitions.stream_object import StreamObject
-
 #
 class Producer(KafkaInterface):
     ###################
@@ -168,7 +165,8 @@ class ProducerHandler:
                                      genre=kafka_config['genre'],
                                      time_stamp=time.ctime(),
                                      file_path=video_path,
-                                     cloud_url=cloud_url_tuple,
+                                     cloud_bukect_name=cloud_url_tuple[0],
+                                     cloud_bukect_path=cloud_url_tuple[1],
                                      file=None)
 
         # Submits message to Kafka broker
