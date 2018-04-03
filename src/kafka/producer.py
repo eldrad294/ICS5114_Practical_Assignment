@@ -2,15 +2,25 @@
 # Module Imports
 from pykafka import KafkaClient, SslConfig
 from src.kafka.kafka_interface import KafkaInterface
+from src.recording.config_interface import ConfigInterface
+from src.speech_recognition.BDAGoogleStorage import BDAGoogleStorageConvertUpload
+from src.object_definitions.stream_object import StreamObject
 import pickle
+import threading
+import time
 #
 class Producer(KafkaInterface):
+    ###################
+    # Private members
+    __threadLock = None
+    ###################
     """
     Class encapsulating producer functionality
     """
     def __init__(self):
         KafkaInterface.__init__(self)
         self.client = None
+        self.__threadLock = threading.Lock()
     #
     def connect(self, address, ssl_config=None):
         """
@@ -70,18 +80,93 @@ class Producer(KafkaInterface):
     #
     def produce_message(self, topic, stream_object):
         """
-        Pushes a stream_object onto a Kafka broker, as defined by the topic
+        Pushes a stream_object onto a Kafka broker, as defined by the topic.
+        Operation is thread safe.
         :param topic:
         :param stream_object:
         :return:
         """
         #
         # Serializes stream object
-        serialized_stream_object = pickle.dumps(stream_object)
-        with self.get_topic(topic).get_sync_producer() as producer:
-            #
-            # Pushes serialized object onto Kafka broker
-            producer.produce(serialized_stream_object)
-            print("stream_object submitted to broker!")
+        self.__threadLock.acquire()
+        try:
+            serialized_stream_object = pickle.dumps(stream_object)
+            with self.get_topic(topic).get_sync_producer() as producer:
+                #
+                # Pushes serialized object onto Kafka broker
+                producer.produce(serialized_stream_object)
+                print("stream_object submitted to broker!")
+        finally:
+            self.__threadLock.release()
 
 
+class ProducerHandler:
+    @staticmethod
+    def produce_message(video_path, kafka_producer, kafka_config, kafka_topic):
+        """
+        ProducerHandler entry point:
+        1. Initiates a separate thread.
+        2. Delegates work to the thread. No thread management is done.
+        :param video_path:     Absolute path to video file
+        :param kafka_producer: Kafka producer
+        :param kafka_config:   Kafka configuration
+        :param kafka_topic:    Kafka topic
+        :return:               None
+        """
+        thread_fire_forget = threading.Thread(target=ProducerHandler.__process_file,
+                                              args=(video_path, kafka_producer, kafka_config, kafka_topic))
+        thread_fire_forget.start()
+
+    @staticmethod
+    def __process_file(video_path, kafka_producer, kafka_config, kafka_topic):
+        """
+        1. Converts the input video file into FLAC audio format (48000Hz, 1-channel).
+        2. Uploads resulting file to Google Storage.
+        3. Posts the resulting task to Kafka.
+        :param video_path:     Absolute path to video file
+        :param kafka_producer: Kafka producer
+        :param kafka_config:   Kafka configuration
+        :param kafka_topic:    Kafka topic
+        :return:               None
+        """
+        try:
+            cloud_url_tuple = ProducerHandler.__convert_upload(video_path)
+            ProducerHandler.__post_kafka(video_path, kafka_producer, kafka_config, kafka_topic, cloud_url_tuple)
+            # [Nik]: - Consider deleting the video file at this point? --> os.remove(video_path)
+        except Exception as e:
+            print(str(e))
+
+    @staticmethod
+    def __convert_upload(video_path):
+        """
+        Convert media file to FLAC and upload to Google Storage platform.
+        :param video_path: Absolute path to video file
+        :return:           (BucketName, BlobPath)
+        """
+        gs_convert_upload = BDAGoogleStorageConvertUpload(video_path)
+        return gs_convert_upload.upload_file()
+
+    @staticmethod
+    def __post_kafka(video_path, kafka_producer, kafka_config, kafka_topic, cloud_url_tuple):
+        """
+        1. Construct the Kafka message.
+        2. Post message through the thread-safe method: Producer::produce_message(..)
+        :param video_path:      Absolute path to video file
+        :param kafka_producer:  Kafka producer
+        :param kafka_config:    Kafka configuration
+        :param kafka_topic:     Kafka topic
+        :param cloud_url_tuple: Google Storage URI
+        :return:                None
+        """
+        # Prepares the message to be submitted over to Kafka, by creating an object of type stream_object
+        stream_object = StreamObject(platform=kafka_config['platform'],
+                                     src_url=kafka_config['url'],
+                                     channel=kafka_config['channel'],
+                                     genre=kafka_config['genre'],
+                                     time_stamp=time.ctime(),
+                                     file_path=video_path,
+                                     cloud_url=cloud_url_tuple,
+                                     file=None)
+
+        # Submits message to Kafka broker
+        kafka_producer.produce_message(topic=kafka_topic, stream_object=stream_object)

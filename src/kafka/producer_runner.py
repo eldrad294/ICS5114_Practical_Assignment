@@ -3,16 +3,15 @@
 from src.recording.config_interface import ConfigInterface
 from src.recording.recording_interface import RecordingInterface
 from src.constants import path_consts as pc
-from src.kafka.producer import Producer
-from src.object_definitions.stream_object import StreamObject
-from src.speech_recognition.BDAGoogleStorage import BDAGoogleStorageConvertUpload
+from src.kafka.producer import Producer, ProducerHandler
 import time
 """
 This script is intended to run on producer nodes. The
 producer node will be responsible for capturing and
 submission of data onto the Kafka Broker.
 """
-#
+
+# [Nik]: - Consider pushing such parameters in the config.ini file?
 # Script Parameters
 stream_offset = 0
 file_segment_time_span = 30                 # File recording segment size
@@ -47,31 +46,15 @@ while True:
         # Copies the recorded file into memory, as a collection of binary data
         # video = ri.get_video(video_path=video_path)
 
-        cloud_url_tuple = None
-
-        # NOTE: - This is a synchronous call. Execution will be held until operation
-        #         is complete.
-        #       - BDAGoogleStorageConvertUpload may raise a ValueError exception
-        gs_convert_upload = BDAGoogleStorageConvertUpload(video_path)
-        # cloud_url_tuple[0] --> BucketName
-        # cloud_url_tuple[1] --> BlobPath
-        cloud_url_tuple = gs_convert_upload.upload_file()
-
-        # [Nik]: - Consider deleting the video file at this point? --> os.remove(video_path)
-
-        # Prepares the message to be submitted over to Kafka, by creating an object of type stream_object
         config_obj = ci.get_input_channels()[stream_offset].get_details()
-        stream_object = StreamObject(platform=config_obj['platform'],
-                                     src_url=config_obj['url'],
-                                     channel=config_obj['channel'],
-                                     genre=config_obj['genre'],
-                                     time_stamp=time.ctime(),
-                                     file_path=video_path,
-                                     cloud_url=cloud_url_tuple,
-                                     file=None)
-        #
-        # Submits message to Kafka broker
-        producer.produce_message(topic=kafka_topic, stream_object=stream_object)
+        ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
+
+        # [Nik]: - What is the execution frequency of this loop?
+        #        - Consider throttling this loop?
+        #        - config_obj creation can be pushed out of the loop?
+        #          (given stream_offset is never modified)
+        #        - try-catch is now probably redundant?
+
     except Exception as e:
         print(str(e))
         # In the case of an exception arising in video capture, handling, Kafka Submission,
