@@ -13,9 +13,9 @@ submission of data onto the Kafka Broker.
 
 # [Nik]: - Consider pushing such parameters in the config.ini file?
 # Script Parameters
-stream_offset = 0
-file_segment_time_span = 30                 # File recording segment size
-file_extension = "wav"                      # File recording extension to save the file
+stream_offset = 2
+file_segment_time_span = 30                 # File recording segment size (seconds)
+file_extension = "flac"                     # File recording extension to save the file (Set ot flac for Google Storage purposes)
 file_quality = "worst"                      # Video quality to record stream at
 kafka_connection_strings=["127.0.0.1:9092"] # Connection strings used to connect to a number of Kafka Brokers
 kafka_topic = 'video'                       # Kafka topic which this produces will subscribe to
@@ -27,7 +27,7 @@ print("Initiating producer runner..")
 ci = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
 #
 # Records video streams to disk locally
-ri = RecordingInterface(config_obj=ci.get_input_channels()[0],
+ri = RecordingInterface(config_obj=ci.get_input_channels()[stream_offset],
                         segment_time_span=file_segment_time_span,
                         extension=file_extension,
                         quality=file_quality,
