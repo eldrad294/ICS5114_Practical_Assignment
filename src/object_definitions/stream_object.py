@@ -26,10 +26,10 @@ class StreamObject:
         Returns instance details in the form of a dictionary
         """
         detail_dict = {"platform": self.platform,
-                       "Source URL": self.src_url,
-                       "Cloud Bucket Name":self.cloud_bukect_name,
-                       "Cloud Bucket Path":self.cloud_bukect_path,
-                       "file path": self.file_path,
+                       "source_url": self.src_url,
+                       "cloud_bucket_name":self.cloud_bukect_name,
+                       "cloud_bucket_path":self.cloud_bukect_path,
+                       "file_path": self.file_path,
                        "file": self.file,
                        "channel": self.channel,
                        "genre": self.genre,

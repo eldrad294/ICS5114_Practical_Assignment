@@ -6,8 +6,8 @@ from src.speech_recognition.BDAGoogleStorage import BDAGoogleStorageConvertUploa
 from src.object_definitions.stream_object import StreamObject
 import os
 import time
-import pickle
 import threading
+import json
 #
 class Producer(KafkaInterface):
     ###################
@@ -90,7 +90,7 @@ class Producer(KafkaInterface):
         # Serializes stream object
         self.__threadLock.acquire()
         try:
-            serialized_stream_object = pickle.dumps(stream_object)
+            serialized_stream_object = json.dumps(stream_object.__dict__)
             with self.get_topic(topic).get_sync_producer() as producer:
                 #
                 # Pushes serialized object onto Kafka broker

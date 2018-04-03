@@ -69,7 +69,7 @@ class Consumer(KafkaInterface):
         # topic string is converted to bytes to appease Kafka
         return self.client.topics[topic.encode('utf-8')]
     #
-    def simple_consumer(self, topic):
+    def set_simple_consumer(self, topic):
         """
         Consumes messages from defined topic, and prints them
         :param topic:

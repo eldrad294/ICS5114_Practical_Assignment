@@ -3,7 +3,7 @@
 from src.recording.config_interface import ConfigInterface
 from src.recording.recording_interface import RecordingInterface
 from src.constants import path_consts as pc
-from src.kafka.producer import Producer, ProducerHandler
+from src.kafka.producer import Producer
 
 """
 This script is intended to run on producer nodes. The
@@ -40,13 +40,37 @@ producer.connect(kafka_connection_strings)
 # Loads config object
 config_obj = ci.get_input_channels()[stream_offset].get_details()
 #
+# Producer Loop
+# while True:
+#     #
+#     # Initiates a call to Streamparse, and records the stream into a file locally
+#     video_path = ri.capture_and_return()
+#     #
+#     # video = ri.get_video(video_path=video_path)
+#     ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
+#
+#     # [Nik]: - What is the execution frequency of this loop? - Denoted by video_segment_size
+#     #        - Consider throttling this loop? (given stream_offset is never modified)- Any throttling results in delay/downtime of stream recording. Not recommended.
+#
+# Testing Loop
+from src.object_definitions.stream_object import StreamObject
+import time
 while True:
     #
     # Initiates a call to Streamparse, and records the stream into a file locally
     video_path = ri.capture_and_return()
     #
     # video = ri.get_video(video_path=video_path)
-    ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
+    # Prepares the message to be submitted over to Kafka, by creating an object of type stream_object
+    stream_object = StreamObject(platform=config_obj['platform'],
+                                 src_url=config_obj['url'],
+                                 channel=config_obj['channel'],
+                                 genre=config_obj['genre'],
+                                 time_stamp=time.ctime(),
+                                 file_path=video_path,
+                                 cloud_bukect_name="Test",
+                                 cloud_bukect_path="Test",
+                                 file=None)
 
-    # [Nik]: - What is the execution frequency of this loop? - Denoted by video_segment_size
-    #        - Consider throttling this loop? (given stream_offset is never modified)- Any throttling results in delay/downtime of stream recording. Not recommended.
+    # Submits message to Kafka broker
+    producer.produce_message(topic=kafka_topic, stream_object=stream_object)
