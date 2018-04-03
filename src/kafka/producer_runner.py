@@ -4,7 +4,7 @@ from src.recording.config_interface import ConfigInterface
 from src.recording.recording_interface import RecordingInterface
 from src.constants import path_consts as pc
 from src.kafka.producer import Producer, ProducerHandler
-import time
+
 """
 This script is intended to run on producer nodes. The
 producer node will be responsible for capturing and
@@ -38,25 +38,17 @@ producer = Producer()
 producer.connect(kafka_connection_strings)
 #
 while True:
-    try:
-        #
-        # Initiates a call to Streamparse, and records the stream into a file locally
-        video_path = ri.capture_and_return()
-        #
-        # Copies the recorded file into memory, as a collection of binary data
-        # video = ri.get_video(video_path=video_path)
+    #
+    # Initiates a call to Streamparse, and records the stream into a file locally
+    video_path = ri.capture_and_return()
+    #
+    # Copies the recorded file into memory, as a collection of binary data
+    # video = ri.get_video(video_path=video_path)
 
-        config_obj = ci.get_input_channels()[stream_offset].get_details()
-        ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
+    config_obj = ci.get_input_channels()[stream_offset].get_details()
+    ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
 
-        # [Nik]: - What is the execution frequency of this loop?
-        #        - Consider throttling this loop?
-        #        - config_obj creation can be pushed out of the loop?
-        #          (given stream_offset is never modified)
-        #        - try-catch is now probably redundant?
-
-    except Exception as e:
-        print(str(e))
-        # In the case of an exception arising in video capture, handling, Kafka Submission,
-        # we put the main thread to sleep for n seconds, to avoid resource exhaustion.
-        time.sleep(exception_time_out)
+    # [Nik]: - What is the execution frequency of this loop?
+    #        - Consider throttling this loop?
+    #        - config_obj creation can be pushed out of the loop?
+    #          (given stream_offset is never modified)

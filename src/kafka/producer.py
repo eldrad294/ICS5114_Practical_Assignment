@@ -1,13 +1,16 @@
 #
 # Module Imports
+import os
+import time
+import pickle
+import threading
+
 from pykafka import KafkaClient, SslConfig
 from src.kafka.kafka_interface import KafkaInterface
 from src.recording.config_interface import ConfigInterface
 from src.speech_recognition.BDAGoogleStorage import BDAGoogleStorageConvertUpload
 from src.object_definitions.stream_object import StreamObject
-import pickle
-import threading
-import time
+
 #
 class Producer(KafkaInterface):
     ###################
@@ -132,7 +135,7 @@ class ProducerHandler:
         try:
             cloud_url_tuple = ProducerHandler.__convert_upload(video_path)
             ProducerHandler.__post_kafka(video_path, kafka_producer, kafka_config, kafka_topic, cloud_url_tuple)
-            # [Nik]: - Consider deleting the video file at this point? --> os.remove(video_path)
+            os.remove(video_path)
         except Exception as e:
             print(str(e))
 
