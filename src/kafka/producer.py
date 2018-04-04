@@ -7,7 +7,7 @@ from src.object_definitions.stream_object import StreamObject
 import os
 import time
 import threading
-import json
+import pickle
 #
 class Producer(KafkaInterface):
     ###################
@@ -90,7 +90,9 @@ class Producer(KafkaInterface):
         # Serializes stream object
         self.__threadLock.acquire()
         try:
-            serialized_stream_object = json.dumps(stream_object.__dict__)
+            #
+            # Object is serialized as a dictionary
+            serialized_stream_object = pickle.dumps(stream_object.get_details())
             with self.get_topic(topic).get_sync_producer() as producer:
                 #
                 # Pushes serialized object onto Kafka broker
@@ -165,8 +167,8 @@ class ProducerHandler:
                                      genre=kafka_config['genre'],
                                      time_stamp=time.ctime(),
                                      file_path=video_path,
-                                     cloud_bukect_name=cloud_url_tuple[0],
-                                     cloud_bukect_path=cloud_url_tuple[1],
+                                     cloud_bucket_name=cloud_url_tuple[0],
+                                     cloud_bucket_path=cloud_url_tuple[1],
                                      file=None)
 
         # Submits message to Kafka broker

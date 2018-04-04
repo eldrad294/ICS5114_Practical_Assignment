@@ -68,8 +68,8 @@ while True:
                                  genre=config_obj['genre'],
                                  time_stamp=time.ctime(),
                                  file_path=video_path,
-                                 cloud_bukect_name="Test",
-                                 cloud_bukect_path="Test",
+                                 cloud_bucket_name="Test",
+                                 cloud_bucket_path="Test",
                                  file=None)
 
     # Submits message to Kafka broker

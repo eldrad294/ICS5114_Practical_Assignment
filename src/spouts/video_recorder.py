@@ -3,7 +3,7 @@
 from pykafka.exceptions import ConsumerStoppedException
 from streamparse import Spout
 from kafka.consumer import Consumer # Module purposely starting from kafka.consum...
-import json
+import pickle
 #
 class VideoRecorder(Spout):
     """
@@ -38,11 +38,13 @@ class VideoRecorder(Spout):
         consumer = Consumer()
         consumer.connect(kafka_connection_strings)
         #
-        # Establishing consumer connection
+        # Establishing balanced consumer connection.
         self.bconsumer = consumer.set_balanced_consumer(topic=kafka_topic,
                                                         consumer_group=kafka_consumer_group,
                                                         zookeeper_connect=zookeeper_connection,
                                                         auto_commit_enable=True)
+        #
+        # Establishing simple consumer connection.
         #self.sconsumer = consumer.set_simple_consumer(topic=kafka_topic)
     #
     def next_tuple(self):
@@ -59,13 +61,13 @@ class VideoRecorder(Spout):
         if not message:
             # nothing to emit
             return
+        self.log("Message offloaded from consumer..")
         #
-        # De-serializes kafka message value
         try:
-            self.log("Entry!!!!")
-            stream_obj = json.loads(message.value)
-            self.log("Offloaded msg from Kafka!!!!")
-            self.log(stream_obj.get_details()['file_path'])
+            #
+            # De-serializes kafka message value
+            stream_obj = pickle.loads(message.value)
+            self.log("Object de-pickled and pushed downstream - " + str(stream_obj['file_path']))
         except ImportError as e:
             self.log(str(e))
             return
