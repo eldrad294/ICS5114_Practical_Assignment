@@ -1,6 +1,7 @@
 #
 # Module imports
 from src.kafka.consumer import Consumer
+from src.coding_framework.BDAConfigParser import g_config
 """
 This script is intended to run on consumer nodes. The
 consumer node will be responsible for polling the Kafka
@@ -9,10 +10,10 @@ effectively into the Storm Topology
 """
 #
 # Script Parameters
-kafka_connection_strings=["127.0.0.1:9092"] # Connection strings used to connect to a number of Kafka Brokers
-zookeeper_connection = "127.0.0.1:2181"     # Connection string used to connect to Zookeeper
-kafka_topic = "video"                       # Kafka topic which this produces will subsribe to
-kafka_consumer_group = "testgroup"          # Kafka consumer group name for balanced consumers
+kafka_connection_strings = g_config.get_value('ConsumerRunner', 'kafka_connection_strings').split(",") # Connection strings used to connect to a number of Kafka Brokers
+zookeeper_connection = g_config.get_value('ConsumerRunner', 'zookeeper_connection')     # Connection string used to connect to Zookeeper
+kafka_topic = g_config.get_value('ConsumerRunner', 'video')                       # Kafka topic which this produces will subsribe to
+kafka_consumer_group = g_config.get_value('ConsumerRunner', 'kafka_consumer_group')          # Kafka consumer group name for balanced consumers
 #
 print("Initiating consumer runner..")
 #

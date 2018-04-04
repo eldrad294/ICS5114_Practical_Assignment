@@ -3,23 +3,23 @@
 from src.recording.config_interface import ConfigInterface
 from src.recording.recording_interface import RecordingInterface
 from src.constants import path_consts as pc
-from src.kafka.producer import Producer
+from src.kafka.producer import Producer, ProducerHandler
+from src.coding_framework.BDAConfigParser import g_config
 
 """
 This script is intended to run on producer nodes. The
 producer node will be responsible for capturing and
 submission of data onto the Kafka Broker.
 """
-
-# [Nik]: - Consider pushing such parameters in the config.ini file?
+#
 # Script Parameters
-stream_offset = 2
-file_segment_time_span = 30                 # File recording segment size (seconds)
-file_extension = "flac"                     # File recording extension to save the file (Set ot flac for Google Storage purposes)
-file_quality = "worst"                      # Video quality to record stream at
-kafka_connection_strings=["127.0.0.1:9092"] # Connection strings used to connect to a number of Kafka Brokers
-kafka_topic = 'video'                       # Kafka topic which this produces will subscribe to
-exception_time_out = 10                     # Time in seconds to delay process in the case of a timeout
+stream_offset = int(g_config.get_value('ProducerRunner', 'stream_offset'))
+file_segment_time_span = int(g_config.get_value('ProducerRunner', 'file_segment_time_span'))            # File recording segment size (seconds)
+file_extension = g_config.get_value('ProducerRunner', 'file_extension')                                 # File recording extension to save the file (Set to flac for Google Storage purposes)
+file_quality = g_config.get_value('ProducerRunner', 'file_quality')                                     # Video quality to record stream at
+kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(",")  # Connection strings used to connect to a number of Kafka Brokers
+kafka_topic = g_config.get_value('ProducerRunner', 'kafka_topic')                                       # Kafka topic which this produces will subscribe to
+exception_time_out = g_config.get_value('ProducerRunner', 'exception_time_out')                         # Time in seconds to delay process in the case of a timeout
 #
 print("Initiating producer runner..")
 #
@@ -41,36 +41,33 @@ producer.connect(kafka_connection_strings)
 config_obj = ci.get_input_channels()[stream_offset].get_details()
 #
 # Producer Loop
+while True:
+    #
+    # Initiates a call to Streamlink, and records the stream into a file locally
+    video_path = ri.capture_and_return()
+    #
+    # video = ri.get_video(video_path=video_path)
+    ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
+# #
+# # Testing Loop
+# from src.object_definitions.stream_object import StreamObject
+# import time
 # while True:
 #     #
 #     # Initiates a call to Streamparse, and records the stream into a file locally
 #     video_path = ri.capture_and_return()
 #     #
 #     # video = ri.get_video(video_path=video_path)
-#     ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
+#     # Prepares the message to be submitted over to Kafka, by creating an object of type stream_object
+#     stream_object = StreamObject(platform=config_obj['platform'],
+#                                  src_url=config_obj['url'],
+#                                  channel=config_obj['channel'],
+#                                  genre=config_obj['genre'],
+#                                  time_stamp=time.ctime(),
+#                                  file_path=video_path,
+#                                  cloud_bucket_name="Test",
+#                                  cloud_bucket_path="Test",
+#                                  file=None)
 #
-#     # [Nik]: - What is the execution frequency of this loop? - Denoted by video_segment_size
-#     #        - Consider throttling this loop? (given stream_offset is never modified)- Any throttling results in delay/downtime of stream recording. Not recommended.
-#
-# Testing Loop
-from src.object_definitions.stream_object import StreamObject
-import time
-while True:
-    #
-    # Initiates a call to Streamparse, and records the stream into a file locally
-    video_path = ri.capture_and_return()
-    #
-    # video = ri.get_video(video_path=video_path)
-    # Prepares the message to be submitted over to Kafka, by creating an object of type stream_object
-    stream_object = StreamObject(platform=config_obj['platform'],
-                                 src_url=config_obj['url'],
-                                 channel=config_obj['channel'],
-                                 genre=config_obj['genre'],
-                                 time_stamp=time.ctime(),
-                                 file_path=video_path,
-                                 cloud_bucket_name="Test",
-                                 cloud_bucket_path="Test",
-                                 file=None)
-
-    # Submits message to Kafka broker
-    producer.produce_message(topic=kafka_topic, stream_object=stream_object)
+#     # Submits message to Kafka broker
+#     producer.produce_message(topic=kafka_topic, stream_object=stream_object)
