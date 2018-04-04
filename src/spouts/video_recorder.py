@@ -31,8 +31,7 @@ class VideoRecorder(Spout):
         kafka_topic = "video"  # Kafka topic which this produces will subscribe to
         kafka_consumer_group = "testgroup"  # Kafka consumer group name for balanced consumers
         #
-        print("Initiating KafkaSpout..")
-        self.log("Initiating KafkaSpout..");
+        self.log("Initiating KafkaSpout..")
         #
         # Creating an instance of the consumer logic, and connecting with brokers
         consumer = Consumer()
@@ -42,7 +41,9 @@ class VideoRecorder(Spout):
         self.bconsumer = consumer.set_balanced_consumer(topic=kafka_topic,
                                                         consumer_group=kafka_consumer_group,
                                                         zookeeper_connect=zookeeper_connection,
-                                                        auto_commit_enable=True)
+                                                        auto_commit_enable=True,
+                                                        reset_offset_on_start=True)
+        self.log("Balanced Consumer Established.")
         #
         # Establishing simple consumer connection.
         #self.sconsumer = consumer.set_simple_consumer(topic=kafka_topic)
@@ -73,5 +74,11 @@ class VideoRecorder(Spout):
             return
         except Exception as e:
             self.log(str(e))
+            return
+        #
+        # Stream_obj (which is now represented as a dictionary)
+        # is pushed down stream through Storm, towards awaiting
+        # video_decoder bolts
+        if not stream_obj:
             return
         self.emit([stream_obj])

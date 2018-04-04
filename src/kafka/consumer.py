@@ -1,6 +1,7 @@
 #
 # Module Imports
 from pykafka import KafkaClient, SslConfig
+from pykafka.common import OffsetType
 from kafka.kafka_interface import KafkaInterface
 #
 class Consumer(KafkaInterface):
@@ -75,33 +76,37 @@ class Consumer(KafkaInterface):
         :param topic:
         :return:
         """
-        #
-        consumer = None
         try:
             consumer = self.get_topic(topic).get_simple_consumer()
-            print("stream_object consumed from broker!")
+            print("Consumer established with broker.")
+            return consumer
         except Exception as e:
             print("An error occurred whilst attempting retrieval from broker!")
             print(str(e))
-        #
-        for message in consumer:
-            if message is not None:
-                print(message.offset, message.value)
+        return None
     #
-    def set_balanced_consumer(self, topic, consumer_group, zookeeper_connect, auto_commit_enable=False):
+    def set_balanced_consumer(self, topic, consumer_group, zookeeper_connect, auto_commit_enable=False,
+                              reset_offset_on_start=True, auto_offset_reset=OffsetType.LATEST):
         """
         Consumes messages from defined topic, and prints them.
         Uses the balanced consumer method for safe multi-topic
         consumption
+
         :param topic:
+        :param consumer_group:
+        :param zookeeper_connect:
+        :param auto_commit_enable:
+        :param reset_offset_on_start:
+        :param auto_offset_reset:
         :return:
         """
         #
-        consumer = None
         try:
             consumer = self.get_topic(topic).get_balanced_consumer(consumer_group=consumer_group.encode('utf-8'),
                                                                    auto_commit_enable=auto_commit_enable,
-                                                                   zookeeper_connect=zookeeper_connect)
+                                                                   zookeeper_connect=zookeeper_connect,
+                                                                   reset_offset_on_start=reset_offset_on_start,
+                                                                   auto_offset_reset=auto_offset_reset)
             print("Consumer established with broker.")
             return consumer
         except Exception as e:
