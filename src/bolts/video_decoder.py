@@ -12,9 +12,12 @@ class VideoDecoder(Bolt):
     The decoded text is emitted to another bolt.
     """
     #
+    # Grouping Mechanism
+    outputs = ['video']
+    #
     def initialize(self, conf, ctx):
         """
-        Storm Bolt 'constructor method'
+        video decoder initialize method
         :param conf:
         :param ctx:
         :return:
@@ -27,5 +30,14 @@ class VideoDecoder(Bolt):
         :param tup:
         :return:
         """
-        video_path = tup.values[0]
-        self.emit([video_path])
+        streaming_object = tup.values[0]
+        #
+        if not streaming_object:
+            return
+        self.log("Received streaming object for URI: " + str(streaming_object['cloud_bucket_path']))
+        #
+        decoded_video_string = streaming_object # VIDEO DECODING LOGIC GOES HERE
+        #
+        self.log("Video decoding for [" + str(streaming_object['cloud_bucket_path']) +
+                 "] complete - Pushing downstream.. ")
+        self.emit([decoded_video_string])
