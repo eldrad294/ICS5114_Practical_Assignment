@@ -3,7 +3,7 @@
 from pykafka import KafkaClient, SslConfig
 from src.kafka.kafka_interface import KafkaInterface
 from src.speech_recognition.BDAGoogleStorage import BDAGoogleStorageConvertUpload
-from src.object_definitions.stream_object import StreamObject
+from src.kafka.stream_object import StreamObject
 import os
 import time
 import threading

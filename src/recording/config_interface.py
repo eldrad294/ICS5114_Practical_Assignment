@@ -1,6 +1,6 @@
 #
 # Module imports
-from src.object_definitions.config_object import ConfigObject
+from src.recording.config_object import ConfigObject
 import json
 #
 class ConfigInterface:

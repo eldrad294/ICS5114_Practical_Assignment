@@ -48,9 +48,9 @@ while True:
     #
     # video = ri.get_video(video_path=video_path)
     ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
-# #
-# # Testing Loop
-# from src.object_definitions.stream_object import StreamObject
+#
+# Testing Loop
+# from src.kafka.stream_object import StreamObject
 # import time
 # while True:
 #     #
