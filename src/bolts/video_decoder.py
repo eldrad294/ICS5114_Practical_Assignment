@@ -1,7 +1,8 @@
 #
 # Module Imports
 from streamparse import Bolt
-import os
+from src.speech_recognition.BDAGoogleStorage import BDAGoogleStorageConsume
+from src.coding_framework.BDATextProcessing import BDATextProcessing
 #
 class VideoDecoder(Bolt):
     """
@@ -36,8 +37,11 @@ class VideoDecoder(Bolt):
             return
         self.log("Received streaming object for URI: " + str(streaming_object['cloud_bucket_path']))
         #
-        decoded_video_string = streaming_object # VIDEO DECODING LOGIC GOES HERE
+        google_transcriber = BDAGoogleStorageConsume()
+        decoded_video_string = google_transcriber.transcribe_file(streaming_object['cloud_bucket_name'],
+                                                                  streaming_object['cloud_bucket_path'])
+        clean_decoded_video_string = BDATextProcessing.simplify_text(decoded_video_string)
         #
         self.log("Video decoding for [" + str(streaming_object['cloud_bucket_path']) +
                  "] complete - Pushing downstream.. ")
-        self.emit([decoded_video_string])
+        self.emit([clean_decoded_video_string])
