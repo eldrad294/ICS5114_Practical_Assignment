@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from subprocess import Popen, PIPE
 
 from src.coding_framework.BDATimer import BDATimer
-from coding_framework.BDAConfigParser import g_config
+from src.coding_framework.BDAConfigParser import g_config
 from src.speech_recognition.BDAVideoAudioUtilities import *
 
 # Imports the Google Cloud client library

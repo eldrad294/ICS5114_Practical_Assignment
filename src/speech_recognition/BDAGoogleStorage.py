@@ -4,8 +4,8 @@ import shutil
 from uuid import getnode
 from abc import ABC, abstractmethod
 
-from coding_framework.BDAConfigParser import g_config
-from speech_recognition.BDAVideoAudioUtilities import BDAVideoToAudio
+from src.coding_framework.BDAConfigParser import g_config
+from src.speech_recognition.BDAVideoAudioUtilities import BDAVideoToAudio
 
 from google.cloud import speech
 from google.cloud import storage
