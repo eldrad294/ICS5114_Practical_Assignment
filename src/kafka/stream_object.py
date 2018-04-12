@@ -1,4 +1,3 @@
-import pickle
 class StreamObject:
     """
     Object which will form the basis off all stream messages
@@ -11,7 +10,8 @@ class StreamObject:
     """
     #
     def __init__(self, platform, src_url, channel, genre, time_stamp,
-                 file_path, cloud_bucket_name, cloud_bucket_path, file=None):
+                 file_path, cloud_bucket_name, cloud_bucket_path,
+                 file=None, video_text=None):
         self.platform = platform
         self.src_url = src_url
         self.channel = channel
@@ -21,6 +21,7 @@ class StreamObject:
         self.cloud_bucket_name = cloud_bucket_name
         self.cloud_bucket_path = cloud_bucket_path
         self.time_stamp = time_stamp
+        self.video_text = video_text
         self.detail_dict = { "platform": self.platform,
                              "source_url": self.src_url,
                              "cloud_bucket_name":self.cloud_bucket_name,
@@ -29,7 +30,8 @@ class StreamObject:
                              "file": self.file,
                              "channel": self.channel,
                              "genre": self.genre,
-                             "time_stamp": self.time_stamp}
+                             "time_stamp": self.time_stamp,
+                             "video_text": self.video_text}
     #
     def get_details(self, key=None):
         """"
@@ -51,7 +53,8 @@ class StreamObject:
               "\nFile Path: " + str(self.file_path) +
               "\nChanel: " + str(self.channel) +
               "\nGenre: " + str(self.genre) +
-              "\nTime Stamp: " + str(self.time_stamp))
+              "\nTime Stamp: " + str(self.time_stamp),
+              "\nVideo Text: " + str(self.video_text))
     #
     # def __getstate__(self):
     #     """

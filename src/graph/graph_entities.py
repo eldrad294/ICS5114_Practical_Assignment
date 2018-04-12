@@ -7,7 +7,11 @@ class GraphEntities(object):
 
         :return:
         """
-        return ("streamer", "viewer", "genre", "word")
+        return ("streamer",
+                "viewer",
+                "genre",
+                "word",
+                "platform")
     #
     @staticmethod
     def get_supported_relationship_types():
@@ -19,7 +23,14 @@ class GraphEntities(object):
         word     - [FEATURES]   - genre
         viewer   - [FOLLOWS]    - genre
         streamer - [PARTAKES]   - genre
-        viewer   - [SUBCRIBES]  - streamer
+        viewer   - [SUBSCRIBES] - streamer
+        streamer - [USES]       - platform
         :return:
         """
-        return ("utters","comments","features","follows","partakes","subscribes")
+        return ("utters",
+                "comments",
+                "features",
+                "follows",
+                "partakes",
+                "subscribes",
+                "uses")

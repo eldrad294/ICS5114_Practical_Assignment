@@ -1,7 +1,7 @@
 #
 # Module Imports
-from src.graph.basic_interface import BasicInterface
-from src.graph.transaction_functions import CreateTransactionFunctions
+from graph.basic_interface import BasicInterface
+from graph.transaction_functions import CreateTransactionFunctions
 #
 class CreateInterface(BasicInterface):
     """

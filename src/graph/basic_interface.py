@@ -1,7 +1,7 @@
 #
 # Module Imports
 from neo4j.v1 import GraphDatabase
-from src.graph.graph_entities import GraphEntities
+from graph.graph_entities import GraphEntities
 #
 class BasicInterface(object):
     """

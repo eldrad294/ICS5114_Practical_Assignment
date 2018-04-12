@@ -3,6 +3,7 @@
 from streamparse import Grouping, Topology
 from spouts.video_recorder import VideoRecorder
 from bolts.video_decoder import VideoDecoder
+from bolts.graph_writer import GraphWriter
 #
 class MainTopology(Topology):
     """
@@ -15,5 +16,8 @@ class MainTopology(Topology):
     print('Starting Topology..')
     video_recording_spout = VideoRecorder.spec()
     #
-    count_bolt = VideoDecoder.spec(inputs={video_recording_spout: Grouping.fields('video')}
-                                   , par=parallel_degree)
+    video_decoder_bolt = VideoDecoder.spec(inputs={video_recording_spout: Grouping.fields('video')}
+                                           , par=parallel_degree)
+    #
+    graph_writer_bolt = GraphWriter.spec(inputs={video_decoder_bolt: Grouping.fields('video')}
+                                         , par=parallel_degree)

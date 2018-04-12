@@ -5,7 +5,6 @@ from src.recording.recording_interface import RecordingInterface
 from src.constants import path_consts as pc
 from src.kafka.producer import Producer, ProducerHandler
 from src.coding_framework.BDAConfigParser import g_config
-
 """
 This script is intended to run on producer nodes. The
 producer node will be responsible for capturing and

@@ -1,6 +1,6 @@
 #
 # Module Imports
-from src.graph.graph_entities import GraphEntities
+from graph.graph_entities import GraphEntities
 #
 class CreateTransactionFunctions(object):
     """
