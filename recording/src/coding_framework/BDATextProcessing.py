@@ -2,11 +2,10 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 
-
 class BDATextProcessing:
     @staticmethod
     def simplify_text(str_input):
-        intermediate_result = words = word_tokenize(str_input)
+        intermediate_result = word_tokenize(str_input)
         intermediate_result = BDATextProcessing.__stop_work_removal(intermediate_result)
         # First impression is that stemming is deteriorating the accuracy
         # intermediate_result = BDATextProcessing.__word_stemming(intermediate_result)
