@@ -56,14 +56,19 @@ class GraphWriter(Bolt):
                                               "utters")
             #
             # genre - [features] - word
-            self.interface.merge_relationship("genre", genre,
-                                              "word", word,
-                                              "features")
+            for g in list(genre):
+                self.interface.merge_relationship("genre", g,
+                                                  "word", word,
+                                                  "features")
+            #
+            # Increment word count
+            self.interface.increment_node("word", word)
         #
         # streamer - [partakes] - genre
-        self.interface.merge_relationship("streamer", streamer,
-                                          "genre", genre,
-                                          "partakes")
+        for g in list(genre):
+            self.interface.merge_relationship("streamer", streamer,
+                                              "genre", g,
+                                              "partakes")
         #
         # streamer - [uses] - platform
         self.interface.merge_relationship("streamer", streamer,

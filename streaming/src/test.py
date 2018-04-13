@@ -37,7 +37,7 @@
 # #                      zookeeper_connect="localhost:2181",
 # #                      auto_commit_enable=True)
 
-from src.graph.CRUD_interface import CRUDInterface
+from streaming.src.graph.CRUD_interface import CRUDInterface
 uri = "bolt://localhost:7687"
 user = "neo4j"
 password = "lol123"
@@ -48,15 +48,34 @@ interface = CRUDInterface(uri=uri,
 # output = interface.merge_node("word","hello")
 # print(output)
 #
-output = interface.merge_relationship("streamer",
-                                      "raphael",
-                                      "word",
-                                      "bye",
+word_list = ['look', "'s", 'hardly', '48', 'hours', 'much', 'still', 'unknown', 'things', 'say', 'certain', 'actually', 'helps', 'HBO', 'things', 'saved', 'without', 'restraint', 'many', 'necessary', 'appropriate', 'moments', 'Silence', 'moment', 'premium', 'cable', 'profanity', 'things', 'stand', 'first', 'know', 'attack', 'carried', 'gigantic', 'fucking', 'assholes', 'unconscionable', 'flaming', 'ass', 'holes', 'possibly', 'possibly', 'working', 'fucking', 'All', 'Souls', 'definitely', 'working', 'service', 'open', 'Audiology', 'second', 'I', "'m", 'saying', 'French', 'going', 'enjoy', 'I', "'ll", 'tell', 'war', 'culture', 'lifestyle', 'frogs', 'good', 'fucking', 'luck', 'bring', 'bankruptcy', 'geology', 'bring', 'Jean-Paul', 'Sartre', 'fine', 'wine', 'go', 'buy', 'cigarettes', 'Camembert', 'macarons', 'proof', 'fucking', 'croquembouche', 'trust', 'pulled', 'philosophy', 'rigorous', 'self-abnegation', 'pastry', 'fight', 'friends', 'fuc', 'French', 'Freedom', 'Tower', 'tell', 'people', 'France', 'thoughts', 'truly', 'I', 'doubt', "'ll", 'say', 'events', 'spool', 'going', 'continue']
+streamer = "John Oliver"
+genre = ["News","Entertainment"]
+platform = "YouTube"
+#
+for word in word_list:
+    #
+    # streamer - [utters] - word
+    interface.merge_relationship("streamer", streamer,
+                                      "word", word,
                                       "utters")
-
-output = interface.delete_relationship(node_type_1="streamer",
-                                       node_value_1="raphael",
-                                       node_type_2="word",
-                                       node_value_2="bye",
-                                       relationship="utters")
-print(output)
+    #
+    # genre - [features] - word
+    for g in list(genre):
+        interface.merge_relationship("genre", g,
+                                          "word", word,
+                                          "features")
+    #
+    # Increment word count
+    interface.increment_node("word", word)
+#
+# streamer - [partakes] - genre
+for g in list(genre):
+    interface.merge_relationship("streamer", streamer,
+                                      "genre", g,
+                                      "partakes")
+#
+# streamer - [uses] - platform
+interface.merge_relationship("streamer", streamer,
+                                  "platform", platform,
+                                  "uses")

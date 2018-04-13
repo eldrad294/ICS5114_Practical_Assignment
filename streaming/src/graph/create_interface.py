@@ -49,6 +49,9 @@ class CreateInterface(BasicInterface):
             elif node_type == self.supported_node_types[3]:
                 session.write_transaction(CreateTransactionFunctions.add_word, node_name)
                 print("'Word' node merged")
+            elif node_type == self.supported_node_types[4]:
+                session.write_transaction(CreateTransactionFunctions.add_platform, node_name)
+                print("'Platform' node merged")
             else:
                 print("Unsupported node type!")
                 return bookmark
@@ -119,6 +122,9 @@ class CreateInterface(BasicInterface):
             elif relationship == self.supported_relationship_types[5]:
                 session.write_transaction(CreateTransactionFunctions.add_subscribes, node_name_1, node_name_2)
                 print("'subscribes' relationship merged")
+            elif relationship == self.supported_relationship_types[6]:
+                session.write_transaction(CreateTransactionFunctions.add_uses, node_name_1, node_name_2)
+                print("'uses' relationship merged")
             else:
                 print("Unsupported relationship type!")
                 return False

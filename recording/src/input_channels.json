@@ -4,24 +4,28 @@
     "platform":"twitch_tv",
     "url":"https://www.twitch.tv/geekandsundry",
     "channel":"GeekandSundry",
-    "genre":"tabletop-gaming"
+    "genre":["tabletop-gaming",
+             "entertainment"]
   },
   {
     "platform":"twitch_tv",
     "url":"https://www.twitch.tv/neuro",
     "channel":"Neuro",
-    "genre":"strategy-gaming"
+    "genre":["strategy-gaming",
+             "entertainment"]
   },
   {
     "platform":"youtube",
     "url":"https://www.youtube.com/watch?v=BSjee-ond7w",
     "channel":"BobRoss",
-    "genre":"Painting"
+    "genre":["painting",
+             "entertainment"]
   },
   {
     "platform":"youtube_live",
     "url":"https://www.youtube.com/watch?v=8XiqrERZo_8",
     "channel":"ChilledCow",
-    "genre":"Music"
+    "genre":["music",
+             "hip-hop"]
   }
 ]}

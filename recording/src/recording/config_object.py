@@ -16,10 +16,10 @@ class ConfigObject:
     #
     def get_hash(self):
         """
-        Calculates a unique hash based off input platform, genre and channel combined
+        Calculates a unique hash based off input platform and channel combined
         https://www.pythoncentral.io/hashing-strings-with-python/
         """
-        return hashlib.md5((self.platform + self.channel + self.genre).encode()).hexdigest()
+        return hashlib.md5((self.platform + self.channel).encode()).hexdigest()
     #
     def get_details(self):
         """"

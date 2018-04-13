@@ -70,8 +70,22 @@ class CreateTransactionFunctions(object):
         :return:
         """
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (w:" + supported_nodes[3] +" {name:$name}) " \
+        cql = "MERGE (w:" + supported_nodes[3] + "{name:$name}) " \
               "RETURN w;"
+        tx.run(cql, name=name)
+    #
+    @staticmethod
+    def add_platform(tx, name):
+        """
+        Add Platform Node
+        :param self:
+        :param tx:
+        :param name: Platform Node Name
+        :return:
+        """
+        supported_nodes = GraphEntities.get_supported_node_types()
+        cql = "MERGE (w:" + supported_nodes[4] + "{name:$name}) " \
+                                                 "RETURN w;"
         tx.run(cql, name=name)
     #
     """
@@ -184,6 +198,25 @@ class CreateTransactionFunctions(object):
               "MERGE (v)-[s:" + supported_relationships[5] + "]-(st) " \
               "RETURN type(s);"
         tx.run(cql, name1=name1, name2=name2)
+    #
+    @staticmethod
+    def add_uses(tx, name1, name2):
+        """
+        Add Uses Relationship
+        :param tx:
+        :param name1: Streamer Node Name
+        :param name2: Platform Node Name
+        :return:
+        """
+        supported_nodes = GraphEntities.get_supported_node_types()
+        supported_relationships = GraphEntities.get_supported_relationship_types()
+        cql = "MATCH (v:" + supported_nodes[0] + "),(st:" + supported_nodes[4] + ") " \
+              "WHERE v.name=$name1 " \
+              "AND st.name=$name2 " \
+              "MERGE (v)-[s:" + \
+              supported_relationships[6] + "]-(st) " \
+                                           "RETURN type(s);"
+        tx.run(cql, name1=name1, name2=name2)
 #
 class DeleteTransactionFunctions:
     """
@@ -233,3 +266,37 @@ class DeleteTransactionFunctions:
             cql = "MATCH (s:" + node_type_1 + "{name:$node_value_1})-[u:" + relationship + "]-(w:" + node_type_2 + "{name:$node_value_2}) " \
                   "DELETE u;"
             tx.run(cql, node_value_1=node_value_1, node_value_2=node_value_2)
+    #
+class UpdateTransactionFunctions:
+    """
+    This class contains a number of transactions functions,
+    focused on updating of nodes and relationships in the
+    graph.
+
+    According to Neo4j official docs, Transaction functions
+    are the recommended form for containing transactional units
+    of work. This form requires minimal boilerplate code and
+    allows for a clear separation of database queries and
+    application logic.
+
+    Relationship Transaction Functions:
+    """
+    @staticmethod
+    def increment_word_node(tx, name):
+        """
+        Add Word Node
+        :param self:
+        :param tx:
+        :param name: Word Node Name
+        :return:
+
+        match(n
+        {name: "bye"}) set
+        n.count = n.count + 1
+        return n;
+        """
+        supported_nodes = GraphEntities.get_supported_node_types()
+        cql = "MERGE (w:" + supported_nodes[3] + "{name:$name}) " \
+                                                 "SET w.count=w.count+1 " \
+                                                 "RETURN w;"
+        tx.run(cql, name=name)
