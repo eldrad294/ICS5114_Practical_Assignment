@@ -26,7 +26,7 @@ class BDAConfigParser:
                                  standard INI file format.
         :return:                 None.
         """
-        self.__validation(config_file_path) # Disabled valdiation, since this was conflicting with Storm Topology Setup
+        self.__validation(config_file_path)
         self.__config = configparser.ConfigParser()
         self.__config.read(config_file_path)
 
@@ -55,5 +55,6 @@ class BDAConfigParser:
 
 
 # ToDo: Consider converting this class into a Singleton.
+#config_file = "producer/config.ini"
 config_file = "config.ini"
 g_config = BDAConfigParser(config_file)

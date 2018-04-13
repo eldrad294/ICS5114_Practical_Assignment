@@ -111,11 +111,11 @@ class BDAGoogleStorageUploadAbstractBase(GoogleStorageBase):
         :return:                   None
         """
         storage_client = storage.Client()
-
         bucket = storage_client.get_bucket(self.__bucket_name)
         blob = bucket.blob(self.__blob_path)
+        print("Beginning Upload on [" + path_to_file + "]")
         blob.upload_from_filename(path_to_file)
-
+        print("Video Uploaded!")
         return self.__bucket_name, self.__blob_path
 
     def __initialization(self, path_to_file):
