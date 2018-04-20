@@ -30,7 +30,10 @@ class CreateTransactionFunctions(object):
         supported_nodes = GraphEntities.get_supported_node_types()
         cql = "MERGE (s:"+supported_nodes[0]+" {name:$name}) " \
               "RETURN s;"
-        tx.run(cql, name=name)
+        try:
+            tx.run(cql, name=name)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def add_viewer(tx, name):
@@ -44,7 +47,10 @@ class CreateTransactionFunctions(object):
         supported_nodes = GraphEntities.get_supported_node_types()
         cql = "MERGE (v:" + supported_nodes[1] + " {name:$name}) " \
               "RETURN v;"
-        tx.run(cql, name=name)
+        try:
+            tx.run(cql, name=name)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def add_genre(tx, name):
@@ -58,7 +64,10 @@ class CreateTransactionFunctions(object):
         supported_nodes = GraphEntities.get_supported_node_types()
         cql = "MERGE (g:" + supported_nodes[2] + " {name:$name}) " \
               "RETURN g;"
-        tx.run(cql, name=name)
+        try:
+            tx.run(cql, name=name)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def add_word(tx, name):
@@ -72,7 +81,10 @@ class CreateTransactionFunctions(object):
         supported_nodes = GraphEntities.get_supported_node_types()
         cql = "MERGE (w:" + supported_nodes[3] + "{name:$name}) " \
               "RETURN w;"
-        tx.run(cql, name=name)
+        try:
+            tx.run(cql, name=name)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def add_platform(tx, name):
@@ -86,7 +98,10 @@ class CreateTransactionFunctions(object):
         supported_nodes = GraphEntities.get_supported_node_types()
         cql = "MERGE (w:" + supported_nodes[4] + "{name:$name}) " \
                                                  "RETURN w;"
-        tx.run(cql, name=name)
+        try:
+            tx.run(cql, name=name)
+        except Exception as e:
+            print(str(e))
     #
     """
     Relationship Transaction Functions:
@@ -107,7 +122,10 @@ class CreateTransactionFunctions(object):
               "AND w.name=$name2 " \
               "MERGE (s)-[u:" + supported_relationships[0] + "]-(w) " \
               "RETURN type(u);"
-        tx.run(cql, name1=name1, name2=name2)
+        try:
+            tx.run(cql, name1=name1, name2=name2)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def add_comment(tx, name1, name2):
@@ -125,7 +143,10 @@ class CreateTransactionFunctions(object):
               "AND w.name=$name2 " \
               "MERGE (v)-[c:" + supported_relationships[1] + "]-(w) " \
               "RETURN type(c);"
-        tx.run(cql, name1=name1, name2=name2)
+        try:
+            tx.run(cql, name1=name1, name2=name2)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def add_features(tx, name1, name2):
@@ -143,7 +164,10 @@ class CreateTransactionFunctions(object):
               "AND g.name=$name2 " \
               "MERGE (w)-[f:" + supported_relationships[2] + "]-(g) " \
               "RETURN type(f);"
-        tx.run(cql, name1=name1, name2=name2)
+        try:
+            tx.run(cql, name1=name1, name2=name2)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def add_follows(tx, name1, name2):
@@ -161,7 +185,10 @@ class CreateTransactionFunctions(object):
               "AND g.name=$name2 " \
               "MERGE (w)-[f:" + supported_relationships[3] + "]-(g) " \
               "RETURN type(f);"
-        tx.run(cql, name1=name1, name2=name2)
+        try:
+            tx.run(cql, name1=name1, name2=name2)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def add_partakes(tx, name1, name2):
@@ -179,7 +206,10 @@ class CreateTransactionFunctions(object):
               "AND g.name=$name2 " \
               "MERGE (s)-[p:" + supported_relationships[4] + "]-(g) " \
               "RETURN type(p);"
-        tx.run(cql, name1=name1, name2=name2)
+        try:
+            tx.run(cql, name1=name1, name2=name2)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def add_subscribes(tx, name1, name2):
@@ -197,7 +227,10 @@ class CreateTransactionFunctions(object):
               "AND st.name=$name2 " \
               "MERGE (v)-[s:" + supported_relationships[5] + "]-(st) " \
               "RETURN type(s);"
-        tx.run(cql, name1=name1, name2=name2)
+        try:
+            tx.run(cql, name1=name1, name2=name2)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def add_uses(tx, name1, name2):
@@ -216,7 +249,10 @@ class CreateTransactionFunctions(object):
               "MERGE (v)-[s:" + \
               supported_relationships[6] + "]-(st) " \
                                            "RETURN type(s);"
-        tx.run(cql, name1=name1, name2=name2)
+        try:
+            tx.run(cql, name1=name1, name2=name2)
+        except Exception as e:
+            print(str(e))
 #
 class DeleteTransactionFunctions:
     """
@@ -243,7 +279,10 @@ class DeleteTransactionFunctions:
         :return:
         """
         cql = "MATCH(n:" + node_type + "{name:$node_value}) DETACH DELETE(n);"
-        tx.run(cql, node_value=node_value)
+        try:
+            tx.run(cql, node_value=node_value)
+        except Exception as e:
+            print(str(e))
     #
     @staticmethod
     def delete_relationship(tx, node_value_1=None, node_value_2=None, node_type_1=None, node_type_2=None, relationship=None):
@@ -257,15 +296,24 @@ class DeleteTransactionFunctions:
         if node_value_1 is None and node_type_1 is None:
             cql = "MATCH ()-[u:" + relationship + "]-(w:" + node_type_2 + "{name:$node_value_2}) " \
                   "DELETE u;"
-            tx.run(cql, node_value_2=node_value_2)
+            try:
+                tx.run(cql, node_value_2=node_value_2)
+            except Exception as e:
+                print(str(e))
         elif node_value_2 is None and node_type_2 is None:
             cql = "MATCH (s:" + node_type_1 + "{name:$node_value_1})-[u:" + relationship + "]-() " \
                   "DELETE u;"
-            tx.run(cql, node_value_1=node_value_1)
+            try:
+                tx.run(cql, node_value_1=node_value_1)
+            except Exception as e:
+                print(str(e))
         else:
             cql = "MATCH (s:" + node_type_1 + "{name:$node_value_1})-[u:" + relationship + "]-(w:" + node_type_2 + "{name:$node_value_2}) " \
                   "DELETE u;"
-            tx.run(cql, node_value_1=node_value_1, node_value_2=node_value_2)
+            try:
+                tx.run(cql, node_value_1=node_value_1, node_value_2=node_value_2)
+            except Exception as e:
+                print(str(e))
     #
 class UpdateTransactionFunctions:
     """
@@ -299,4 +347,7 @@ class UpdateTransactionFunctions:
         cql = "MERGE (w:" + supported_nodes[3] + "{name:$name}) " \
                                                  "SET w.count=w.count+1 " \
                                                  "RETURN w;"
-        tx.run(cql, name=name)
+        try:
+            tx.run(cql, name=name)
+        except Exception as e:
+            print(str(e))
