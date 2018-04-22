@@ -27,5 +27,21 @@
     "channel":"ChilledCow",
     "genre":["music",
              "hip-hop"]
+  },
+  {
+    "platform":"twitch_tv",
+    "url":"https://www.twitch.tv/dreamhackcs",
+    "channel":"DreamHackCS",
+    "genre":["FPS",
+             "E-Sport",
+             "CSGO"]
+  },
+  {
+    "platform":"twitch_tv",
+    "url":"https://www.twitch.tv/cohhcarnage",
+    "channel":"CohhCarnage",
+    "genre":["PS4",
+             "God of War",
+             "entertainment"]
   }
 ]}

@@ -6,14 +6,15 @@ from nltk.tokenize import word_tokenize
 class BDATextProcessing:
     @staticmethod
     def simplify_text(str_input):
-        intermediate_result = words = word_tokenize(str_input)
-        intermediate_result = BDATextProcessing.__stop_work_removal(intermediate_result)
+        intermediate_result = word_tokenize(str_input)
+        intermediate_result = BDATextProcessing.__stop_word_removal(intermediate_result)
+        # intermediate_result = BDATextProcessing.__illegal_character_removal(intermediate_result)
         # First impression is that stemming is deteriorating the accuracy
         # intermediate_result = BDATextProcessing.__word_stemming(intermediate_result)
         return BDATextProcessing.__word_lemmatizing(intermediate_result)
 
     @staticmethod
-    def __stop_work_removal(str_input):
+    def __stop_word_removal(str_input):
         result = []
         stop_words = set(stopwords.words('english'))
 
@@ -41,6 +42,28 @@ class BDATextProcessing:
         for word in str_input:
             result.append(lemmatizer.lemmatize(word))
 
+        return result
+
+    @staticmethod
+    def __illegal_character_removal(str_input):
+        """
+        Remove unwanted (and potential dangerous) characters from input_string
+
+        *This method requires further work - combine letters back into respective words*
+        :param str_input:
+        :return:
+        """
+        temp_word = None
+        result = []
+        illegal_characters = ('\'', '&', '^', '$')
+        for word in str_input:
+            for letter in word:
+                if letter not in illegal_characters:
+                    if letter != " ":
+                        temp_word += letter
+                    else:
+                        result.append(temp_word)
+                        temp_word = None
         return result
 
 

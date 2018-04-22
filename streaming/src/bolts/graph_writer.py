@@ -40,14 +40,17 @@ class GraphWriter(Bolt):
         """
         streaming_object = tup.values[0]
         #
-        if not streaming_object:
+        self.log("Entry 5")
+        if not streaming_object or not streaming_object['video_text']:
             return
+        self.log("Entry 5")
         #
         word_list = streaming_object['video_text']
         streamer = streaming_object['channel']
         genre = streaming_object['genre']
         platform = streaming_object['platform']
         #
+        self.log("Entry 6")
         for word in word_list:
             #
             # streamer - [utters] - word

@@ -132,9 +132,7 @@ class ProducerHandler:
         :return:               None
         """
         try:
-            print("Entry 1")
             cloud_url_tuple = ProducerHandler.__convert_upload(video_path)
-            print("Entry 2")
             ProducerHandler.__post_kafka(video_path, kafka_producer, kafka_config, kafka_topic, cloud_url_tuple)
             os.remove(video_path)
         except Exception as e:

@@ -79,7 +79,7 @@ class CreateTransactionFunctions(object):
         :return:
         """
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (w:" + supported_nodes[3] + "{name:$name}) " \
+        cql = "MERGE (w:" + supported_nodes[3] + "{name:$name,count:0}) " \
               "RETURN w;"
         try:
             tx.run(cql, name=name)

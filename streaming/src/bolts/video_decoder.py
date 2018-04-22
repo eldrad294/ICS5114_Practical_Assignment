@@ -37,14 +37,19 @@ class VideoDecoder(Bolt):
             return
         self.log("Received streaming object for URI: " + str(streaming_object['cloud_bucket_path']))
         #
+        self.log("Entry 1")
         google_transcriber = BDAGoogleStorageConsume()
+        self.log("Entry 2")
         decoded_video_string = google_transcriber.transcribe_file(streaming_object['cloud_bucket_name'],
                                                                   streaming_object['cloud_bucket_path'])
+        self.log("Entry 3")
         clean_decoded_video_string = BDATextProcessing.simplify_text(decoded_video_string)
+        self.log("Entry 4")
         streaming_object['video_text'] = clean_decoded_video_string
         #
         self.log("Video decoding for [" + str(streaming_object['cloud_bucket_path']) +
                  "] complete - Pushing downstream.. ")
+        #self.log(streaming_object['video_text'])
         #
         # Stream_obj (which is represented as a dictionary)
         # is pushed down stream through Storm, towards awaiting
