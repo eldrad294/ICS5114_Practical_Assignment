@@ -2,7 +2,7 @@
 # Module imports
 from pathlib import Path
 import os
-BASE_DIR = os.path.join(os.path.dirname(os.getcwd()))
+BASE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)
 PARENT_DIR = str(Path(BASE_DIR).parent)
 #
 # Directory Path Constants
