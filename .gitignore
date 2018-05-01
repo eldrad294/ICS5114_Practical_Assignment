@@ -3,14 +3,6 @@ _build
 _resources
 logs
 __pycache__/
-src/speech_recognition/__pycache__/
-
 \.idea/
-
-src/coding_framework/__pycache__/
-
 src/testing/
-
-src/__pycache__/
-
-__pycache__/
+recording/src/producer/__pycache__/
