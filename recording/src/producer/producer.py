@@ -134,6 +134,7 @@ class ProducerHandler:
         try:
             cloud_url_tuple = ProducerHandler.__convert_upload(video_path)
             ProducerHandler.__post_kafka(video_path, kafka_producer, kafka_config, kafka_topic, cloud_url_tuple)
+            #print(video_path)
             os.remove(video_path)
         except Exception as e:
             print(str(e))

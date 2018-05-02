@@ -11,13 +11,15 @@ class MainTopology(Topology):
     """
     #
     # variable declaration
-    parallel_degree = 1
+    spout_parallel_degree = 1
+    video_decoder_parallel_degree = 1
+    graph_writer_parallel_degree = 1
     #
     print('Starting Topology..')
     video_recording_spout = VideoRecorder.spec()
     #
     video_decoder_bolt = VideoDecoder.spec(inputs={video_recording_spout: Grouping.fields('video')}
-                                           , par=parallel_degree)
+                                           , par=video_decoder_parallel_degree)
     #
     graph_writer_bolt = GraphWriter.spec(inputs={video_decoder_bolt: Grouping.fields('video')}
-                                         , par=parallel_degree)
+                                         , par=graph_writer_parallel_degree)

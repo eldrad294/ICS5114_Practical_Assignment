@@ -31,27 +31,44 @@ class VideoDecoder(Bolt):
         :param tup:
         :return:
         """
+        self.log("VIDEO LOG(1)")
         streaming_object = tup.values[0]
         #
+        self.log("VIDEO LOG(2)")
         if not streaming_object:
+            self.log("VIDEO LOG(3)")
             return
+        self.log("VIDEO LOG(4)")
         self.log("Received streaming object for URI: " + str(streaming_object['cloud_bucket_path']))
-        #
-        self.log("Entry 1")
-        google_transcriber = BDAGoogleStorageConsume()
-        self.log("Entry 2")
-        decoded_video_string = google_transcriber.transcribe_file(streaming_object['cloud_bucket_name'],
-                                                                  streaming_object['cloud_bucket_path'])
-        self.log("Entry 3")
-        clean_decoded_video_string = BDATextProcessing.simplify_text(decoded_video_string)
-        self.log("Entry 4")
-        streaming_object['video_text'] = clean_decoded_video_string
-        #
-        self.log("Video decoding for [" + str(streaming_object['cloud_bucket_path']) +
-                 "] complete - Pushing downstream.. ")
-        #self.log(streaming_object['video_text'])
-        #
-        # Stream_obj (which is represented as a dictionary)
-        # is pushed down stream through Storm, towards awaiting
-        # graph_writer bolts
-        self.emit([streaming_object])
+        try:
+            #
+            google_transcriber = BDAGoogleStorageConsume()
+            self.log("VIDEO LOG(5)")
+            #
+            decoded_video_string = google_transcriber.transcribe_file(streaming_object['cloud_bucket_name'],
+                                                                      streaming_object['cloud_bucket_path'])
+            #
+            self.log("VIDEO LOG(6)")
+            clean_decoded_video_string = BDATextProcessing.simplify_text(decoded_video_string)
+            #
+            self.log("VIDEO LOG(7)")
+            self.log("CLEANED MESSAGE STRING [" + str(clean_decoded_video_string) + "]")
+            #
+            streaming_object['video_text'] = clean_decoded_video_string
+            #
+            self.log("VIDEO LOG(8)")
+            self.log("Video decoding for [" + str(streaming_object['cloud_bucket_path']) +
+                     "] complete - Pushing downstream.. ")
+            #
+            # Stream_obj (which is represented as a dictionary)
+            # is pushed down stream through Storm, towards awaiting
+            # graph_writer bolts
+            # self.emit([streaming_object])
+        except Exception as e:
+            self.log("An exception was raised during video decoding!!")
+            self.log(str(e))
+            streaming_object['video_text'] = ["?????"] # We pass an error (dummy) string to avoid passing None values to graph writer
+        finally:
+            self.log("VIDEO LOG(9)")
+            self.emit([streaming_object])
+            self.log("VIDEO LOG(10)")

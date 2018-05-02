@@ -38,42 +38,73 @@ class GraphWriter(Bolt):
         :param tup:
         :return:
         """
+        self.log("GRAPH LOG(1)")
         streaming_object = tup.values[0]
         #
-        self.log("Entry 5")
+        self.log("GRAPH LOG(2)")
         if not streaming_object or not streaming_object['video_text']:
+            self.log("GRAPH LOG(3)")
             return
-        self.log("Entry 5")
+        #
+        self.log("GRAPH LOG(4)")
+        self.log("Preparing batch for graph writing..")
         #
         word_list = streaming_object['video_text']
         streamer = streaming_object['channel']
         genre = streaming_object['genre']
         platform = streaming_object['platform']
         #
-        self.log("Entry 6")
-        for word in word_list:
+        self.log("GRAPH LOG(5)")
+        try:
             #
-            # streamer - [utters] - word
-            self.interface.merge_relationship("streamer", streamer,
-                                              "word", word,
-                                              "utters")
+            # Creates streamer node
+            self.log("GRAPH LOG(6)")
+            self.interface.merge_node("streamer", streamer)
             #
-            # genre - [features] - word
+            # Creates platform node
+            self.log("GRAPH LOG(7)")
+            self.interface.merge_node("platform", platform)
+            #
             for g in list(genre):
-                self.interface.merge_relationship("genre", g,
-                                                  "word", word,
-                                                  "features")
+                #
+                # Creates genre node
+                self.interface.merge_node("genre", g)
+            self.log("GRAPH LOG(8)")
             #
-            # Increment word count
-            self.interface.increment_node("word", word)
-        #
-        # streamer - [partakes] - genre
-        for g in list(genre):
+            for word in word_list:
+                #
+                # Creates word node
+                self.log("GRAPH LOG(9)" + word)
+                self.interface.merge_node("word",word)
+                #
+                # streamer - [utters] - word
+                self.interface.merge_relationship("streamer", streamer,
+                                                  "word", word,
+                                                  "utters")
+                #
+                # genre - [features] - word
+                for g in list(genre):
+                    #
+                    # word - [features] - genre
+                    self.log("GRAPH LOG(10)")
+                    self.interface.merge_relationship("genre", g,
+                                                      "word", word,
+                                                      "features")
+                self.log("GRAPH LOG(11)")
+            #
+            # streamer - [partakes] - genre
+            for g in list(genre):
+                self.interface.merge_relationship("streamer", streamer,
+                                                  "genre", g,
+                                                  "partakes")
+            self.log("GRAPH LOG(12)")
+            #
+            # streamer - [uses] - platform
             self.interface.merge_relationship("streamer", streamer,
-                                              "genre", g,
-                                              "partakes")
-        #
-        # streamer - [uses] - platform
-        self.interface.merge_relationship("streamer", streamer,
-                                          "platform", platform,
-                                          "uses")
+                                              "platform", platform,
+                                              "uses")
+            #
+            self.log("Batch written to graph..")
+        except Exception as e:
+            self.log("An exception was raised during graph writing!!")
+            self.log(str(e))

@@ -8,10 +8,13 @@ class BDATextProcessing:
     def simplify_text(str_input):
         intermediate_result = word_tokenize(str_input)
         intermediate_result = BDATextProcessing.__stop_word_removal(intermediate_result)
-        # intermediate_result = BDATextProcessing.__illegal_character_removal(intermediate_result)
         # First impression is that stemming is deteriorating the accuracy
         # intermediate_result = BDATextProcessing.__word_stemming(intermediate_result)
-        return BDATextProcessing.__word_lemmatizing(intermediate_result)
+        intermediate_result = BDATextProcessing.__single_character_removal(intermediate_result)
+        intermediate_result = BDATextProcessing.__word_lemmatizing(intermediate_result)
+        if len(intermediate_result) == 0:
+            return "x1x1x1x1"
+        return intermediate_result
 
     @staticmethod
     def __stop_word_removal(str_input):
@@ -45,27 +48,29 @@ class BDATextProcessing:
         return result
 
     @staticmethod
-    def __illegal_character_removal(str_input):
+    def __single_character_removal(str_input):
         """
-        Remove unwanted (and potential dangerous) characters from input_string
+        Eliminates phrases which consist of stand alone characters.
 
-        *This method requires further work - combine letters back into respective words*
+        Also ensures that punctuation / special symbols is stripped.
         :param str_input:
-        :return:
+        :return: result_stripped:
         """
-        temp_word = None
-        result = []
-        illegal_characters = ('\'', '&', '^', '$')
+        result, result_stripped = [], []
+        stripped_symbols = ("[","]","?",":","!","/",";",".",",","(",")","#","$","%","^","&","*","~","-","'","+","-","\'")
+        #stripped_symbols = "[,.:;/()?!'@#$%^&*]"
+        #
         for word in str_input:
-            for letter in word:
-                if letter not in illegal_characters:
-                    if letter != " ":
-                        temp_word += letter
-                    else:
-                        result.append(temp_word)
-                        temp_word = None
+            temp_word = word
+            for char in stripped_symbols:
+                temp_word = temp_word.replace(char, "")
+            result_stripped.append(temp_word)
+        #
+        for word in result_stripped:
+            if len(word) > 1:
+                result.append(word)
+        #
         return result
-
 
 ###########################################################################
 # Code usage example:

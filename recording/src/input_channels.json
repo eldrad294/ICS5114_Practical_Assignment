@@ -11,7 +11,8 @@
     "platform":"twitch_tv",
     "url":"https://www.twitch.tv/neuro",
     "channel":"Neuro",
-    "genre":["strategy-gaming",
+    "genre":["Starcraft2",
+             "strategy-gaming",
              "entertainment"]
   },
   {
@@ -20,13 +21,6 @@
     "channel":"BobRoss",
     "genre":["painting",
              "entertainment"]
-  },
-  {
-    "platform":"youtube_live",
-    "url":"https://www.youtube.com/watch?v=8XiqrERZo_8",
-    "channel":"ChilledCow",
-    "genre":["music",
-             "hip-hop"]
   },
   {
     "platform":"twitch_tv",
@@ -43,5 +37,28 @@
     "genre":["PS4",
              "God of War",
              "entertainment"]
+  },
+  {
+    "platform":"twitch_tv",
+    "url":"https://www.twitch.tv/totalbiscuit",
+    "channel":"TotalBiscuit",
+    "genre":["Gaming Discussion",
+           "Game Review",
+           "entertainment"]
+  },
+  {
+    "platform":"twitch_tv",
+    "url":"https://www.twitch.tv/nathanias",
+    "channel":"Nathanias",
+    "genre":["Starcraft2",
+             "strategy-gaming",
+             "entertainment"]
+  },
+  {
+    "platform":"youtube_live",
+    "url":"https://www.youtube.com/watch?v=-cr2_8JP0R4",
+    "channel":"ChapterMasterValrak",
+    "genre":["Warhammer40k",
+             "tabletop-gaming"]
   }
 ]}

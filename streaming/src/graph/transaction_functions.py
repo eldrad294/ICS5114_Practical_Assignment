@@ -28,7 +28,7 @@ class CreateTransactionFunctions(object):
         :return:
         """
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (s:"+supported_nodes[0]+" {name:$name}) " \
+        cql = "MERGE (s:"+supported_nodes[0]+" {name:$name,type:'" + supported_nodes[0] + "'}) " \
               "RETURN s;"
         try:
             tx.run(cql, name=name)
@@ -45,7 +45,7 @@ class CreateTransactionFunctions(object):
         :return:
         """
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (v:" + supported_nodes[1] + " {name:$name}) " \
+        cql = "MERGE (v:" + supported_nodes[1] + " {name:$name,type:'" + supported_nodes[1] + "'}) " \
               "RETURN v;"
         try:
             tx.run(cql, name=name)
@@ -62,7 +62,7 @@ class CreateTransactionFunctions(object):
         :return:
         """
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (g:" + supported_nodes[2] + " {name:$name}) " \
+        cql = "MERGE (g:" + supported_nodes[2] + " {name:$name,type:'" + supported_nodes[2] + "'}) " \
               "RETURN g;"
         try:
             tx.run(cql, name=name)
@@ -78,9 +78,15 @@ class CreateTransactionFunctions(object):
         :param name: Word Node Name
         :return:
         """
+        # supported_nodes = GraphEntities.get_supported_node_types()
+        # cql = "MERGE (w:" + supported_nodes[3] + \
+        #       "{name:$name,type:'" + supported_nodes[3] + "'}) " \
+        #       "ON CREATE SET w.count=1 " \
+        #       "ON MATCH SET w.count = w.count + 1 " \
+        #       "RETURN w;"
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (w:" + supported_nodes[3] + "{name:$name,count:0}) " \
-              "RETURN w;"
+        cql = "MERGE (w:" + supported_nodes[3] + " {name:$name,type:'" + supported_nodes[3] + "'}) " \
+                                                                                              "RETURN w;"
         try:
             tx.run(cql, name=name)
         except Exception as e:
@@ -96,7 +102,7 @@ class CreateTransactionFunctions(object):
         :return:
         """
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (w:" + supported_nodes[4] + "{name:$name}) " \
+        cql = "MERGE (w:" + supported_nodes[4] + "{name:$name,type:'" + supported_nodes[4] + "'}) " \
                                                  "RETURN w;"
         try:
             tx.run(cql, name=name)
@@ -114,13 +120,20 @@ class CreateTransactionFunctions(object):
         :param name1: Streamer Node Name
         :param name2: Word Node Name
         :return:
+        merge (w:Word{name:"Hello"}) on create set w.count = 0 on match set w.count = w.count + 1 return w;
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         supported_relationships = GraphEntities.get_supported_relationship_types()
+        # cql = "MERGE (s:" + supported_nodes[0] + "{name:$name1})-[u:" + supported_relationships[0] + "]-(w:" + supported_nodes[3] + "{name:$name2}) " \
+        #       "ON CREATE SET u.count = 1 " \
+        #       "ON MATCH SET u.count = u.count + 1 " \
+        #       "RETURN type(u);"
         cql = "MATCH (s:" + supported_nodes[0] + "),(w:" + supported_nodes[3] + ") " \
               "WHERE s.name=$name1 " \
               "AND w.name=$name2 " \
               "MERGE (s)-[u:" + supported_relationships[0] + "]-(w) " \
+              "ON CREATE SET u.count = 1 " \
+              "ON MATCH SET u.count = u.count + 1 " \
               "RETURN type(u);"
         try:
             tx.run(cql, name1=name1, name2=name2)
@@ -335,18 +348,18 @@ class UpdateTransactionFunctions:
         Add Word Node
         :param self:
         :param tx:
+        :param tx:
         :param name: Word Node Name
         :return:
 
-        match(n
-        {name: "bye"}) set
-        n.count = n.count + 1
-        return n;
+        merge (w:Word{name:"Hello"}) on create set w.count = 0 on match set w.count = w.count + 1 return w;
         """
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (w:" + supported_nodes[3] + "{name:$name}) " \
-                                                 "SET w.count=w.count+1 " \
-                                                 "RETURN w;"
+        cql = "MERGE (w:" + supported_nodes[3] + \
+              "{name:$name}) " \
+              "ON CREATE SET w.count=1 " \
+              "ON MATCH SET w.count = w.count + 1 " \
+              "RETURN w;"
         try:
             tx.run(cql, name=name)
         except Exception as e:

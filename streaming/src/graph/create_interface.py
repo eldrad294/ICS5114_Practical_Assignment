@@ -63,7 +63,7 @@ class CreateInterface(BasicInterface):
     #
     def merge_relationship(self, node_type_1, node_name_1, node_type_2, node_name_2, relationship):
         #
-        saved_bookmarks = [] # To collect session bookmarks (causal chaining)
+        #saved_bookmarks = [] # To collect session bookmarks (causal chaining)
         node_type_1 = node_type_1.lower()
         node_name_1 = node_name_1.lower()
         node_type_2 = node_type_2.lower()
@@ -83,14 +83,14 @@ class CreateInterface(BasicInterface):
             return False
         #
         # Merging node 1
-        bookmark = self.merge_node(node_type=node_type_1,
-                                   node_name=node_name_1)
-        saved_bookmarks.append(bookmark)
+        #bookmark = self.merge_node(node_type=node_type_1,
+        #                           node_name=node_name_1)
+        #saved_bookmarks.append(bookmark)
         #
         # Merging node 2
-        bookmark = self.merge_node(node_type=node_type_2,
-                                   node_name=node_name_2)
-        saved_bookmarks.append(bookmark)
+        #bookmark = self.merge_node(node_type=node_type_2,
+        #                           node_name=node_name_2)
+        #saved_bookmarks.append(bookmark)
         #
         """
         Bookmarks are used to ensure that previous transactions were successfully
