@@ -1,0 +1,528 @@
+4065 [main] WARN  o.a.s.d.s.Slot - SLOT gabriel-VirtualBox:1024 Starting in state EMPTY - assignment null
+4066 [main] WARN  o.a.s.d.s.Slot - SLOT gabriel-VirtualBox:1025 Starting in state EMPTY - assignment null
+4067 [main] WARN  o.a.s.d.s.Slot - SLOT gabriel-VirtualBox:1026 Starting in state EMPTY - assignment null
+4067 [main] INFO  o.a.s.l.AsyncLocalizer - Cleaning up unused topologies in /tmp/8055a10a-8857-429f-a5ab-82e825c29bdf/supervisor/stormdist
+4071 [main] INFO  o.a.s.d.s.Supervisor - Starting supervisor with id 0a8fa52a-c370-4dc2-a9d6-355028d8e144 at host gabriel-VirtualBox.
+4072 [main] INFO  o.a.s.z.Zookeeper - Staring ZK Curator
+4072 [main] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - Starting
+4073 [main] INFO  o.a.s.s.o.a.z.ZooKeeper - Initiating client connection, connectString=localhost:2001 sessionTimeout=20000 watcher=org.apache.storm.shade.org.apache.curator.ConnectionState@626b639e
+4074 [main-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Opening socket connection to server localhost/127.0.0.1:2001. Will not attempt to authenticate using SASL (unknown error)
+4074 [main] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - Default schema
+4074 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.NIOServerCnxnFactory - Accepted socket connection from /127.0.0.1:58484
+4074 [main-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Socket connection established to localhost/127.0.0.1:2001, initiating session
+4075 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.ZooKeeperServer - Client attempting to establish new session at /127.0.0.1:58484
+4077 [SyncThread:0] INFO  o.a.s.s.o.a.z.s.ZooKeeperServer - Established session 0x1632292dcb7000b with negotiated timeout 20000 for client /127.0.0.1:58484
+4077 [main-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Session establishment complete on server localhost/127.0.0.1:2001, sessionid = 0x1632292dcb7000b, negotiated timeout = 20000
+4077 [main-EventThread] INFO  o.a.s.s.o.a.c.f.s.ConnectionStateManager - State change: CONNECTED
+4079 [Curator-Framework-0] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - backgroundOperationsLoop exiting
+4084 [ProcessThread(sid:0 cport:-1):] INFO  o.a.s.s.o.a.z.s.PrepRequestProcessor - Processed session termination for sessionid: 0x1632292dcb7000b
+4087 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.NIOServerCnxn - Closed socket connection for client /127.0.0.1:58484 which had sessionid 0x1632292dcb7000b
+4087 [main] INFO  o.a.s.s.o.a.z.ZooKeeper - Session: 0x1632292dcb7000b closed
+4087 [main-EventThread] INFO  o.a.s.s.o.a.z.ClientCnxn - EventThread shut down
+4089 [main] INFO  o.a.s.z.Zookeeper - Staring ZK Curator
+4089 [main] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - Starting
+4089 [main] INFO  o.a.s.s.o.a.z.ZooKeeper - Initiating client connection, connectString=localhost:2001/storm sessionTimeout=20000 watcher=org.apache.storm.shade.org.apache.curator.ConnectionState@5ec6fede
+4091 [main-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Opening socket connection to server localhost/127.0.0.1:2001. Will not attempt to authenticate using SASL (unknown error)
+4090 [main] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - Default schema
+4091 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.NIOServerCnxnFactory - Accepted socket connection from /127.0.0.1:58486
+4091 [main-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Socket connection established to localhost/127.0.0.1:2001, initiating session
+4092 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.ZooKeeperServer - Client attempting to establish new session at /127.0.0.1:58486
+4094 [SyncThread:0] INFO  o.a.s.s.o.a.z.s.ZooKeeperServer - Established session 0x1632292dcb7000c with negotiated timeout 20000 for client /127.0.0.1:58486
+4094 [main-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Session establishment complete on server localhost/127.0.0.1:2001, sessionid = 0x1632292dcb7000c, negotiated timeout = 20000
+4094 [main-EventThread] INFO  o.a.s.s.o.a.c.f.s.ConnectionStateManager - State change: CONNECTED
+4101 [main] INFO  o.a.s.l.Localizer - Reconstruct localized resource: /tmp/62da8073-ad6f-467f-81c0-3734e0569c04/supervisor/usercache
+4101 [main] WARN  o.a.s.l.Localizer - No left over resources found for any user during reconstructing of local resources at: /tmp/62da8073-ad6f-467f-81c0-3734e0569c04/supervisor/usercache
+4116 [main] INFO  o.a.s.d.s.Supervisor - Starting Supervisor with conf {topology.builtin.metrics.bucket.size.secs=60, nimbus.childopts=-Xmx1024m, ui.filter.params=null, storm.cluster.mode=local, storm.messaging.netty.client_worker_threads=1, logviewer.max.per.worker.logs.size.mb=2048, supervisor.run.worker.as.user=false, topology.max.task.parallelism=null, topology.priority=29, zmq.threads=1, storm.group.mapping.service=org.apache.storm.security.auth.ShellBasedGroupsMapping, transactional.zookeeper.root=/transactional, topology.sleep.spout.wait.strategy.time.ms=1, ui.pagination=20, scheduler.display.resource=false, topology.max.replication.wait.time.sec=60, drpc.invocations.port=3773, supervisor.localizer.cache.target.size.mb=10240, topology.multilang.serializer=org.apache.storm.multilang.JsonSerializer, storm.messaging.netty.server_worker_threads=1, nimbus.blobstore.class=org.apache.storm.blobstore.LocalFsBlobStore, resource.aware.scheduler.eviction.strategy=org.apache.storm.scheduler.resource.strategies.eviction.DefaultEvictionStrategy, topology.max.error.report.per.interval=5, storm.thrift.transport=org.apache.storm.security.auth.SimpleTransportPlugin, zmq.hwm=0, storm.group.mapping.service.params=null, worker.profiler.enabled=false, storm.principal.tolocal=org.apache.storm.security.auth.DefaultPrincipalToLocal, supervisor.worker.shutdown.sleep.secs=3, pacemaker.host=localhost, storm.zookeeper.retry.times=5, ui.actions.enabled=true, zmq.linger.millis=0, supervisor.enable=true, topology.stats.sample.rate=0.05, storm.messaging.netty.min_wait_ms=100, worker.log.level.reset.poll.secs=30, storm.zookeeper.port=2001, supervisor.heartbeat.frequency.secs=5, topology.enable.message.timeouts=true, supervisor.cpu.capacity=400.0, drpc.worker.threads=64, supervisor.blobstore.download.thread.count=5, task.backpressure.poll.secs=30, drpc.queue.size=128, topology.backpressure.enable=false, supervisor.blobstore.class=org.apache.storm.blobstore.NimbusBlobStore, storm.blobstore.inputstream.buffer.size.bytes=65536, topology.shellbolt.max.pending=100, drpc.https.keystore.password=, nimbus.code.sync.freq.secs=120, logviewer.port=8000, topology.scheduler.strategy=org.apache.storm.scheduler.resource.strategies.scheduling.DefaultResourceAwareStrategy, topology.executor.send.buffer.size=1024, resource.aware.scheduler.priority.strategy=org.apache.storm.scheduler.resource.strategies.priority.DefaultSchedulingPriorityStrategy, pacemaker.auth.method=NONE, storm.daemon.metrics.reporter.plugins=[org.apache.storm.daemon.metrics.reporters.JmxPreparableReporter], topology.worker.logwriter.childopts=-Xmx64m, topology.spout.wait.strategy=org.apache.storm.spout.SleepSpoutWaitStrategy, ui.host=0.0.0.0, storm.nimbus.retry.interval.millis=2000, nimbus.inbox.jar.expiration.secs=3600, dev.zookeeper.path=/tmp/dev-storm-zookeeper, topology.acker.executors=null, topology.fall.back.on.java.serialization=true, topology.eventlogger.executors=0, supervisor.localizer.cleanup.interval.ms=600000, storm.zookeeper.servers=[localhost], nimbus.thrift.threads=64, logviewer.cleanup.age.mins=10080, topology.worker.childopts=null, topology.classpath=null, supervisor.monitor.frequency.secs=3, nimbus.credential.renewers.freq.secs=600, backpressure.znode.timeout.secs=30, topology.skip.missing.kryo.registrations=true, drpc.authorizer.acl.filename=drpc-auth-acl.yaml, pacemaker.kerberos.users=[], storm.group.mapping.service.cache.duration.secs=120, blobstore.dir=/tmp/136472fe-0a6c-40df-bcc7-5e3ad787a8f0, topology.testing.always.try.serialize=false, nimbus.monitor.freq.secs=10, storm.health.check.timeout.ms=5000, supervisor.supervisors=[], topology.tasks=null, topology.bolts.outgoing.overflow.buffer.enable=false, storm.messaging.netty.socket.backlog=500, topology.workers=1, pacemaker.base.threads=10, storm.local.dir=/tmp/62da8073-ad6f-467f-81c0-3734e0569c04, backpressure.znode.update.freq.secs=15, worker.childopts=-Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump, storm.auth.simple-white-list.users=[], topology.disruptor.batch.timeout.millis=1, topology.message.timeout.secs=30, topology.state.synchronization.timeout.secs=60, topology.tuple.serializer=org.apache.storm.serialization.types.ListDelegateSerializer, supervisor.supervisors.commands=[], nimbus.blobstore.expiration.secs=600, logviewer.childopts=-Xmx128m, topology.environment=null, topology.debug=false, topology.disruptor.batch.size=100, storm.disable.symlinks=false, storm.messaging.netty.max_retries=300, ui.childopts=-Xmx768m, storm.network.topography.plugin=org.apache.storm.networktopography.DefaultRackDNSToSwitchMapping, storm.zookeeper.session.timeout=20000, drpc.childopts=-Xmx768m, drpc.http.creds.plugin=org.apache.storm.security.auth.DefaultHttpCredentialsPlugin, storm.zookeeper.connection.timeout=15000, storm.zookeeper.auth.user=null, storm.meta.serialization.delegate=org.apache.storm.serialization.GzipThriftSerializationDelegate, topology.max.spout.pending=null, storm.codedistributor.class=org.apache.storm.codedistributor.LocalFileSystemCodeDistributor, nimbus.supervisor.timeout.secs=60, nimbus.task.timeout.secs=30, drpc.port=3772, pacemaker.max.threads=50, storm.zookeeper.retry.intervalceiling.millis=30000, nimbus.thrift.port=6627, storm.auth.simple-acl.admins=[], topology.component.cpu.pcore.percent=10.0, supervisor.memory.capacity.mb=3072.0, storm.nimbus.retry.times=5, supervisor.worker.start.timeout.secs=120, storm.zookeeper.retry.interval=1000, logs.users=null, storm.cluster.metrics.consumer.publish.interval.secs=60, worker.profiler.command=flight.bash, transactional.zookeeper.port=null, drpc.max_buffer_size=1048576, pacemaker.thread.timeout=10, task.credentials.poll.secs=30, blobstore.superuser=gabriel, drpc.https.keystore.type=JKS, topology.worker.receiver.thread.count=1, topology.state.checkpoint.interval.ms=1000, supervisor.slots.ports=[1027, 1028, 1029], topology.transfer.buffer.size=1024, storm.health.check.dir=healthchecks, topology.worker.shared.thread.pool.size=4, drpc.authorizer.acl.strict=false, nimbus.file.copy.expiration.secs=600, worker.profiler.childopts=-XX:+UnlockCommercialFeatures -XX:+FlightRecorder, topology.executor.receive.buffer.size=1024, backpressure.disruptor.low.watermark=0.4, nimbus.task.launch.secs=120, storm.local.mode.zmq=false, storm.messaging.netty.buffer_size=5242880, storm.cluster.state.store=org.apache.storm.cluster_state.zookeeper_state_factory, worker.heartbeat.frequency.secs=1, storm.log4j2.conf.dir=log4j2, ui.http.creds.plugin=org.apache.storm.security.auth.DefaultHttpCredentialsPlugin, storm.zookeeper.root=/storm, topology.tick.tuple.freq.secs=null, drpc.https.port=-1, storm.workers.artifacts.dir=workers-artifacts, supervisor.blobstore.download.max_retries=3, task.refresh.poll.secs=10, storm.exhibitor.port=8080, task.heartbeat.frequency.secs=3, pacemaker.port=6699, storm.messaging.netty.max_wait_ms=1000, topology.component.resources.offheap.memory.mb=0.0, drpc.http.port=3774, topology.error.throttle.interval.secs=10, storm.messaging.transport=org.apache.storm.messaging.netty.Context, topology.disable.loadaware.messaging=false, storm.messaging.netty.authentication=false, topology.component.resources.onheap.memory.mb=128.0, topology.kryo.factory=org.apache.storm.serialization.DefaultKryoFactory, worker.gc.childopts=, nimbus.topology.validator=org.apache.storm.nimbus.DefaultTopologyValidator, nimbus.seeds=[localhost], nimbus.queue.size=100000, nimbus.cleanup.inbox.freq.secs=600, storm.blobstore.replication.factor=3, worker.heap.memory.mb=768, logviewer.max.sum.worker.logs.size.mb=4096, pacemaker.childopts=-Xmx1024m, ui.users=null, transactional.zookeeper.servers=null, supervisor.worker.timeout.secs=30, storm.zookeeper.auth.password=null, storm.blobstore.acl.validation.enabled=false, client.blobstore.class=org.apache.storm.blobstore.NimbusBlobStore, storm.thrift.socket.timeout.ms=600000, supervisor.childopts=-Xmx256m, topology.worker.max.heap.size.mb=768.0, ui.http.x-frame-options=DENY, backpressure.disruptor.high.watermark=0.9, ui.filter=null, ui.header.buffer.bytes=4096, topology.min.replication.count=1, topology.disruptor.wait.timeout.millis=1000, storm.nimbus.retry.intervalceiling.millis=60000, topology.trident.batch.emit.interval.millis=50, storm.auth.simple-acl.users=[], drpc.invocations.threads=64, java.library.path=/usr/local/lib:/opt/local/lib:/usr/lib, ui.port=8080, storm.exhibitor.poll.uripath=/exhibitor/v1/cluster/list, storm.messaging.netty.transfer.batch.size=262144, logviewer.appender.name=A1, nimbus.thrift.max_buffer_size=1048576, storm.auth.simple-acl.users.commands=[], drpc.request.timeout.secs=600}
+4122 [main] WARN  o.a.s.d.s.Slot - SLOT gabriel-VirtualBox:1027 Starting in state EMPTY - assignment null
+4123 [main] WARN  o.a.s.d.s.Slot - SLOT gabriel-VirtualBox:1028 Starting in state EMPTY - assignment null
+4123 [main] WARN  o.a.s.d.s.Slot - SLOT gabriel-VirtualBox:1029 Starting in state EMPTY - assignment null
+4123 [main] INFO  o.a.s.l.AsyncLocalizer - Cleaning up unused topologies in /tmp/62da8073-ad6f-467f-81c0-3734e0569c04/supervisor/stormdist
+4125 [main] INFO  o.a.s.d.s.Supervisor - Starting supervisor with id 31843566-87ae-456d-9037-4435691cc4fa at host gabriel-VirtualBox.
+4134 [main] WARN  o.a.s.u.Utils - STORM-VERSION new 1.2.1 old 1.2.1
+4213 [main] INFO  o.a.s.d.nimbus - Received topology submission for main_topology (storm-1.2.1 JDK-1.8.0_171) with conf {"topology.max.task.parallelism" nil, "topology.submitter.principal" "", "pystorm.log.backup_count" 10, "topology.acker.executors" 1, "topology.eventlogger.executors" 0, "pystorm.log.level" "info", "topology.workers" 1, "storm.zookeeper.superACL" nil, "pystorm.log.max_bytes" 1000000, "topology.python.path" "/main_topology/bin/python", "topology.users" (), "topology.submitter.user" "gabriel", "topology.kryo.register" nil, "supervisor.worker.timeout.secs" 600, "storm.workers.list" [], "topology.kryo.decorators" (), "storm.id" "main_topology-1-1525293440", "topology.name" "main_topology"}
+4224 [main] INFO  o.a.s.d.nimbus - uploadedJar
+4243 [ProcessThread(sid:0 cport:-1):] INFO  o.a.s.s.o.a.z.s.PrepRequestProcessor - Got user-level KeeperException when processing sessionid:0x1632292dcb70002 type:create cxid:0x9 zxid:0x25 txntype:-1 reqpath:n/a Error Path:/storm/blobstoremaxkeysequencenumber Error:KeeperErrorCode = NoNode for /storm/blobstoremaxkeysequencenumber
+4259 [main] INFO  o.a.s.cluster - setup-path/blobstore/main_topology-1-1525293440-stormconf.ser/gabriel-VirtualBox:6627-1
+4293 [main] INFO  o.a.s.cluster - setup-path/blobstore/main_topology-1-1525293440-stormcode.ser/gabriel-VirtualBox:6627-1
+4308 [main] INFO  o.a.s.d.nimbus - desired replication count 1 achieved, current-replication-count for conf key = 1, current-replication-count for code key = 1, current-replication-count for jar key = 1
+4363 [main] INFO  o.a.s.d.nimbus - Activating main_topology: main_topology-1-1525293440
+4827 [timer] INFO  o.a.s.s.EvenScheduler - Available slots: (["0a8fa52a-c370-4dc2-a9d6-355028d8e144" 1024] ["0a8fa52a-c370-4dc2-a9d6-355028d8e144" 1025] ["0a8fa52a-c370-4dc2-a9d6-355028d8e144" 1026] ["31843566-87ae-456d-9037-4435691cc4fa" 1027] ["31843566-87ae-456d-9037-4435691cc4fa" 1028] ["31843566-87ae-456d-9037-4435691cc4fa" 1029])
+4853 [timer] INFO  o.a.s.d.nimbus - Setting new assignment for topology id main_topology-1-1525293440: #org.apache.storm.daemon.common.Assignment{:master-code-dir "/tmp/136472fe-0a6c-40df-bcc7-5e3ad787a8f0", :node->host {"0a8fa52a-c370-4dc2-a9d6-355028d8e144" "gabriel-VirtualBox"}, :executor->node+port {[4 4] ["0a8fa52a-c370-4dc2-a9d6-355028d8e144" 1024], [3 3] ["0a8fa52a-c370-4dc2-a9d6-355028d8e144" 1024], [2 2] ["0a8fa52a-c370-4dc2-a9d6-355028d8e144" 1024], [1 1] ["0a8fa52a-c370-4dc2-a9d6-355028d8e144" 1024]}, :executor->start-time-secs {[1 1] 1525293441, [2 2] 1525293441, [3 3] 1525293441, [4 4] 1525293441}, :worker->resources {["0a8fa52a-c370-4dc2-a9d6-355028d8e144" 1024] [0.0 0.0 0.0]}, :owner "gabriel"}
+5072 [SLOT_1024] INFO  o.a.s.d.s.Slot - STATE EMPTY msInState: 1008 -> WAITING_FOR_BASIC_LOCALIZATION msInState: 1
+5073 [Async Localizer] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - Starting
+5073 [Async Localizer] INFO  o.a.s.s.o.a.z.ZooKeeper - Initiating client connection, connectString=localhost:2001/storm sessionTimeout=20000 watcher=org.apache.storm.shade.org.apache.curator.ConnectionState@26a77f8d
+5074 [Async Localizer-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Opening socket connection to server localhost/127.0.0.1:2001. Will not attempt to authenticate using SASL (unknown error)
+5075 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.NIOServerCnxnFactory - Accepted socket connection from /127.0.0.1:58492
+5075 [Async Localizer-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Socket connection established to localhost/127.0.0.1:2001, initiating session
+5075 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.ZooKeeperServer - Client attempting to establish new session at /127.0.0.1:58492
+5079 [Async Localizer] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - Default schema
+5080 [Async Localizer] INFO  o.a.s.b.FileBlobStoreImpl - Creating new blob store based in /tmp/136472fe-0a6c-40df-bcc7-5e3ad787a8f0/blobs
+5081 [SyncThread:0] INFO  o.a.s.s.o.a.z.s.ZooKeeperServer - Established session 0x1632292dcb7000d with negotiated timeout 20000 for client /127.0.0.1:58492
+5081 [Async Localizer-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Session establishment complete on server localhost/127.0.0.1:2001, sessionid = 0x1632292dcb7000d, negotiated timeout = 20000
+5082 [Async Localizer-EventThread] INFO  o.a.s.s.o.a.c.f.s.ConnectionStateManager - State change: CONNECTED
+5089 [Curator-Framework-0] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - backgroundOperationsLoop exiting
+5091 [ProcessThread(sid:0 cport:-1):] INFO  o.a.s.s.o.a.z.s.PrepRequestProcessor - Processed session termination for sessionid: 0x1632292dcb7000d
+5092 [Async Localizer-EventThread] INFO  o.a.s.s.o.a.z.ClientCnxn - EventThread shut down
+5092 [Async Localizer] INFO  o.a.s.s.o.a.z.ZooKeeper - Session: 0x1632292dcb7000d closed
+5093 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.NIOServerCnxn - Closed socket connection for client /127.0.0.1:58492 which had sessionid 0x1632292dcb7000d
+5160 [Async Localizer] INFO  o.a.s.l.AsyncLocalizer - Extracting resources from jar at /home/gabriel/ICS5114_Practical_Assignment/streaming/_build/ICS5114_Practical_Assignment-0.0.1-SNAPSHOT-standalone.jar to /tmp/8055a10a-8857-429f-a5ab-82e825c29bdf/supervisor/tmp/a5f5ac51-2d25-4880-b01e-0bde66484e56/
+6138 [SLOT_1024] INFO  o.a.s.d.s.Slot - STATE WAITING_FOR_BASIC_LOCALIZATION msInState: 1066 -> WAITING_FOR_BLOB_LOCALIZATION msInState: 0
+6144 [SLOT_1024] INFO  o.a.s.d.s.Container - Setting up 0a8fa52a-c370-4dc2-a9d6-355028d8e144:aaee1028-801b-46e4-8c5f-71c7be4d4829
+6144 [SLOT_1024] INFO  o.a.s.d.s.Container - GET worker-user for aaee1028-801b-46e4-8c5f-71c7be4d4829
+6156 [SLOT_1024] INFO  o.a.s.d.s.Container - SET worker-user aaee1028-801b-46e4-8c5f-71c7be4d4829 gabriel
+6166 [SLOT_1024] INFO  o.a.s.d.worker - Launching worker for main_topology-1-1525293440 on 0a8fa52a-c370-4dc2-a9d6-355028d8e144:1024 with id aaee1028-801b-46e4-8c5f-71c7be4d4829 and conf {"topology.builtin.metrics.bucket.size.secs" 60, "nimbus.childopts" "-Xmx1024m", "ui.filter.params" nil, "storm.cluster.mode" "local", "storm.messaging.netty.client_worker_threads" 1, "logviewer.max.per.worker.logs.size.mb" 2048, "supervisor.run.worker.as.user" false, "topology.max.task.parallelism" nil, "topology.priority" 29, "zmq.threads" 1, "storm.group.mapping.service" "org.apache.storm.security.auth.ShellBasedGroupsMapping", "transactional.zookeeper.root" "/transactional", "topology.sleep.spout.wait.strategy.time.ms" 1, "ui.pagination" 20, "scheduler.display.resource" false, "topology.max.replication.wait.time.sec" 60, "drpc.invocations.port" 3773, "supervisor.localizer.cache.target.size.mb" 10240, "topology.multilang.serializer" "org.apache.storm.multilang.JsonSerializer", "storm.messaging.netty.server_worker_threads" 1, "nimbus.blobstore.class" "org.apache.storm.blobstore.LocalFsBlobStore", "resource.aware.scheduler.eviction.strategy" "org.apache.storm.scheduler.resource.strategies.eviction.DefaultEvictionStrategy", "topology.max.error.report.per.interval" 5, "storm.thrift.transport" "org.apache.storm.security.auth.SimpleTransportPlugin", "zmq.hwm" 0, "storm.group.mapping.service.params" nil, "worker.profiler.enabled" false, "storm.principal.tolocal" "org.apache.storm.security.auth.DefaultPrincipalToLocal", "supervisor.worker.shutdown.sleep.secs" 3, "pacemaker.host" "localhost", "storm.zookeeper.retry.times" 5, "ui.actions.enabled" true, "zmq.linger.millis" 0, "supervisor.enable" true, "topology.stats.sample.rate" 0.05, "storm.messaging.netty.min_wait_ms" 100, "worker.log.level.reset.poll.secs" 30, "storm.zookeeper.port" 2001, "supervisor.heartbeat.frequency.secs" 5, "topology.enable.message.timeouts" true, "supervisor.cpu.capacity" 400.0, "drpc.worker.threads" 64, "supervisor.blobstore.download.thread.count" 5, "task.backpressure.poll.secs" 30, "drpc.queue.size" 128, "topology.backpressure.enable" false, "supervisor.blobstore.class" "org.apache.storm.blobstore.NimbusBlobStore", "storm.blobstore.inputstream.buffer.size.bytes" 65536, "topology.shellbolt.max.pending" 100, "drpc.https.keystore.password" "", "nimbus.code.sync.freq.secs" 120, "logviewer.port" 8000, "topology.scheduler.strategy" "org.apache.storm.scheduler.resource.strategies.scheduling.DefaultResourceAwareStrategy", "topology.executor.send.buffer.size" 1024, "resource.aware.scheduler.priority.strategy" "org.apache.storm.scheduler.resource.strategies.priority.DefaultSchedulingPriorityStrategy", "pacemaker.auth.method" "NONE", "storm.daemon.metrics.reporter.plugins" ["org.apache.storm.daemon.metrics.reporters.JmxPreparableReporter"], "topology.worker.logwriter.childopts" "-Xmx64m", "topology.spout.wait.strategy" "org.apache.storm.spout.SleepSpoutWaitStrategy", "ui.host" "0.0.0.0", "storm.nimbus.retry.interval.millis" 2000, "nimbus.inbox.jar.expiration.secs" 3600, "dev.zookeeper.path" "/tmp/dev-storm-zookeeper", "topology.acker.executors" nil, "topology.fall.back.on.java.serialization" true, "topology.eventlogger.executors" 0, "supervisor.localizer.cleanup.interval.ms" 600000, "storm.zookeeper.servers" ["localhost"], "nimbus.thrift.threads" 64, "logviewer.cleanup.age.mins" 10080, "topology.worker.childopts" nil, "topology.classpath" nil, "supervisor.monitor.frequency.secs" 3, "nimbus.credential.renewers.freq.secs" 600, "backpressure.znode.timeout.secs" 30, "topology.skip.missing.kryo.registrations" true, "drpc.authorizer.acl.filename" "drpc-auth-acl.yaml", "pacemaker.kerberos.users" [], "storm.group.mapping.service.cache.duration.secs" 120, "blobstore.dir" "/tmp/136472fe-0a6c-40df-bcc7-5e3ad787a8f0", "topology.testing.always.try.serialize" false, "nimbus.monitor.freq.secs" 10, "storm.health.check.timeout.ms" 5000, "supervisor.supervisors" [], "topology.tasks" nil, "topology.bolts.outgoing.overflow.buffer.enable" false, "storm.messaging.netty.socket.backlog" 500, "topology.workers" 1, "pacemaker.base.threads" 10, "storm.local.dir" "/tmp/8055a10a-8857-429f-a5ab-82e825c29bdf", "backpressure.znode.update.freq.secs" 15, "worker.childopts" "-Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump", "storm.auth.simple-white-list.users" [], "topology.disruptor.batch.timeout.millis" 1, "topology.message.timeout.secs" 30, "topology.state.synchronization.timeout.secs" 60, "topology.tuple.serializer" "org.apache.storm.serialization.types.ListDelegateSerializer", "supervisor.supervisors.commands" [], "nimbus.blobstore.expiration.secs" 600, "logviewer.childopts" "-Xmx128m", "topology.environment" nil, "topology.debug" false, "topology.disruptor.batch.size" 100, "storm.disable.symlinks" false, "storm.messaging.netty.max_retries" 300, "ui.childopts" "-Xmx768m", "storm.network.topography.plugin" "org.apache.storm.networktopography.DefaultRackDNSToSwitchMapping", "storm.zookeeper.session.timeout" 20000, "drpc.childopts" "-Xmx768m", "drpc.http.creds.plugin" "org.apache.storm.security.auth.DefaultHttpCredentialsPlugin", "storm.zookeeper.connection.timeout" 15000, "storm.zookeeper.auth.user" nil, "storm.meta.serialization.delegate" "org.apache.storm.serialization.GzipThriftSerializationDelegate", "topology.max.spout.pending" nil, "storm.codedistributor.class" "org.apache.storm.codedistributor.LocalFileSystemCodeDistributor", "nimbus.supervisor.timeout.secs" 60, "nimbus.task.timeout.secs" 30, "drpc.port" 3772, "pacemaker.max.threads" 50, "storm.zookeeper.retry.intervalceiling.millis" 30000, "nimbus.thrift.port" 6627, "storm.auth.simple-acl.admins" [], "topology.component.cpu.pcore.percent" 10.0, "supervisor.memory.capacity.mb" 3072.0, "storm.nimbus.retry.times" 5, "supervisor.worker.start.timeout.secs" 120, "storm.zookeeper.retry.interval" 1000, "logs.users" nil, "storm.cluster.metrics.consumer.publish.interval.secs" 60, "worker.profiler.command" "flight.bash", "transactional.zookeeper.port" nil, "drpc.max_buffer_size" 1048576, "pacemaker.thread.timeout" 10, "task.credentials.poll.secs" 30, "blobstore.superuser" "gabriel", "drpc.https.keystore.type" "JKS", "topology.worker.receiver.thread.count" 1, "topology.state.checkpoint.interval.ms" 1000, "supervisor.slots.ports" (1024 1025 1026), "topology.transfer.buffer.size" 1024, "storm.health.check.dir" "healthchecks", "topology.worker.shared.thread.pool.size" 4, "drpc.authorizer.acl.strict" false, "nimbus.file.copy.expiration.secs" 600, "worker.profiler.childopts" "-XX:+UnlockCommercialFeatures -XX:+FlightRecorder", "topology.executor.receive.buffer.size" 1024, "backpressure.disruptor.low.watermark" 0.4, "nimbus.task.launch.secs" 120, "storm.local.mode.zmq" false, "storm.messaging.netty.buffer_size" 5242880, "storm.cluster.state.store" "org.apache.storm.cluster_state.zookeeper_state_factory", "worker.heartbeat.frequency.secs" 1, "storm.log4j2.conf.dir" "log4j2", "ui.http.creds.plugin" "org.apache.storm.security.auth.DefaultHttpCredentialsPlugin", "storm.zookeeper.root" "/storm", "topology.tick.tuple.freq.secs" nil, "drpc.https.port" -1, "storm.workers.artifacts.dir" "workers-artifacts", "supervisor.blobstore.download.max_retries" 3, "task.refresh.poll.secs" 10, "storm.exhibitor.port" 8080, "task.heartbeat.frequency.secs" 3, "pacemaker.port" 6699, "storm.messaging.netty.max_wait_ms" 1000, "topology.component.resources.offheap.memory.mb" 0.0, "drpc.http.port" 3774, "topology.error.throttle.interval.secs" 10, "storm.messaging.transport" "org.apache.storm.messaging.netty.Context", "topology.disable.loadaware.messaging" false, "storm.messaging.netty.authentication" false, "topology.component.resources.onheap.memory.mb" 128.0, "topology.kryo.factory" "org.apache.storm.serialization.DefaultKryoFactory", "worker.gc.childopts" "", "nimbus.topology.validator" "org.apache.storm.nimbus.DefaultTopologyValidator", "nimbus.seeds" ["localhost"], "nimbus.queue.size" 100000, "nimbus.cleanup.inbox.freq.secs" 600, "storm.blobstore.replication.factor" 3, "worker.heap.memory.mb" 768, "logviewer.max.sum.worker.logs.size.mb" 4096, "pacemaker.childopts" "-Xmx1024m", "ui.users" nil, "transactional.zookeeper.servers" nil, "supervisor.worker.timeout.secs" 30, "storm.zookeeper.auth.password" nil, "storm.blobstore.acl.validation.enabled" false, "client.blobstore.class" "org.apache.storm.blobstore.NimbusBlobStore", "storm.thrift.socket.timeout.ms" 600000, "supervisor.childopts" "-Xmx256m", "topology.worker.max.heap.size.mb" 768.0, "ui.http.x-frame-options" "DENY", "backpressure.disruptor.high.watermark" 0.9, "ui.filter" nil, "ui.header.buffer.bytes" 4096, "topology.min.replication.count" 1, "topology.disruptor.wait.timeout.millis" 1000, "storm.nimbus.retry.intervalceiling.millis" 60000, "topology.trident.batch.emit.interval.millis" 50, "storm.auth.simple-acl.users" [], "drpc.invocations.threads" 64, "java.library.path" "/usr/local/lib:/opt/local/lib:/usr/lib", "ui.port" 8080, "storm.exhibitor.poll.uripath" "/exhibitor/v1/cluster/list", "storm.messaging.netty.transfer.batch.size" 262144, "logviewer.appender.name" "A1", "nimbus.thrift.max_buffer_size" 1048576, "storm.auth.simple-acl.users.commands" [], "drpc.request.timeout.secs" 600}
+6167 [SLOT_1024] INFO  o.a.s.m.StormMetricRegistry - Starting metrics reporters...
+6172 [SLOT_1024] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - Starting
+6173 [SLOT_1024] INFO  o.a.s.s.o.a.z.ZooKeeper - Initiating client connection, connectString=localhost:2001 sessionTimeout=20000 watcher=org.apache.storm.shade.org.apache.curator.ConnectionState@6ccf05dd
+6175 [SLOT_1024-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Opening socket connection to server localhost/127.0.0.1:2001. Will not attempt to authenticate using SASL (unknown error)
+6176 [SLOT_1024] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - Default schema
+6176 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.NIOServerCnxnFactory - Accepted socket connection from /127.0.0.1:58494
+6176 [SLOT_1024-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Socket connection established to localhost/127.0.0.1:2001, initiating session
+6176 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.ZooKeeperServer - Client attempting to establish new session at /127.0.0.1:58494
+6601 [SyncThread:0] INFO  o.a.s.s.o.a.z.s.ZooKeeperServer - Established session 0x1632292dcb7000e with negotiated timeout 20000 for client /127.0.0.1:58494
+6601 [SLOT_1024-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Session establishment complete on server localhost/127.0.0.1:2001, sessionid = 0x1632292dcb7000e, negotiated timeout = 20000
+6602 [SLOT_1024-EventThread] INFO  o.a.s.s.o.a.c.f.s.ConnectionStateManager - State change: CONNECTED
+6602 [SLOT_1024-EventThread] INFO  o.a.s.zookeeper - Zookeeper state update: :connected:none
+6604 [Curator-Framework-0] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - backgroundOperationsLoop exiting
+6605 [ProcessThread(sid:0 cport:-1):] INFO  o.a.s.s.o.a.z.s.PrepRequestProcessor - Processed session termination for sessionid: 0x1632292dcb7000e
+6620 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.NIOServerCnxn - Closed socket connection for client /127.0.0.1:58494 which had sessionid 0x1632292dcb7000e
+6620 [SLOT_1024] INFO  o.a.s.s.o.a.z.ZooKeeper - Session: 0x1632292dcb7000e closed
+6620 [SLOT_1024-EventThread] INFO  o.a.s.s.o.a.z.ClientCnxn - EventThread shut down
+6622 [SLOT_1024] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - Starting
+6622 [SLOT_1024] INFO  o.a.s.s.o.a.z.ZooKeeper - Initiating client connection, connectString=localhost:2001/storm sessionTimeout=20000 watcher=org.apache.storm.shade.org.apache.curator.ConnectionState@12939ebf
+6623 [SLOT_1024-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Opening socket connection to server localhost/127.0.0.1:2001. Will not attempt to authenticate using SASL (unknown error)
+6623 [SLOT_1024] INFO  o.a.s.s.o.a.c.f.i.CuratorFrameworkImpl - Default schema
+6624 [SLOT_1024-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Socket connection established to localhost/127.0.0.1:2001, initiating session
+6624 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.NIOServerCnxnFactory - Accepted socket connection from /127.0.0.1:58496
+6624 [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2001] INFO  o.a.s.s.o.a.z.s.ZooKeeperServer - Client attempting to establish new session at /127.0.0.1:58496
+6760 [SyncThread:0] INFO  o.a.s.s.o.a.z.s.ZooKeeperServer - Established session 0x1632292dcb7000f with negotiated timeout 20000 for client /127.0.0.1:58496
+6760 [SLOT_1024-SendThread(localhost:2001)] INFO  o.a.s.s.o.a.z.ClientCnxn - Session establishment complete on server localhost/127.0.0.1:2001, sessionid = 0x1632292dcb7000f, negotiated timeout = 20000
+6760 [SLOT_1024-EventThread] INFO  o.a.s.s.o.a.c.f.s.ConnectionStateManager - State change: CONNECTED
+6767 [SLOT_1024] INFO  o.a.s.s.a.AuthUtils - Got AutoCreds []
+6771 [SLOT_1024] INFO  o.a.s.d.worker - Reading Assignments.
+6835 [SLOT_1024] INFO  o.a.s.d.worker - Registering IConnectionCallbacks for 0a8fa52a-c370-4dc2-a9d6-355028d8e144:1024
+6870 [SLOT_1024] INFO  o.a.s.d.executor - Loading executor graph_writer_bolt:[2 2]
+6888 [SLOT_1024] INFO  o.a.s.d.executor - Loaded executor tasks graph_writer_bolt:[2 2]
+7049 [SLOT_1024] INFO  o.a.s.d.executor - Finished loading executor graph_writer_bolt:[2 2]
+7059 [SLOT_1024] INFO  o.a.s.d.executor - Loading executor video_decoder_bolt:[3 3]
+7064 [SLOT_1024] INFO  o.a.s.d.executor - Loaded executor tasks video_decoder_bolt:[3 3]
+7067 [SLOT_1024] INFO  o.a.s.d.executor - Finished loading executor video_decoder_bolt:[3 3]
+7076 [SLOT_1024] INFO  o.a.s.d.executor - Loading executor __acker:[1 1]
+7077 [SLOT_1024] INFO  o.a.s.d.executor - Loaded executor tasks __acker:[1 1]
+7085 [SLOT_1024] INFO  o.a.s.d.executor - Finished loading executor __acker:[1 1]
+7098 [SLOT_1024] INFO  o.a.s.d.executor - Loading executor __system:[-1 -1]
+7099 [SLOT_1024] INFO  o.a.s.d.executor - Loaded executor tasks __system:[-1 -1]
+7104 [SLOT_1024] INFO  o.a.s.d.executor - Finished loading executor __system:[-1 -1]
+7113 [SLOT_1024] INFO  o.a.s.d.executor - Loading executor video_recording_spout:[4 4]
+7116 [SLOT_1024] INFO  o.a.s.d.executor - Loaded executor tasks video_recording_spout:[4 4]
+7127 [SLOT_1024] INFO  o.a.s.d.executor - Finished loading executor video_recording_spout:[4 4]
+7139 [SLOT_1024] INFO  o.a.s.d.worker - Started with log levels: {"" #object[org.apache.logging.log4j.Level 0x5fa1a737 "INFO"], "org.apache.zookeeper" #object[org.apache.logging.log4j.Level 0x2ea3b497 "WARN"]}
+7150 [SLOT_1024] INFO  o.a.s.d.worker - Worker has topology config {"topology.builtin.metrics.bucket.size.secs" 60, "nimbus.childopts" "-Xmx1024m", "ui.filter.params" nil, "storm.cluster.mode" "local", "storm.messaging.netty.client_worker_threads" 1, "logviewer.max.per.worker.logs.size.mb" 2048, "supervisor.run.worker.as.user" false, "topology.max.task.parallelism" nil, "topology.priority" 29, "zmq.threads" 1, "storm.group.mapping.service" "org.apache.storm.security.auth.ShellBasedGroupsMapping", "transactional.zookeeper.root" "/transactional", "topology.sleep.spout.wait.strategy.time.ms" 1, "ui.pagination" 20, "scheduler.display.resource" false, "topology.max.replication.wait.time.sec" 60, "drpc.invocations.port" 3773, "supervisor.localizer.cache.target.size.mb" 10240, "topology.multilang.serializer" "org.apache.storm.multilang.JsonSerializer", "storm.messaging.netty.server_worker_threads" 1, "nimbus.blobstore.class" "org.apache.storm.blobstore.LocalFsBlobStore", "resource.aware.scheduler.eviction.strategy" "org.apache.storm.scheduler.resource.strategies.eviction.DefaultEvictionStrategy", "topology.max.error.report.per.interval" 5, "storm.thrift.transport" "org.apache.storm.security.auth.SimpleTransportPlugin", "zmq.hwm" 0, "storm.group.mapping.service.params" nil, "worker.profiler.enabled" false, "storm.principal.tolocal" "org.apache.storm.security.auth.DefaultPrincipalToLocal", "supervisor.worker.shutdown.sleep.secs" 3, "pacemaker.host" "localhost", "storm.zookeeper.retry.times" 5, "ui.actions.enabled" true, "zmq.linger.millis" 0, "supervisor.enable" true, "topology.stats.sample.rate" 0.05, "storm.messaging.netty.min_wait_ms" 100, "worker.log.level.reset.poll.secs" 30, "storm.zookeeper.port" 2001, "supervisor.heartbeat.frequency.secs" 5, "topology.enable.message.timeouts" true, "supervisor.cpu.capacity" 400.0, "drpc.worker.threads" 64, "supervisor.blobstore.download.thread.count" 5, "task.backpressure.poll.secs" 30, "drpc.queue.size" 128, "topology.backpressure.enable" false, "supervisor.blobstore.class" "org.apache.storm.blobstore.NimbusBlobStore", "storm.blobstore.inputstream.buffer.size.bytes" 65536, "topology.shellbolt.max.pending" 100, "drpc.https.keystore.password" "", "nimbus.code.sync.freq.secs" 120, "logviewer.port" 8000, "topology.scheduler.strategy" "org.apache.storm.scheduler.resource.strategies.scheduling.DefaultResourceAwareStrategy", "topology.executor.send.buffer.size" 1024, "resource.aware.scheduler.priority.strategy" "org.apache.storm.scheduler.resource.strategies.priority.DefaultSchedulingPriorityStrategy", "pacemaker.auth.method" "NONE", "storm.daemon.metrics.reporter.plugins" ["org.apache.storm.daemon.metrics.reporters.JmxPreparableReporter"], "topology.worker.logwriter.childopts" "-Xmx64m", "topology.spout.wait.strategy" "org.apache.storm.spout.SleepSpoutWaitStrategy", "ui.host" "0.0.0.0", "topology.submitter.principal" "", "pystorm.log.backup_count" 10, "storm.nimbus.retry.interval.millis" 2000, "nimbus.inbox.jar.expiration.secs" 3600, "dev.zookeeper.path" "/tmp/dev-storm-zookeeper", "topology.acker.executors" 1, "topology.fall.back.on.java.serialization" true, "topology.eventlogger.executors" 0, "supervisor.localizer.cleanup.interval.ms" 600000, "storm.zookeeper.servers" ["localhost"], "nimbus.thrift.threads" 64, "logviewer.cleanup.age.mins" 10080, "topology.worker.childopts" nil, "topology.classpath" nil, "supervisor.monitor.frequency.secs" 3, "nimbus.credential.renewers.freq.secs" 600, "backpressure.znode.timeout.secs" 30, "topology.skip.missing.kryo.registrations" true, "drpc.authorizer.acl.filename" "drpc-auth-acl.yaml", "pacemaker.kerberos.users" [], "storm.group.mapping.service.cache.duration.secs" 120, "blobstore.dir" "/tmp/136472fe-0a6c-40df-bcc7-5e3ad787a8f0", "topology.testing.always.try.serialize" false, "nimbus.monitor.freq.secs" 10, "storm.health.check.timeout.ms" 5000, "pystorm.log.level" "info", "supervisor.supervisors" [], "topology.tasks" nil, "topology.bolts.outgoing.overflow.buffer.enable" false, "storm.messaging.netty.socket.backlog" 500, "topology.workers" 1, "pacemaker.base.threads" 10, "storm.local.dir" "/tmp/136472fe-0a6c-40df-bcc7-5e3ad787a8f0", "backpressure.znode.update.freq.secs" 15, "worker.childopts" "-Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump", "storm.auth.simple-white-list.users" [], "topology.disruptor.batch.timeout.millis" 1, "topology.message.timeout.secs" 30, "topology.state.synchronization.timeout.secs" 60, "topology.tuple.serializer" "org.apache.storm.serialization.types.ListDelegateSerializer", "supervisor.supervisors.commands" [], "nimbus.blobstore.expiration.secs" 600, "logviewer.childopts" "-Xmx128m", "topology.environment" nil, "topology.debug" false, "topology.disruptor.batch.size" 100, "storm.disable.symlinks" false, "storm.messaging.netty.max_retries" 300, "ui.childopts" "-Xmx768m", "storm.network.topography.plugin" "org.apache.storm.networktopography.DefaultRackDNSToSwitchMapping", "storm.zookeeper.session.timeout" 20000, "drpc.childopts" "-Xmx768m", "drpc.http.creds.plugin" "org.apache.storm.security.auth.DefaultHttpCredentialsPlugin", "storm.zookeeper.connection.timeout" 15000, "storm.zookeeper.auth.user" nil, "storm.meta.serialization.delegate" "org.apache.storm.serialization.GzipThriftSerializationDelegate", "topology.max.spout.pending" nil, "storm.codedistributor.class" "org.apache.storm.codedistributor.LocalFileSystemCodeDistributor", "nimbus.supervisor.timeout.secs" 60, "nimbus.task.timeout.secs" 30, "storm.zookeeper.superACL" nil, "drpc.port" 3772, "pacemaker.max.threads" 50, "storm.zookeeper.retry.intervalceiling.millis" 30000, "nimbus.thrift.port" 6627, "storm.auth.simple-acl.admins" [], "topology.component.cpu.pcore.percent" 10.0, "supervisor.memory.capacity.mb" 3072.0, "storm.nimbus.retry.times" 5, "supervisor.worker.start.timeout.secs" 120, "storm.zookeeper.retry.interval" 1000, "pystorm.log.max_bytes" 1000000, "logs.users" nil, "storm.cluster.metrics.consumer.publish.interval.secs" 60, "worker.profiler.command" "flight.bash", "transactional.zookeeper.port" nil, "drpc.max_buffer_size" 1048576, "pacemaker.thread.timeout" 10, "task.credentials.poll.secs" 30, "topology.python.path" "/main_topology/bin/python", "blobstore.superuser" "gabriel", "drpc.https.keystore.type" "JKS", "topology.worker.receiver.thread.count" 1, "topology.state.checkpoint.interval.ms" 1000, "supervisor.slots.ports" [6700 6701 6702 6703], "topology.transfer.buffer.size" 1024, "storm.health.check.dir" "healthchecks", "topology.worker.shared.thread.pool.size" 4, "drpc.authorizer.acl.strict" false, "nimbus.file.copy.expiration.secs" 600, "worker.profiler.childopts" "-XX:+UnlockCommercialFeatures -XX:+FlightRecorder", "topology.executor.receive.buffer.size" 1024, "backpressure.disruptor.low.watermark" 0.4, "topology.users" [], "nimbus.task.launch.secs" 120, "storm.local.mode.zmq" false, "storm.messaging.netty.buffer_size" 5242880, "storm.cluster.state.store" "org.apache.storm.cluster_state.zookeeper_state_factory", "worker.heartbeat.frequency.secs" 1, "storm.log4j2.conf.dir" "log4j2", "ui.http.creds.plugin" "org.apache.storm.security.auth.DefaultHttpCredentialsPlugin", "storm.zookeeper.root" "/storm", "topology.submitter.user" "gabriel", "topology.tick.tuple.freq.secs" nil, "drpc.https.port" -1, "storm.workers.artifacts.dir" "workers-artifacts", "supervisor.blobstore.download.max_retries" 3, "task.refresh.poll.secs" 10, "storm.exhibitor.port" 8080, "task.heartbeat.frequency.secs" 3, "pacemaker.port" 6699, "storm.messaging.netty.max_wait_ms" 1000, "topology.component.resources.offheap.memory.mb" 0.0, "drpc.http.port" 3774, "topology.error.throttle.interval.secs" 10, "storm.messaging.transport" "org.apache.storm.messaging.netty.Context", "topology.disable.loadaware.messaging" false, "storm.messaging.netty.authentication" false, "topology.component.resources.onheap.memory.mb" 128.0, "topology.kryo.factory" "org.apache.storm.serialization.DefaultKryoFactory", "topology.kryo.register" nil, "worker.gc.childopts" "", "nimbus.topology.validator" "org.apache.storm.nimbus.DefaultTopologyValidator", "nimbus.seeds" ["localhost"], "nimbus.queue.size" 100000, "nimbus.cleanup.inbox.freq.secs" 600, "storm.blobstore.replication.factor" 3, "worker.heap.memory.mb" 768, "logviewer.max.sum.worker.logs.size.mb" 4096, "pacemaker.childopts" "-Xmx1024m", "ui.users" nil, "transactional.zookeeper.servers" nil, "supervisor.worker.timeout.secs" 600, "storm.zookeeper.auth.password" nil, "storm.blobstore.acl.validation.enabled" false, "client.blobstore.class" "org.apache.storm.blobstore.NimbusBlobStore", "storm.thrift.socket.timeout.ms" 600000, "supervisor.childopts" "-Xmx256m", "topology.worker.max.heap.size.mb" 768.0, "ui.http.x-frame-options" "DENY", "backpressure.disruptor.high.watermark" 0.9, "ui.filter" nil, "ui.header.buffer.bytes" 4096, "topology.min.replication.count" 1, "topology.disruptor.wait.timeout.millis" 1000, "storm.nimbus.retry.intervalceiling.millis" 60000, "topology.trident.batch.emit.interval.millis" 50, "storm.auth.simple-acl.users" [], "drpc.invocations.threads" 64, "java.library.path" "/usr/local/lib:/opt/local/lib:/usr/lib", "ui.port" 8080, "storm.workers.list" [], "topology.kryo.decorators" [], "storm.id" "main_topology-1-1525293440", "topology.name" "main_topology", "storm.exhibitor.poll.uripath" "/exhibitor/v1/cluster/list", "storm.messaging.netty.transfer.batch.size" 262144, "logviewer.appender.name" "A1", "nimbus.thrift.max_buffer_size" 1048576, "storm.auth.simple-acl.users.commands" [], "drpc.request.timeout.secs" 600}
+7152 [SLOT_1024] INFO  o.a.s.d.worker - Worker aaee1028-801b-46e4-8c5f-71c7be4d4829 for storm main_topology-1-1525293440 on 0a8fa52a-c370-4dc2-a9d6-355028d8e144:1024 has finished loading
+7152 [SLOT_1024] INFO  o.a.s.d.s.Container - SET worker-user aaee1028-801b-46e4-8c5f-71c7be4d4829 gabriel
+7154 [SLOT_1024] INFO  o.a.s.d.s.Slot - STATE WAITING_FOR_BLOB_LOCALIZATION msInState: 1016 -> WAITING_FOR_WORKER_START msInState: 0 topo:main_topology-1-1525293440 worker:aaee1028-801b-46e4-8c5f-71c7be4d4829
+7154 [SLOT_1024] INFO  o.a.s.d.s.Slot - SLOT 1024: Changing current assignment from null to LocalAssignment(topology_id:main_topology-1-1525293440, executors:[ExecutorInfo(task_start:4, task_end:4), ExecutorInfo(task_start:3, task_end:3), ExecutorInfo(task_start:2, task_end:2), ExecutorInfo(task_start:1, task_end:1)], resources:WorkerResources(mem_on_heap:0.0, mem_off_heap:0.0, cpu:0.0), owner:gabriel)
+7158 [SLOT_1024] INFO  o.a.s.d.s.Slot - STATE WAITING_FOR_WORKER_START msInState: 4 topo:main_topology-1-1525293440 worker:aaee1028-801b-46e4-8c5f-71c7be4d4829 -> RUNNING msInState: 0 topo:main_topology-1-1525293440 worker:aaee1028-801b-46e4-8c5f-71c7be4d4829
+7818 [refresh-active-timer] INFO  o.a.s.d.worker - All connections are ready for worker 0a8fa52a-c370-4dc2-a9d6-355028d8e144:1024 with id aaee1028-801b-46e4-8c5f-71c7be4d4829
+7835 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.d.executor - Opening spout video_recording_spout:(4)
+7840 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.u.ShellProcess - Storm multilang serializer: org.apache.storm.multilang.JsonSerializer
+7856 [Thread-18-graph_writer_bolt-executor[2 2]] INFO  o.a.s.d.executor - Preparing bolt graph_writer_bolt:(2)
+7859 [Thread-18-graph_writer_bolt-executor[2 2]] INFO  o.a.s.u.ShellProcess - Storm multilang serializer: org.apache.storm.multilang.JsonSerializer
+7876 [Thread-20-video_decoder_bolt-executor[3 3]] INFO  o.a.s.d.executor - Preparing bolt video_decoder_bolt:(3)
+7878 [Thread-20-video_decoder_bolt-executor[3 3]] INFO  o.a.s.u.ShellProcess - Storm multilang serializer: org.apache.storm.multilang.JsonSerializer
+7894 [Thread-22-__acker-executor[1 1]] INFO  o.a.s.d.executor - Preparing bolt __acker:(1)
+7897 [Thread-22-__acker-executor[1 1]] INFO  o.a.s.d.executor - Prepared bolt __acker:(1)
+7915 [Thread-24-__system-executor[-1 -1]] INFO  o.a.s.d.executor - Preparing bolt __system:(-1)
+7921 [Thread-24-__system-executor[-1 -1]] INFO  o.a.s.d.executor - Prepared bolt __system:(-1)
+8259 [Thread-18-graph_writer_bolt-executor[2 2]] INFO  o.a.s.t.ShellBolt - Launched subprocess with pid 17815
+8263 [Thread-18-graph_writer_bolt-executor[2 2]] INFO  o.a.s.t.ShellBolt - Start checking heartbeat...
+8293 [Thread-18-graph_writer_bolt-executor[2 2]] INFO  o.a.s.d.executor - Prepared bolt graph_writer_bolt:(2)
+8271 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt pystorm StormHandler logging enabled, so all messages at levels greater than "pystorm.log.level" (info) will be sent to Storm.
+8435 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - Launched subprocess with pid 17813
+8436 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.d.executor - Opened spout video_recording_spout:(4)
+8438 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.d.executor - Activating spout video_recording_spout:(4)
+8439 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - Start checking heartbeat...
+8440 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - ShellLog pid:17813, name:video_recording_spout pystorm StormHandler logging enabled, so all messages at levels greater than "pystorm.log.level" (info) will be sent to Storm.
+8441 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - ShellLog pid:17813, name:video_recording_spout Initiating KafkaSpout..
+8478 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - ShellLog pid:17813, name:video_recording_spout Balanced Consumer Established.
+9129 [Thread-20-video_decoder_bolt-executor[3 3]] INFO  o.a.s.t.ShellBolt - Launched subprocess with pid 17817
+9131 [Thread-20-video_decoder_bolt-executor[3 3]] INFO  o.a.s.t.ShellBolt - Start checking heartbeat...
+9133 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt pystorm StormHandler logging enabled, so all messages at levels greater than "pystorm.log.level" (info) will be sent to Storm.
+9133 [Thread-20-video_decoder_bolt-executor[3 3]] INFO  o.a.s.d.executor - Prepared bolt video_decoder_bolt:(3)
+139633 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - ShellLog pid:17813, name:video_recording_spout Message offloaded from consumer..
+139634 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - ShellLog pid:17813, name:video_recording_spout Object de-pickled and pushed downstream - /home/gabriel/ICS5114_Practical_Assignment/recording/src/video_buffer/dreamhackcs_twitch_tv_201852223815.flac
+139639 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(1)
+139640 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(2)
+139640 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(4)
+139640 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt Received streaming object for URI: 8796748372106_1525293526797/audioFile.flac
+142301 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(5)
+173845 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(6)
+176630 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(7)
+176630 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt CLEANED MESSAGE STRING [['come', 'back', 'please', 'harder', 'bounce', 'back', 'think', 'actually', 'bad', 'place', 'rescue', 'lose', 'enough', 'say', 're', 'bad', 'know', 'actually', 'compete', 'actually', 'showed', 'good', 'level', 'got', 'game', 'nt', 'get', 'like', 'emotionally', 'crushed', 'almost', 'making', 'yeah', 'knew', 'going', 'happen', 'show', 'could', 'reach', 'romantic', 'Silver', 'Lining', 'type', 'thing', 'like', 'amount', 'number']]
+176630 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(8)
+176630 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt Video decoding for [8796748372106_1525293526797/audioFile.flac] complete - Pushing downstream..
+176630 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(9)
+176631 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(10)
+176635 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(1)
+176635 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(2)
+176635 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(4)
+176635 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt Preparing batch for graph writing..
+176635 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(5)
+176635 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(6)
+176639 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(7)
+176646 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(8)
+176646 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)come
+176655 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176658 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176660 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176665 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176666 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)back
+176675 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176677 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176679 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176682 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176683 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)please
+176699 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176703 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176709 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176711 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176712 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)harder
+176738 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176743 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176746 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176748 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176749 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)bounce
+176765 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176768 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176771 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176773 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176773 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)back
+176782 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176800 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176803 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176805 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176805 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)think
+176820 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176824 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176826 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176828 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176828 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)actually
+176837 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176849 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176852 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176854 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176854 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)bad
+176867 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176870 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176872 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176875 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176876 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)place
+176893 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176895 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176897 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176898 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176898 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)rescue
+176913 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176915 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176917 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176919 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176919 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)lose
+176939 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176942 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176944 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176945 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176946 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)enough
+176960 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176963 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176967 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176970 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176971 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)say
+176981 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176983 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176984 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176986 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+176986 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)re
+176994 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+176999 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177000 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177003 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177003 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)bad
+177012 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177015 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177020 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177024 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177024 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)know
+177034 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177038 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177045 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177048 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177049 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)actually
+177059 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177061 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177064 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177067 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177067 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)compete
+177083 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177085 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177088 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177091 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177092 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)actually
+177104 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177107 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177111 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177115 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177115 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)showed
+177133 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177135 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177138 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177140 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177140 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)good
+177152 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177156 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177159 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177163 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177163 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)level
+177180 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177183 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177186 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177190 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177191 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)got
+177199 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177203 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177206 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177210 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177210 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)game
+177224 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177227 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177230 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177233 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177233 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)nt
+177244 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177249 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177252 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177255 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177255 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)get
+177264 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177266 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177269 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177273 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177273 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)like
+177283 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177285 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177289 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177292 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177292 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)emotionally
+177304 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177306 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177308 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177309 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177310 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)crushed
+177327 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177329 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177331 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177333 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177333 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)almost
+177343 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177344 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177346 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177348 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177348 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)making
+177366 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177371 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177374 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177380 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177380 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)yeah
+177432 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177434 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177436 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177438 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177438 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)knew
+177446 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177448 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177450 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177453 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177453 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)going
+177464 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177466 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177468 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177471 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177471 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)happen
+177483 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177485 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177487 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177490 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177490 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)show
+177500 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177503 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177505 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177507 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177507 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)could
+177515 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177517 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177519 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177521 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177521 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)reach
+177534 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177538 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177540 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177542 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177542 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)romantic
+177554 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177557 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177558 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177560 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177560 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)Silver
+177574 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177578 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177579 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177582 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177582 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)Lining
+177598 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177600 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177603 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177605 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177605 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)type
+177617 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177621 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177624 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177626 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177626 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)thing
+177635 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177637 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177640 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177643 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177643 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)like
+177653 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177658 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177665 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177665 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177665 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)amount
+177670 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177673 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177675 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177681 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177681 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)number
+177697 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177706 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177709 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+177710 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+177723 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(12)
+177728 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt Batch written to graph..
+184563 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - ShellLog pid:17813, name:video_recording_spout Message offloaded from consumer..
+184563 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - ShellLog pid:17813, name:video_recording_spout Object de-pickled and pushed downstream - /home/gabriel/ICS5114_Practical_Assignment/recording/src/video_buffer/dreamhackcs_twitch_tv_201852223845.flac
+184573 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(1)
+184573 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(2)
+184573 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(4)
+184573 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt Received streaming object for URI: 8796748372106_1525293559405/audioFile.flac
+188476 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(5)
+207929 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(6)
+207929 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(7)
+207930 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt CLEANED MESSAGE STRING [['Edwards', 'Edwards', 'Eagle', 'Pass']]
+207930 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(8)
+207930 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt Video decoding for [8796748372106_1525293559405/audioFile.flac] complete - Pushing downstream..
+207930 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(9)
+207930 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(10)
+207932 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(1)
+207933 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(2)
+207933 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(4)
+207933 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt Preparing batch for graph writing..
+207933 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(5)
+207933 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(6)
+207936 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(7)
+207943 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(8)
+207943 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)Edwards
+207954 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+207956 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+207958 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+207960 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+207960 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)Edwards
+207970 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+207972 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+207974 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+207976 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+207976 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)Eagle
+207987 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+207989 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+207991 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+207994 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+207994 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)Pass
+208008 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+208011 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+208014 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+208017 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+208029 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(12)
+208033 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt Batch written to graph..
+268399 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - ShellLog pid:17813, name:video_recording_spout Message offloaded from consumer..
+268400 [Thread-26-video_recording_spout-executor[4 4]] INFO  o.a.s.s.ShellSpout - ShellLog pid:17813, name:video_recording_spout Object de-pickled and pushed downstream - /home/gabriel/ICS5114_Practical_Assignment/recording/src/video_buffer/dreamhackcs_twitch_tv_201852223915.flac
+268402 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(1)
+268402 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(2)
+268402 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(4)
+268402 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt Received streaming object for URI: 8796748372106_1525293589183/audioFile.flac
+272441 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(5)
+292583 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(6)
+292584 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(7)
+292584 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt CLEANED MESSAGE STRING [['returned', 'time', 'number', 'll', 'Sports', 'v', 'SK', 'gaming', 'stage', 'day', 'good', 'news']]
+292584 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(8)
+292584 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt Video decoding for [8796748372106_1525293589183/audioFile.flac] complete - Pushing downstream..
+292584 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(9)
+292584 [Thread-31] INFO  o.a.s.t.ShellBolt - ShellLog pid:17817, name:video_decoder_bolt VIDEO LOG(10)
+292587 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(1)
+292587 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(2)
+292587 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(4)
+292587 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt Preparing batch for graph writing..
+292587 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(5)
+292587 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(6)
+292589 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(7)
+292596 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(8)
+292596 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)returned
+292607 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+292609 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+292611 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+292613 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+292613 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)time
+292619 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+292620 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+292622 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+292623 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+292623 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)number
+292629 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+292631 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+292632 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(10)
+292633 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(11)
+292633 [Thread-29] INFO  o.a.s.t.ShellBolt - ShellLog pid:17815, name:graph_writer_bolt GRAPH LOG(9)ll
+292640 [Thread-29] ERROR o.a.s.t.ShellBolt - Halting process: ShellBolt died. Command: [streamparse_run, -s json bolts.graph_writer.GraphWriter], ProcessInfo pid:17815, name:graph_writer_bolt exitCode:-1, errorString:
+java.io.IOException: Unexpected character (') at position 0.
+        at org.apache.storm.multilang.JsonSerializer.readMessage(JsonSerializer.java:172) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.multilang.JsonSerializer.readShellMsg(JsonSerializer.java:104) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.utils.ShellProcess.readShellMsg(ShellProcess.java:125) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.task.ShellBolt$BoltReaderRunnable.run(ShellBolt.java:330) [storm-core-1.2.1.jar:1.2.1]
+        at java.lang.Thread.run(Thread.java:748) [?:1.8.0_171]
+Caused by: org.apache.storm.shade.org.json.simple.parser.ParseException
+        at org.apache.storm.shade.org.json.simple.parser.Yylex.yylex(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.shade.org.json.simple.parser.JSONParser.nextToken(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.shade.org.json.simple.parser.JSONParser.parse(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.shade.org.json.simple.parser.JSONParser.parse(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.shade.org.json.simple.parser.JSONParser.parse(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.shade.org.json.simple.JSONValue.parseWithException(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.multilang.JsonSerializer.readMessage(JsonSerializer.java:170) ~[storm-core-1.2.1.jar:1.2.1]
+        ... 4 more
+292647 [Thread-29] ERROR o.a.s.d.executor -
+java.io.IOException: Unexpected character (') at position 0.
+        at org.apache.storm.multilang.JsonSerializer.readMessage(JsonSerializer.java:172) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.multilang.JsonSerializer.readShellMsg(JsonSerializer.java:104) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.utils.ShellProcess.readShellMsg(ShellProcess.java:125) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.task.ShellBolt$BoltReaderRunnable.run(ShellBolt.java:330) [storm-core-1.2.1.jar:1.2.1]
+        at java.lang.Thread.run(Thread.java:748) [?:1.8.0_171]
+Caused by: org.apache.storm.shade.org.json.simple.parser.ParseException
+        at org.apache.storm.shade.org.json.simple.parser.Yylex.yylex(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.shade.org.json.simple.parser.JSONParser.nextToken(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.shade.org.json.simple.parser.JSONParser.parse(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.shade.org.json.simple.parser.JSONParser.parse(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.shade.org.json.simple.parser.JSONParser.parse(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.shade.org.json.simple.JSONValue.parseWithException(Unknown Source) ~[storm-core-1.2.1.jar:1.2.1]
+        at org.apache.storm.multilang.JsonSerializer.readMessage(JsonSerializer.java:170) ~[storm-core-1.2.1.jar:1.2.1]
+        ... 4 more
+
+Fatal error: local() encountered an error (return code 11) while executing 'storm jar /home/gabriel/ICS5114_Practical_Assignment/streaming/_build/ICS5114_Practical_Assignment-0.0.1-SNAPSHOT-standalone.jar org.apache.storm.flux.Flux --local --no-splash --sleep 9223372036854775807 /tmp/tmp76905dfj.yaml'
+
+Aborting.

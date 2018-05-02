@@ -13,7 +13,7 @@ class BDATextProcessing:
         intermediate_result = BDATextProcessing.__single_character_removal(intermediate_result)
         intermediate_result = BDATextProcessing.__word_lemmatizing(intermediate_result)
         if len(intermediate_result) == 0:
-            return "x1x1x1x1"
+            return "?????"
         return intermediate_result
 
     @staticmethod
