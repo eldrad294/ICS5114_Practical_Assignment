@@ -55,26 +55,3 @@ while True:
     #
     # video = ri.get_video(video_path=video_path)
     ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
-#
-# Testing Loop
-# from src.kafka.stream_object import StreamObject
-# import time
-# while True:
-#     #
-#     # Initiates a call to Streamparse, and records the stream into a file locally
-#     video_path = ri.capture_and_return()
-#     #
-#     # video = ri.get_video(video_path=video_path)
-#     # Prepares the message to be submitted over to Kafka, by creating an object of type stream_object
-#     stream_object = StreamObject(platform=config_obj['platform'],
-#                                  src_url=config_obj['url'],
-#                                  channel=config_obj['channel'],
-#                                  genre=config_obj['genre'],
-#                                  time_stamp=time.ctime(),
-#                                  file_path=video_path,
-#                                  cloud_bucket_name="Test",
-#                                  cloud_bucket_path="Test",
-#                                  file=None)
-#
-#     # Submits message to Kafka broker
-#     producer.produce_message(topic=kafka_topic, stream_object=stream_object)
