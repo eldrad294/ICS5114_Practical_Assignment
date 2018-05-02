@@ -1,5 +1,6 @@
 #
 # Module imports
+import os
 from recording.src.recording.config_interface import ConfigInterface
 from recording.src.recording.recording_interface import RecordingInterface
 from recording.src.constants import path_consts as pc
@@ -12,7 +13,14 @@ submission of data onto the Kafka Broker.
 """
 #
 # Script Parameters
-stream_offset = int(g_config.get_value('ProducerRunner', 'stream_offset'))
+stream_offset = os.environ.get(g_config.get_value('ProducerRunner', 'StreamOffset_EvnVarName'))
+if stream_offset is not None:
+    stream_offset = int(stream_offset)
+    print('Stream offset extracted from env variable % d\n' % stream_offset)
+else:
+    stream_offset = int(g_config.get_value('ProducerRunner', 'stream_offset'))
+    print('Stream offset extracted from config file % d\n' % stream_offset)
+
 file_segment_time_span = int(g_config.get_value('ProducerRunner', 'file_segment_time_span'))            # File recording segment size (seconds)
 file_extension = g_config.get_value('ProducerRunner', 'file_extension')                                 # File recording extension to save the file (Set to flac for Google Storage purposes)
 file_quality = g_config.get_value('ProducerRunner', 'file_quality')                                     # Video quality to record stream at

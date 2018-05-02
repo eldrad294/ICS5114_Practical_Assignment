@@ -55,6 +55,5 @@ class BDAConfigParser:
 
 
 # ToDo: Consider converting this class into a Singleton.
-#config_file = "producer/config.ini"
-config_file = "config.ini"
+config_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir, 'config.ini')
 g_config = BDAConfigParser(config_file)
