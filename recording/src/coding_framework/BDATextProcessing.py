@@ -1,3 +1,4 @@
+import string
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -15,7 +16,9 @@ class BDATextProcessing:
         intermediate_result = BDATextProcessing.__stop_work_removal(intermediate_result)
         # First impression is that stemming is deteriorating the accuracy
         # intermediate_result = BDATextProcessing.__word_stemming(intermediate_result)
-        return BDATextProcessing.__word_lemmatizing(intermediate_result)
+        intermediate_result = BDATextProcessing.__word_lemmatizing(intermediate_result)
+        table = str.maketrans('', '', string.punctuation)
+        return [w.translate(table) for w in intermediate_result]
 
     @staticmethod
     def __stop_work_removal(str_input):
