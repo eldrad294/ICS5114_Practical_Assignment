@@ -3,6 +3,7 @@
 from streamparse import Bolt
 from graph.CRUD_interface import CRUDInterface
 from coding_framework.BDAConfigParser import g_config
+import json
 #
 class GraphWriter(Bolt):
     """
@@ -39,6 +40,9 @@ class GraphWriter(Bolt):
         :return:
         """
         streaming_object = tup.values[0]
+        #
+        # streaming_object = streaming_object.replace("'","\"")
+        # streaming_object = json.loads(streaming_object)
         #
         if not streaming_object or not streaming_object['video_text']:
             return

@@ -222,7 +222,7 @@ class BDAGoogleStorageConsume(GoogleStorageBase):
             language_code='en-US')
 
         operation = client.long_running_recognize(config, audio)
-        transcription_results = operation.result()
+        transcription_results = operation.result(timeout=600) #Time outs after 10 minutes
         self.__delete_blob(bucket_name, blob_path)
 
         transcribed_result = ''
