@@ -1,0 +1,10 @@
+How to
+------
+
+1. Build the producer docker images:
+- cd to current directory
+- Remove the _LayerXXX suffix from the desired Dockerfile
+  >> docker build -t bda/producer:1.0 .
+
+2. Create a container:
+- docker run --name producer_01 -e stream_offset=1 bda/assignment:1.1
