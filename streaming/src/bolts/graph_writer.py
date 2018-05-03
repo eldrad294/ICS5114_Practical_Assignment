@@ -38,15 +38,11 @@ class GraphWriter(Bolt):
         :param tup:
         :return:
         """
-        self.log("GRAPH LOG(1)")
         streaming_object = tup.values[0]
         #
-        self.log("GRAPH LOG(2)")
         if not streaming_object or not streaming_object['video_text']:
-            self.log("GRAPH LOG(3)")
             return
         #
-        self.log("GRAPH LOG(4)")
         self.log("Preparing batch for graph writing..")
         #
         word_list = streaming_object['video_text']
@@ -54,15 +50,12 @@ class GraphWriter(Bolt):
         genre = streaming_object['genre']
         platform = streaming_object['platform']
         #
-        self.log("GRAPH LOG(5)")
         try:
             #
             # Creates streamer node
-            self.log("GRAPH LOG(6)")
             self.interface.merge_node("streamer", streamer)
             #
             # Creates platform node
-            self.log("GRAPH LOG(7)")
             self.interface.merge_node("platform", platform)
             #
             for g in list(genre):
@@ -86,11 +79,13 @@ class GraphWriter(Bolt):
                 for g in list(genre):
                     #
                     # word - [features] - genre
-                    self.log("GRAPH LOG(10)")
+                    self.log("GRAPH LOG(10) Begin Genre[" + g + "] Word[" + word + "]")
                     self.interface.merge_relationship("genre", g,
                                                       "word", word,
                                                       "features")
-                self.log("GRAPH LOG(11)")
+                    self.log("GRAPH LOG(11) End Genre[" + g + "] Word[" + word + "]")
+                self.log("GRAPH LOG(12)")
+            self.log("GRAPH LOG(13)")
             #
             # streamer - [partakes] - genre
             for g in list(genre):

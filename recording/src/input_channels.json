@@ -4,7 +4,7 @@
     "platform":"twitch_tv",
     "url":"https://www.twitch.tv/geekandsundry",
     "channel":"GeekandSundry",
-    "genre":["tabletop-gaming",
+    "genre":["tabletop_gaming",
              "entertainment"]
   },
   {
@@ -12,8 +12,9 @@
     "url":"https://www.twitch.tv/neuro",
     "channel":"Neuro",
     "genre":["Starcraft2",
-             "strategy-gaming",
-             "entertainment"]
+             "strategy_gaming",
+             "entertainment",
+             "video_Game"]
   },
   {
     "platform":"youtube",
@@ -26,16 +27,16 @@
     "platform":"twitch_tv",
     "url":"https://www.twitch.tv/dreamhackcs",
     "channel":"DreamHackCS",
-    "genre":["FPS",
-             "E-Sport",
-             "CSGO"]
+    "genre":["fps",
+             "e_sport",
+             "csgo",
+             "video_game"]
   },
   {
     "platform":"twitch_tv",
     "url":"https://www.twitch.tv/cohhcarnage",
     "channel":"CohhCarnage",
-    "genre":["PS4",
-             "God of War",
+    "genre":["video_game",
              "entertainment"]
   },
   {
@@ -43,7 +44,7 @@
     "url":"https://www.twitch.tv/totalbiscuit",
     "channel":"TotalBiscuit",
     "genre":["Gaming Discussion",
-           "Game Review",
+           "game_review",
            "entertainment"]
   },
   {
@@ -51,14 +52,15 @@
     "url":"https://www.twitch.tv/nathanias",
     "channel":"Nathanias",
     "genre":["Starcraft2",
-             "strategy-gaming",
-             "entertainment"]
+             "strategy_gaming",
+             "entertainment",
+             "video_Game"]
   },
   {
     "platform":"youtube_live",
     "url":"https://www.youtube.com/watch?v=-cr2_8JP0R4",
     "channel":"ChapterMasterValrak",
-    "genre":["Warhammer40k",
-             "tabletop-gaming"]
+    "genre":["warhammer40k",
+             "tabletop_gaming"]
   }
 ]}
