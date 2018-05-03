@@ -1,4 +1,4 @@
-FROM bda/producer:1.0
+FROM bda/base_image:1.0
 
 ENV PYTHONPATH /root/src/ICS5114_Practical_Assignment
 ENV stream_offset 0

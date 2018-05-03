@@ -1,0 +1,9 @@
+How to
+------
+
+1. Build the base docker image:
+- cd to current directory
+  >> docker build -t bda/base_image:1.0 .
+
+2. Create a container:
+- docker run --name base_container bda/base:1.0
