@@ -5,16 +5,19 @@
     "url":"https://www.twitch.tv/geekandsundry",
     "channel":"GeekandSundry",
     "genre":["tabletop_gaming",
-             "entertainment"]
+             "entertainment",
+             "roleplay",
+             "dnd"]
   },
   {
     "platform":"twitch_tv",
     "url":"https://www.twitch.tv/neuro",
     "channel":"Neuro",
-    "genre":["Starcraft2",
+    "genre":["starcraft2",
              "strategy_gaming",
              "entertainment",
-             "video_Game"]
+             "video_game",
+             "legacy_of_the_void"]
   },
   {
     "platform":"youtube",
@@ -30,6 +33,8 @@
     "genre":["fps",
              "e_sport",
              "csgo",
+             "moba",
+             "league_of_legends",
              "video_game"]
   },
   {
@@ -54,7 +59,9 @@
     "genre":["Starcraft2",
              "strategy_gaming",
              "entertainment",
-             "video_Game"]
+             "video_game",
+             "starcraft2",
+             "legacy_of_the_void"]
   },
   {
     "platform":"youtube_live",
@@ -62,5 +69,59 @@
     "channel":"ChapterMasterValrak",
     "genre":["warhammer40k",
              "tabletop_gaming"]
+  },
+  {
+    "platform":"twitch_tv",
+    "url":"https://www.twitch.tv/nl_kripp",
+    "channel":"nl_kripp",
+    "genre":["entertainment",
+             "video_game",
+             "hearthstone"]
+  },
+  {
+    "platform": "youtube_live",
+    "url": "https://www.youtube.com/watch?v=XOacA3RYrXk",
+    "channel": "sky_news",
+    "genre": [
+      "live_news",
+      "debate"
+    ]
+  },
+  {
+    "platform": "twitch_tv",
+    "url": "https://www.youtube.com/watch?v=XOacA3RYrXk",
+    "channel": "riot_games",
+    "genre": [
+      "video_game",
+      "moba",
+      "league_of_legends"
+    ]
+  },
+  {
+    "platform": "youtube_live",
+    "url": "https://www.youtube.com/watch?v=9kfx7VBPj0w",
+    "channel": "pokerstars",
+    "genre": [
+      "poker",
+      "montecarlo"
+    ]
+  },
+  {
+    "platform": "facebook_live",
+    "url": "https://www.facebook.com/ChelseaFC/videos/10156562907487259/",
+    "channel": "chelsea_football_club",
+    "genre": [
+      "live_interview",
+      "football",
+      "chelsea"
+    ]
+  },
+  {
+    "platform": "youtube_live",
+    "url": "https://www.youtube.com/watch?v=Ah04R0okNbQ",
+    "channel": "euronews",
+    "genre": [
+      "live_news"
+    ]
   }
 ]}

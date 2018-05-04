@@ -18,6 +18,11 @@ class GraphWriter(Bolt):
     # Grouping Mechanism
     outputs = ['video']
     #
+    # Overriding Bolt Configuration
+    auto_anchor = True
+    auto_ack = True
+    auto_fail = False
+    #
     def initialize(self, conf, ctx):
         """
         GraphWriter initialize method
@@ -41,8 +46,9 @@ class GraphWriter(Bolt):
         """
         streaming_object = tup.values[0]
         #
-        # streaming_object = streaming_object.replace("'","\"")
-        # streaming_object = json.loads(streaming_object)
+        streaming_object = streaming_object.replace("'", "\"")
+        streaming_object = json.loads(streaming_object)
+        self.log(streaming_object)
         #
         if not streaming_object or not streaming_object['video_text']:
             return
@@ -78,16 +84,16 @@ class GraphWriter(Bolt):
                 self.interface.merge_relationship("streamer", streamer,
                                                   "word", word,
                                                   "utters")
-                #
-                # genre - [features] - word
-                for g in list(genre):
-                    #
-                    # word - [features] - genre
-                    self.log("GRAPH LOG(10) Begin Genre[" + g + "] Word[" + word + "]")
-                    self.interface.merge_relationship("genre", g,
-                                                      "word", word,
-                                                      "features")
-                    self.log("GRAPH LOG(11) End Genre[" + g + "] Word[" + word + "]")
+                # #
+                # # genre - [features] - word
+                # for g in list(genre):
+                #     #
+                #     # word - [features] - genre
+                #     self.log("GRAPH LOG(10) Begin Genre[" + g + "] Word[" + word + "]")
+                #     self.interface.merge_relationship("genre", g,
+                #                                       "word", word,
+                #                                       "features")
+                #     self.log("GRAPH LOG(11) End Genre[" + g + "] Word[" + word + "]")
                 self.log("GRAPH LOG(12)")
             self.log("GRAPH LOG(13)")
             #

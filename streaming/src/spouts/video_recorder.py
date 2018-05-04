@@ -3,7 +3,7 @@
 from pykafka.exceptions import ConsumerStoppedException
 from streamparse import Spout
 from kafka.consumer import Consumer # Module purposely starting from kafka.consum...
-import pickle
+import json
 #
 class VideoRecorder(Spout):
     """
@@ -67,7 +67,9 @@ class VideoRecorder(Spout):
         try:
             #
             # De-serializes kafka message value
-            stream_obj = pickle.loads(message.value)
+            message = message.value.decode()
+            stream_obj = message.replace("'", "\"")
+            stream_obj = json.loads(stream_obj)
             self.log("Object de-pickled and pushed downstream - " + str(stream_obj['file_path']))
         except ImportError as e:
             self.log(str(e))
@@ -81,4 +83,5 @@ class VideoRecorder(Spout):
         # video_decoder bolts
         if not stream_obj:
             return
-        self.emit([stream_obj])
+        #
+        self.emit([json.dumps(stream_obj)])

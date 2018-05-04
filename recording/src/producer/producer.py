@@ -7,7 +7,7 @@ from recording.src.producer.stream_object import StreamObject
 import os
 import time
 import threading
-import pickle
+import json
 #
 class Producer(KafkaInterface):
     ###################
@@ -92,7 +92,8 @@ class Producer(KafkaInterface):
         try:
             #
             # Object is serialized as a dictionary
-            serialized_stream_object = pickle.dumps(stream_object.get_details())
+            string_stream_object = json.dumps(stream_object.get_details())
+            serialized_stream_object = string_stream_object.encode('utf-8')
             with self.get_topic(topic).get_sync_producer() as producer:
                 #
                 # Pushes serialized object onto Kafka broker

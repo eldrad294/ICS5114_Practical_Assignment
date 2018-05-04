@@ -17,6 +17,11 @@ class VideoDecoder(Bolt):
     # Grouping Mechanism
     outputs = ['video']
     #
+    # Overriding Bolt Configuration
+    auto_anchor = True
+    auto_ack = True
+    auto_fail = False
+    #
     def initialize(self, conf, ctx):
         """
         video decoder initialize method
@@ -34,9 +39,14 @@ class VideoDecoder(Bolt):
         """
         streaming_object = tup.values[0]
         #
+        streaming_object = streaming_object.replace("'", "\"")
+        streaming_object = json.loads(streaming_object)
+        #
         if not streaming_object:
             return
+        #
         self.log("Received streaming object for URI: " + str(streaming_object['cloud_bucket_path']))
+        #
         try:
             #
             self.log("VIDEO LOG(2)")
@@ -59,11 +69,10 @@ class VideoDecoder(Bolt):
             streaming_object['video_text'] = ["?????"] # We pass an error (dummy) string to avoid passing None values to graph writer
         finally:
             self.log("VIDEO LOG(5)")
-            self.log(streaming_object)
             #
             # Stream_obj (which is represented as a dictionary)
             # is pushed down stream through Storm, towards awaiting
             # graph_writer bolts
-            #self.emit([json.dumps(streaming_object)])
-            self.emit([streaming_object])
+            self.emit([json.dumps(streaming_object)])
+            #self.emit([streaming_object])
             self.log("VIDEO LOG(6)")
