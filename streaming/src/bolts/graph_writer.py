@@ -72,12 +72,10 @@ class GraphWriter(Bolt):
                 #
                 # Creates genre node
                 self.interface.merge_node("genre", g)
-            self.log("GRAPH LOG(8)")
             #
             for word in word_list:
                 #
                 # Creates word node
-                self.log("GRAPH LOG(9)" + word)
                 self.interface.merge_node("word",word)
                 #
                 # streamer - [utters] - word
@@ -94,15 +92,12 @@ class GraphWriter(Bolt):
                 #                                       "word", word,
                 #                                       "features")
                 #     self.log("GRAPH LOG(11) End Genre[" + g + "] Word[" + word + "]")
-                self.log("GRAPH LOG(12)")
-            self.log("GRAPH LOG(13)")
             #
             # streamer - [partakes] - genre
             for g in list(genre):
                 self.interface.merge_relationship("streamer", streamer,
                                                   "genre", g,
                                                   "partakes")
-            self.log("GRAPH LOG(12)")
             #
             # streamer - [uses] - platform
             self.interface.merge_relationship("streamer", streamer,
