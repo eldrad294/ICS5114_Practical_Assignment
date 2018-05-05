@@ -22,7 +22,7 @@ else:
     print('Stream offset extracted from config file % d\n' % stream_offset)
 
 # Connection strings used to connect to a number of Kafka Brokers
-kafka_connection_strings = os.environ.get(g_config.get_value('ProducerRunner', 'kafka_connection_strings'))
+kafka_connection_strings = os.environ.get('kafka_connection_strings')
 if kafka_connection_strings is not None:
     kafka_connection_strings = kafka_connection_strings.split(',')
 else:
