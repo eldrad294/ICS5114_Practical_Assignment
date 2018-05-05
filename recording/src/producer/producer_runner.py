@@ -28,8 +28,6 @@ if kafka_connection_strings is not None:
     kafka_connection_strings = kafka_connection_strings
 else:
     kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
-# kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
-# kafka_connection_strings = '172.17.0.2:9092'
 
 
 file_segment_time_span = int(g_config.get_value('ProducerRunner', 'file_segment_time_span'))            # File recording segment size (seconds)
