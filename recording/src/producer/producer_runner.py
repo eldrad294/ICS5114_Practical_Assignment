@@ -23,11 +23,12 @@ else:
     print('Stream offset extracted from config file % d\n' % stream_offset)
 
 # Connection strings used to connect to a number of Kafka Brokers
-kafka_connection_strings = str(os.environ.get('kafka_connection_strings'))
-if kafka_connection_strings is not None:
-    kafka_connection_strings = kafka_connection_strings.split(',')
-else:
-    kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
+# kafka_connection_strings = str(os.environ.get('kafka_connection_strings'))
+# if kafka_connection_strings is not None:
+#     kafka_connection_strings = kafka_connection_strings.split(',')
+# else:
+#     kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
+kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
 
 
 file_segment_time_span = int(g_config.get_value('ProducerRunner', 'file_segment_time_span'))            # File recording segment size (seconds)
