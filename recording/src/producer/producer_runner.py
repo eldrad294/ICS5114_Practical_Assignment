@@ -1,6 +1,7 @@
 #
 # Module imports
 import os
+import sys
 from recording.src.recording.config_interface import ConfigInterface
 from recording.src.recording.recording_interface import RecordingInterface
 from recording.src.constants import path_consts as pc
@@ -24,10 +25,10 @@ else:
 # Connection strings used to connect to a number of Kafka Brokers
 kafka_connection_strings = os.environ.get('kafka_connection_strings')
 if kafka_connection_strings is not None:
-    kafka_connection_strings = str(kafka_connection_strings.split(','))
-    print('*****************************************')
-    print(kafka_connection_strings)
-    print('*****************************************')
+    sys.stdout.write('*****************************************\n')
+    sys.stdout.write(kafka_connection_strings + '\n')
+    sys.stdout.write('*****************************************\n')
+    kafka_connection_strings = kafka_connection_strings.split(',')
 else:
     kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
 
