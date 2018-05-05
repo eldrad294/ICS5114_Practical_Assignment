@@ -3,6 +3,7 @@
 from streamparse import Bolt
 from graph.CRUD_interface import CRUDInterface
 from coding_framework.BDAConfigParser import g_config
+import json
 #
 class GraphWriter(Bolt):
     """
@@ -16,6 +17,11 @@ class GraphWriter(Bolt):
     #
     # Grouping Mechanism
     outputs = ['video']
+    #
+    # Overriding Bolt Configuration
+    auto_anchor = True
+    auto_ack = True
+    auto_fail = False
     #
     def initialize(self, conf, ctx):
         """
@@ -40,6 +46,10 @@ class GraphWriter(Bolt):
         """
         streaming_object = tup.values[0]
         #
+        streaming_object = streaming_object.replace("'", "\"")
+        streaming_object = json.loads(streaming_object)
+        self.log(streaming_object)
+        #
         if not streaming_object or not streaming_object['video_text']:
             return
         #
@@ -62,37 +72,32 @@ class GraphWriter(Bolt):
                 #
                 # Creates genre node
                 self.interface.merge_node("genre", g)
-            self.log("GRAPH LOG(8)")
             #
             for word in word_list:
                 #
                 # Creates word node
-                self.log("GRAPH LOG(9)" + word)
                 self.interface.merge_node("word",word)
                 #
                 # streamer - [utters] - word
                 self.interface.merge_relationship("streamer", streamer,
                                                   "word", word,
                                                   "utters")
-                #
-                # genre - [features] - word
-                for g in list(genre):
-                    #
-                    # word - [features] - genre
-                    self.log("GRAPH LOG(10) Begin Genre[" + g + "] Word[" + word + "]")
-                    self.interface.merge_relationship("genre", g,
-                                                      "word", word,
-                                                      "features")
-                    self.log("GRAPH LOG(11) End Genre[" + g + "] Word[" + word + "]")
-                self.log("GRAPH LOG(12)")
-            self.log("GRAPH LOG(13)")
+                # #
+                # # genre - [features] - word
+                # for g in list(genre):
+                #     #
+                #     # word - [features] - genre
+                #     self.log("GRAPH LOG(10) Begin Genre[" + g + "] Word[" + word + "]")
+                #     self.interface.merge_relationship("genre", g,
+                #                                       "word", word,
+                #                                       "features")
+                #     self.log("GRAPH LOG(11) End Genre[" + g + "] Word[" + word + "]")
             #
             # streamer - [partakes] - genre
             for g in list(genre):
                 self.interface.merge_relationship("streamer", streamer,
                                                   "genre", g,
                                                   "partakes")
-            self.log("GRAPH LOG(12)")
             #
             # streamer - [uses] - platform
             self.interface.merge_relationship("streamer", streamer,

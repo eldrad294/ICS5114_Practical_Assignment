@@ -3,6 +3,7 @@
 from streamparse import Bolt
 from speech_recognition.BDAGoogleStorage import BDAGoogleStorageConsume
 from coding_framework.BDATextProcessing import BDATextProcessing
+import json
 #
 class VideoDecoder(Bolt):
     """
@@ -16,6 +17,11 @@ class VideoDecoder(Bolt):
     # Grouping Mechanism
     outputs = ['video']
     #
+    # Overriding Bolt Configuration
+    auto_anchor = True
+    auto_ack = True
+    auto_fail = False
+    #
     def initialize(self, conf, ctx):
         """
         video decoder initialize method
@@ -23,7 +29,7 @@ class VideoDecoder(Bolt):
         :param ctx:
         :return:
         """
-        pass
+        self.google_transcriber = BDAGoogleStorageConsume()
     #
     def process(self, tup):
         """
@@ -33,15 +39,18 @@ class VideoDecoder(Bolt):
         """
         streaming_object = tup.values[0]
         #
+        streaming_object = streaming_object.replace("'", "\"")
+        streaming_object = json.loads(streaming_object)
+        #
         if not streaming_object:
             return
+        #
         self.log("Received streaming object for URI: " + str(streaming_object['cloud_bucket_path']))
+        #
         try:
             #
-            google_transcriber = BDAGoogleStorageConsume()
-            #
-            decoded_video_string = google_transcriber.transcribe_file(streaming_object['cloud_bucket_name'],
-                                                                      streaming_object['cloud_bucket_path'])
+            decoded_video_string = self.google_transcriber.transcribe_file(streaming_object['cloud_bucket_name'],
+                                                                           streaming_object['cloud_bucket_path'])
             #
             clean_decoded_video_string = BDATextProcessing.simplify_text(decoded_video_string)
             #
@@ -51,14 +60,12 @@ class VideoDecoder(Bolt):
             #
             self.log("Video decoding for [" + str(streaming_object['cloud_bucket_path']) +
                      "] complete - Pushing downstream.. ")
-            #
-            # Stream_obj (which is represented as a dictionary)
-            # is pushed down stream through Storm, towards awaiting
-            # graph_writer bolts
-            # self.emit([streaming_object])
         except Exception as e:
             self.log("An exception was raised during video decoding!!")
             self.log(str(e))
             streaming_object['video_text'] = ["?????"] # We pass an error (dummy) string to avoid passing None values to graph writer
         finally:
-            self.emit([streaming_object])
+            #
+            # Stream_obj (which is represented as a serialized dictionary)
+            # is pushed down stream through Storm, towards awaiting graph_writer bolts
+            self.emit([json.dumps(streaming_object)])
