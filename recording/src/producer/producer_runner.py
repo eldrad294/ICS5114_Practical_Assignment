@@ -16,18 +16,19 @@ submission of data onto the Kafka Broker.
 stream_offset = os.environ.get(g_config.get_value('ProducerRunner', 'StreamOffset_EvnVarName'))
 if stream_offset is not None:
     stream_offset = int(stream_offset)
-    print('Stream offset extracted from env variable % d\n' % stream_offset)
+    print('Stream offset extracted from env variable % d' % stream_offset)
 else:
     stream_offset = int(g_config.get_value('ProducerRunner', 'stream_offset'))
-    print('Stream offset extracted from config file % d\n' % stream_offset)
+    print('Stream offset extracted from config file % d' % stream_offset)
 
 # Connection strings used to connect to a number of Kafka Brokers
-kafka_connection_strings = str(os.environ.get('kafka_connection_strings'))
+kafka_connection_strings = os.environ.get('kafka_connection_strings')
 if kafka_connection_strings is not None:
-    kafka_connection_strings = kafka_connection_strings
+    kafka_connection_strings = kafka_connection_strings.split(',')
+    print('Kafka connection strings, extracted from env variable: %s' % kafka_connection_strings)
 else:
     kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
-
+    print('Kafka connection strings, extracted from config file: %s' % kafka_connection_strings)
 
 file_segment_time_span = int(g_config.get_value('ProducerRunner', 'file_segment_time_span'))            # File recording segment size (seconds)
 file_extension = g_config.get_value('ProducerRunner', 'file_extension')                                 # File recording extension to save the file (Set to flac for Google Storage purposes)
