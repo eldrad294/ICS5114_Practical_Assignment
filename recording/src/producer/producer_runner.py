@@ -1,7 +1,6 @@
 #
 # Module imports
 import os
-import sys
 from recording.src.recording.config_interface import ConfigInterface
 from recording.src.recording.recording_interface import RecordingInterface
 from recording.src.constants import path_consts as pc
@@ -53,13 +52,21 @@ producer = Producer()
 producer.connect(kafka_connection_strings)
 #
 # Loads config object
-config_obj = ci.get_input_channels()[stream_offset].get_details()
+config_obj = ci.get_input_channels()[stream_offset]
 #
 # Producer Loop
-while True:
+if config_obj.get_src_type() == 0:
+    while True:
+        #
+        # Initiates a call to Streamlink, and records the stream into a file locally
+        video_path = ri.capture_and_return()
+        #
+        # video = ri.get_video(video_path=video_path)
+        ProducerHandler.produce_message(video_path, producer, config_obj.get_details(), kafka_topic)
+#
+elif config_obj.get_src_type() == 1:
+    # Initiates a call to a local video file, and splits it into several files
+    video_paths = ri.segment_local_video()
     #
-    # Initiates a call to Streamlink, and records the stream into a file locally
-    video_path = ri.capture_and_return()
-    #
-    # video = ri.get_video(video_path=video_path)
-    ProducerHandler.produce_message(video_path, producer, config_obj, kafka_topic)
+    for video_path in video_paths:
+        ProducerHandler.produce_message(video_path, producer, config_obj.get_details(), kafka_topic)

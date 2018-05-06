@@ -164,7 +164,7 @@ class ProducerHandler:
         """
         # Prepares the message to be submitted over to Kafka, by creating an object of type stream_object
         stream_object = StreamObject(platform=kafka_config['platform'],
-                                     src_url=kafka_config['url'],
+                                     src_url=kafka_config['src'],
                                      channel=kafka_config['channel'],
                                      genre=kafka_config['genre'],
                                      time_stamp=time.ctime(),

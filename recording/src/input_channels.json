@@ -2,7 +2,7 @@
   "streams":[
   {
     "platform":"twitch_tv",
-    "url":"https://www.twitch.tv/geekandsundry",
+    "src":"https://www.twitch.tv/geekandsundry",
     "channel":"GeekandSundry",
     "genre":["tabletop_gaming",
              "entertainment",
@@ -11,7 +11,7 @@
   },
   {
     "platform":"twitch_tv",
-    "url":"https://www.twitch.tv/neuro",
+    "src":"https://www.twitch.tv/neuro",
     "channel":"Neuro",
     "genre":["starcraft2",
              "strategy_gaming",
@@ -21,14 +21,14 @@
   },
   {
     "platform":"youtube",
-    "url":"https://www.youtube.com/watch?v=BSjee-ond7w",
+    "src":"https://www.youtube.com/watch?v=BSjee-ond7w",
     "channel":"BobRoss",
     "genre":["painting",
              "entertainment"]
   },
   {
     "platform":"twitch_tv",
-    "url":"https://www.twitch.tv/dreamhackcs",
+    "src":"https://www.twitch.tv/dreamhackcs",
     "channel":"DreamHackCS",
     "genre":["fps",
              "e_sport",
@@ -39,14 +39,14 @@
   },
   {
     "platform":"twitch_tv",
-    "url":"https://www.twitch.tv/cohhcarnage",
+    "src":"https://www.twitch.tv/cohhcarnage",
     "channel":"CohhCarnage",
     "genre":["video_game",
              "entertainment"]
   },
   {
     "platform":"twitch_tv",
-    "url":"https://www.twitch.tv/totalbiscuit",
+    "src":"https://www.twitch.tv/totalbiscuit",
     "channel":"TotalBiscuit",
     "genre":["Gaming Discussion",
            "game_review",
@@ -54,7 +54,7 @@
   },
   {
     "platform":"twitch_tv",
-    "url":"https://www.twitch.tv/nathanias",
+    "src":"https://www.twitch.tv/nathanias",
     "channel":"Nathanias",
     "genre":["Starcraft2",
              "strategy_gaming",
@@ -65,14 +65,14 @@
   },
   {
     "platform":"youtube_live",
-    "url":"https://www.youtube.com/watch?v=-cr2_8JP0R4",
+    "src":"https://www.youtube.com/watch?v=-cr2_8JP0R4",
     "channel":"ChapterMasterValrak",
     "genre":["warhammer40k",
              "tabletop_gaming"]
   },
   {
     "platform":"twitch_tv",
-    "url":"https://www.twitch.tv/nl_kripp",
+    "src":"https://www.twitch.tv/nl_kripp",
     "channel":"nl_kripp",
     "genre":["entertainment",
              "video_game",
@@ -80,7 +80,7 @@
   },
   {
     "platform": "youtube_live",
-    "url": "https://www.youtube.com/watch?v=XOacA3RYrXk",
+    "src": "https://www.youtube.com/watch?v=XOacA3RYrXk",
     "channel": "sky_news",
     "genre": [
       "live_news",
@@ -89,7 +89,7 @@
   },
   {
     "platform": "twitch_tv",
-    "url": "https://www.youtube.com/watch?v=XOacA3RYrXk",
+    "src": "https://www.youtube.com/watch?v=XOacA3RYrXk",
     "channel": "riot_games",
     "genre": [
       "video_game",
@@ -99,7 +99,7 @@
   },
   {
     "platform": "youtube_live",
-    "url": "https://www.youtube.com/watch?v=9kfx7VBPj0w",
+    "src": "https://www.youtube.com/watch?v=9kfx7VBPj0w",
     "channel": "pokerstars",
     "genre": [
       "poker",
@@ -108,7 +108,7 @@
   },
   {
     "platform": "facebook_live",
-    "url": "https://www.facebook.com/ChelseaFC/videos/10156562907487259/",
+    "src": "https://www.facebook.com/ChelseaFC/videos/10156562907487259/",
     "channel": "chelsea_football_club",
     "genre": [
       "live_interview",
@@ -118,10 +118,21 @@
   },
   {
     "platform": "youtube_live",
-    "url": "https://www.youtube.com/watch?v=Ah04R0okNbQ",
+    "src": "https://www.youtube.com/watch?v=Ah04R0okNbQ",
     "channel": "euronews",
     "genre": [
       "live_news"
+    ]
+  },
+  {
+    "platform": "youtube",
+    "src": "/home/gabriel/ICS5114_Practical_Assignment/recording/src/video_buffer/TestVideo.mp4",
+    "channel": "winterseo",
+    "genre": [
+      "warhammer40k",
+      "review",
+      "deathwatch",
+      "codex"
     ]
   }
 ]}

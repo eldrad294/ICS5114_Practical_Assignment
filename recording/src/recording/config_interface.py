@@ -51,7 +51,7 @@ class ConfigInterface:
         for streams in json_string['streams']:
             temp_value = {}
             for attribute, value in streams.items():
-                if attribute == "url":
+                if attribute == "src":
                     temp_value[attribute.lower()] = value
                 elif attribute == "genre":
                     temp_list = []
@@ -61,7 +61,7 @@ class ConfigInterface:
                     temp_value[attribute.lower()] = value.lower()
             #
             co = ConfigObject(platform=temp_value['platform'],
-                              url=temp_value['url'],
+                              src=temp_value['src'],
                               channel=temp_value['channel'],
                               genre=temp_value['genre'])
             self.input_channels.append(co)

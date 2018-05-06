@@ -2,15 +2,23 @@
 # Module imports
 from subprocess import run
 from recording.src.constants import path_consts as pc
-import datetime, subprocess
+import datetime, subprocess, re, math
+from optparse import OptionParser
+
 #
 class RecordingInterface:
     """
     This class contains the logic required to monitor and
     record data from the varied platforms which the system
-    will read from. It utilizes the Streamlink command line
-    tool, to connect to a streaming URL and save it as
-    video/audio locally.
+    will read from. It has 2 modes to interpret and record
+    video data:
+
+    1) Utilizes ffmpeg to split a video into several smaller
+    ones.
+
+    2) Utilizes the Streamlink command line
+    tool, to connect to a streaming online source
+    and saves it as segmented videos/audio locally.
 
     This class will operate on data pulled off the config_interface.
     """
@@ -92,7 +100,7 @@ class RecordingInterface:
         command = "streamlink -o " + \
                   self.video_buffer_path + \
                   "/" + segmented_file_name + \
-                  " " + self.config_obj.get_details()['url'] + \
+                  " " + self.config_obj.get_details()['src'] + \
                   " " + self.quality
         #
         output = run(args=command,
@@ -140,3 +148,59 @@ class RecordingInterface:
             data = file.read()
             file.close()
         return data
+    ########################################
+    ########################################
+    #
+    def segment_local_video(self):
+        """
+        Segments a local video
+        :param filename:
+        :param split_length: Defined in seconds
+        :return:
+        """
+        length_regexp = 'Duration: (\d{2}):(\d{2}):(\d{2})\.\d+,'
+        re_length = re.compile(length_regexp)
+        #
+        print("Initiating file segmentation..")
+        segmented_file_name = self.config_obj.get_details()['src']
+        #
+        if self.segment_time_span <= 0:
+            print("Split length can't be 0")
+            raise SystemExit
+        #
+        output = subprocess.Popen("ffmpeg -i " + segmented_file_name + " 2>&1 | grep Duration",
+                                  shell=True,
+                                  stdout=subprocess.PIPE
+                                  ).stdout.read()
+        #print(output)
+        matches = re_length.search(str(output))
+        if matches:
+            video_length = int(matches.group(1)) * 3600 + \
+                           int(matches.group(2)) * 60 + \
+                           int(matches.group(3))
+            print("Video length in seconds: " + str(video_length))
+        else:
+            print("Can't determine video length for [" + segmented_file_name + "]")
+            raise SystemExit
+        #
+        split_count = math.ceil(video_length / float(self.segment_time_span))
+        if (split_count == 1):
+            print("Video length is less then the target split length.")
+            raise SystemExit
+        #
+        split_cmd = "ffmpeg -i '" + segmented_file_name + "' -vcodec copy "
+        video_paths = []
+        for n in range(int(split_count)):
+            split_str = ""
+            if n == 0:
+                split_start = 0
+            else:
+                split_start = self.segment_time_span * n
+            #
+            segmented_file_name = self.video_buffer_path + "/" + str(n) + "_" + self.get_segmented_file_name()
+            split_str += " -ss " + str(split_start) + " -t " + str(self.segment_time_span) + \
+                         " '" + segmented_file_name + "'"
+            print("About to run: " + split_cmd + split_str)
+            output = subprocess.Popen(split_cmd + split_str, shell=True, stdout=subprocess.PIPE).stdout.read()
+            video_paths.append(segmented_file_name)
+        return video_paths
