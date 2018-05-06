@@ -67,7 +67,7 @@ if config_obj.get_src_type() == 0:
 #
 elif config_obj.get_src_type() == 1:
     # Initiates a call to a local video file, and splits it into several files
-    video_paths = ri.segment_local_video()
+    video_paths = ri.download_and_segment()
     #
     for video_path in video_paths:
         ProducerHandler.produce_message(video_path, producer, config_obj.get_details(), kafka_topic)

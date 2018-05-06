@@ -8,11 +8,11 @@ class ConfigObject:
     """
     #
     def __init__(self, platform, src, channel, genre):
-        self.platform = platform
-        self.src = src
-        self.channel = channel
-        self.genre = genre
-        self.id = self.get_hash()
+        self.platform = platform.lower()
+        self.src = src.lower()
+        self.channel = channel.lower()
+        self.genre = genre.lower()
+        self.id = self.get_hash().lower()
     #
     def get_hash(self):
         """
@@ -46,14 +46,12 @@ class ConfigObject:
         """
         Returns the type of src which will be utilized
 
-        Return 0 if src is an online source
-        Return 1 if src is a local source
+        Return 0 if src is a livestream source
+        Return 1 if src is not a livestream source
         :return: Integer
         """
-        identifier_list = ["http://","https://"]
+        non_livestream_platforms = ('youtube')
         #
-        for identifier in identifier_list:
-            if identifier in self.src:
-                return 0
-        #
-        return 1
+        if self.platform in non_livestream_platforms:
+            return 1
+        return 0

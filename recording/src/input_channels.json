@@ -126,7 +126,8 @@
   },
   {
     "platform": "youtube",
-    "src": "/home/gabriel/ICS5114_Practical_Assignment/recording/src/video_buffer/TestVideo.mp4",
+    //"src": "https://www.youtube.com/watch?v=hoscO_CDzOc",
+    "src":"https://www.youtube.com/watch?v=4sk0uDbM5lc"
     "channel": "winterseo",
     "genre": [
       "warhammer40k",

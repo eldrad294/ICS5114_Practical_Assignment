@@ -3,7 +3,7 @@
 from subprocess import run
 from recording.src.constants import path_consts as pc
 import datetime, subprocess, re, math
-from optparse import OptionParser
+from pytube import YouTube
 
 #
 class RecordingInterface:
@@ -148,10 +148,26 @@ class RecordingInterface:
             data = file.read()
             file.close()
         return data
-    ########################################
-    ########################################
     #
-    def segment_local_video(self):
+    def download_and_segment(self):
+        """
+        Wrapper function for downloading and segmenting of youtube video
+        :return:
+        """
+        local_video_path = self.__download_video()
+        return self.__segment_local_video(local_video_path=local_video_path)
+    #
+    def __download_video(self):
+        """
+        Downloads video from youtube src
+        :return:
+        """
+        yt = YouTube(self.config_obj.src)
+        yt = yt.get('flac','144p')
+        yt.download(self.video_buffer_path)
+        return self.video_buffer_path + "/" + yt.title
+    #
+    def __segment_local_video(self,local_video_path):
         """
         Segments a local video
         :param filename:
@@ -162,7 +178,7 @@ class RecordingInterface:
         re_length = re.compile(length_regexp)
         #
         print("Initiating file segmentation..")
-        segmented_file_name = self.config_obj.get_details()['src']
+        segmented_file_name = local_video_path
         #
         if self.segment_time_span <= 0:
             print("Split length can't be 0")
