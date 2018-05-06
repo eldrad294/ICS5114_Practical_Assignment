@@ -8,11 +8,11 @@ class ConfigObject:
     """
     #
     def __init__(self, platform, src, channel, genre):
-        self.platform = platform.lower()
-        self.src = src.lower()
-        self.channel = channel.lower()
-        self.genre = genre.lower()
-        self.id = self.get_hash().lower()
+        self.platform = platform
+        self.src = src
+        self.channel = channel
+        self.genre = genre
+        self.id = self.get_hash()
     #
     def get_hash(self):
         """

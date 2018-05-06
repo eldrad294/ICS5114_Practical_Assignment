@@ -162,16 +162,18 @@ class RecordingInterface:
         Downloads video from youtube src
         :return:
         """
-        yt = YouTube(self.config_obj.src)
-        yt = yt.get('flac','144p')
-        yt.download(self.video_buffer_path)
-        return self.video_buffer_path + "/" + yt.title
+        print("Initiating YouTube Connection..")
+        yt = YouTube(self.config_obj.get_details()['src'])
+        stream = yt.streams.filter(resolution='144p').first()
+        print("Downloading content at " + pc.PARENT_DIR + "/src/video_buffer..")
+        stream.download(output_path=pc.PARENT_DIR+"/src/video_buffer/",filename=yt.title)
+        #print(pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp")
+        return pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp"
     #
     def __segment_local_video(self,local_video_path):
         """
         Segments a local video
-        :param filename:
-        :param split_length: Defined in seconds
+        :param file path were the content was downloaded
         :return:
         """
         length_regexp = 'Duration: (\d{2}):(\d{2}):(\d{2})\.\d+,'
@@ -184,10 +186,12 @@ class RecordingInterface:
             print("Split length can't be 0")
             raise SystemExit
         #
-        output = subprocess.Popen("ffmpeg -i " + segmented_file_name + " 2>&1 | grep Duration",
+        cmd = "ffmpeg -i '" + segmented_file_name + "' 2>&1 | grep Duration"
+        output = subprocess.Popen(cmd,
                                   shell=True,
                                   stdout=subprocess.PIPE
                                   ).stdout.read()
+        #print(cmd)
         #print(output)
         matches = re_length.search(str(output))
         if matches:
@@ -213,7 +217,7 @@ class RecordingInterface:
             else:
                 split_start = self.segment_time_span * n
             #
-            segmented_file_name = self.video_buffer_path + "/" + str(n) + "_" + self.get_segmented_file_name()
+            segmented_file_name = pc.PARENT_DIR + "/src/video_buffer/" + str(n) + "_" + self.get_segmented_file_name()
             split_str += " -ss " + str(split_start) + " -t " + str(self.segment_time_span) + \
                          " '" + segmented_file_name + "'"
             print("About to run: " + split_cmd + split_str)
