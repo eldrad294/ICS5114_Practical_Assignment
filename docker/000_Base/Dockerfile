@@ -12,6 +12,8 @@ RUN apt-get update                                                              
                        git                                                                                                 \
                        tree                                                                                                \
                        vim                                                                                                 \
+                       net-tools                                                                                           \
+                       nmap                                                                                                \
                        curl                                                                                             && \
     pip3 install --upgrade pip
 
@@ -32,4 +34,3 @@ ADD ./ssh_keys/id_rsa               /root/.ssh/
 RUN ssh-keyscan -H github.com >> /root/.ssh/known_hosts                                                                 && \
     cd /root/src                                                                                                        && \
     ssh-agent bash -c 'ssh-add /root/.ssh/id_rsa; git clone git@github.com:eldrad294/ICS5114_Practical_Assignment.git'
-
