@@ -275,3 +275,79 @@ IPDL protocol error: Handler returned error code!
 ###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
 
 *** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1525719363043	geckodriver	INFO	geckodriver 0.20.1
+1525719363056	geckodriver	INFO	Listening on 127.0.0.1:37489
+1525719364027	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.wjYPjXz05Bbe"
+1525719364966	Marionette	INFO	Enabled via --marionette
+1525719367114	Marionette	INFO	Listening on port 40643
+1525719367172	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+###!!! [Parent][DispatchAsyncMessage] Error: PClientSourceOp::Msg___delete__ Route error: message sent to unknown actor ID
+
+
+###!!! [Parent][MessageChannel] Error: (msgtype=0x100037,name=PBackground::Msg_DispatchLocalStorageChange) Channel closing: too late to send/recv, messages will be lost
+
+1525719519351	geckodriver	INFO	geckodriver 0.20.1
+1525719519357	geckodriver	INFO	Listening on 127.0.0.1:58889
+1525719520358	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.SCx3HEhpwj4B"
+1525719520992	Marionette	INFO	Enabled via --marionette
+1525719522512	Marionette	INFO	Listening on port 40499
+1525719522590	Marionette	WARN	TLS certificate errors will be ignored for this session
+1525719659797	geckodriver	INFO	geckodriver 0.20.1
+1525719659802	geckodriver	INFO	Listening on 127.0.0.1:37075
+1525719660804	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.JuJcOEw8BDNU"
+1525719661490	Marionette	INFO	Enabled via --marionette
+1525719663100	Marionette	INFO	Listening on port 45977
+1525719663134	Marionette	WARN	TLS certificate errors will be ignored for this session
+1525720187895	geckodriver	INFO	geckodriver 0.20.1
+1525720187901	geckodriver	INFO	Listening on 127.0.0.1:59847
+1525720188905	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.jLjsigoKHN2S"
+1525720189528	Marionette	INFO	Enabled via --marionette
+1525720190964	Marionette	INFO	Listening on port 40565
+1525720191044	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+###!!! [Parent][DispatchAsyncMessage] Error: PClientSourceOp::Msg___delete__ Route error: message sent to unknown actor ID
+
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 9130, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-BgGWsI/firefox-59.0.2+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Child 8771, Chrome_ChildThread] WARNING: pipe error (20): Connection reset by peer: file /build/firefox-BgGWsI/firefox-59.0.2+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1525720221669	geckodriver	INFO	geckodriver 0.20.1
+1525720221674	geckodriver	INFO	Listening on 127.0.0.1:46141
+1525720222676	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.6T3lvGV88tWl"
+1525720223332	Marionette	INFO	Enabled via --marionette
+1525720224922	Marionette	INFO	Listening on port 43409
+1525720224996	Marionette	WARN	TLS certificate errors will be ignored for this session
+1525720337656	geckodriver	INFO	geckodriver 0.20.1
+1525720337663	geckodriver	INFO	Listening on 127.0.0.1:46827
+1525720338666	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.k21lntNf5GZn"
+1525720339652	Marionette	INFO	Enabled via --marionette
+1525720341792	Marionette	INFO	Listening on port 33139
+1525720341838	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 10265, Gecko_IOThread] WARNING: pipe error: Broken pipe: file /build/firefox-BgGWsI/firefox-59.0.2+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 709
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x510027,name=PNecko::Msg_RemoveRequestContext) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1525721154194	geckodriver	INFO	geckodriver 0.20.1
+1525721154199	geckodriver	INFO	Listening on 127.0.0.1:47121
+1525721155204	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.sjXFiZayzQ7D"
+1525721155874	Marionette	INFO	Enabled via --marionette
+1525721157390	Marionette	INFO	Listening on port 39869
+1525721157458	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+###!!! [Parent][DispatchAsyncMessage] Error: PClientSourceOp::Msg___delete__ Route error: message sent to unknown actor ID
+
+
+###!!! [Parent][MessageChannel] Error: (msgtype=0x100037,name=PBackground::Msg_DispatchLocalStorageChange) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][MessageChannel] Error: (msgtype=0x100037,name=PBackground::Msg_DispatchLocalStorageChange) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
