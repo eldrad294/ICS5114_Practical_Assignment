@@ -34,7 +34,7 @@ class VideoRecorder(Spout):
             kafka_connection_strings = kafka_connection_strings.split(',')
             print('Kafka connection strings, extracted from env variable: %s' % kafka_connection_strings)
         else:
-            kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
+            kafka_connection_strings = g_config.get_value('ConsumerRunner', 'kafka_connection_strings').split(',')
             print('Kafka connection strings, extracted from config file: %s' % kafka_connection_strings)
 
         # Connection string used to connect to Zookeeper
