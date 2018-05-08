@@ -2,6 +2,7 @@
 # Module Imports
 from pykafka.exceptions import ConsumerStoppedException
 from streamparse import Spout
+from src.coding_framework.BDAConfigParser import g_config
 from kafka.consumer import Consumer # Module purposely starting from kafka.consum...
 import json
 #
@@ -26,8 +27,23 @@ class VideoRecorder(Spout):
         """
         #
         # Script Parameters
-        kafka_connection_strings = ["127.0.0.1:9092"]  # Connection strings used to connect to a number of Kafka Brokers
-        zookeeper_connection = "127.0.0.1:2181"  # Connection string used to connect to Zookeeper
+        # Connection strings used to connect to a number of Kafka Brokers
+        kafka_connection_strings = os.environ.get('kafka_connection_strings')
+        if kafka_connection_strings is not None:
+            kafka_connection_strings = kafka_connection_strings.split(',')
+            print('Kafka connection strings, extracted from env variable: %s' % kafka_connection_strings)
+        else:
+            kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
+            print('Kafka connection strings, extracted from config file: %s' % kafka_connection_strings)
+
+        # Connection string used to connect to Zookeeper
+        zookeeper_connection = os.environ.get('zookeeper_connection')
+        if zookeeper_connection is not None:
+            print('ZooKeeper connection string, extracted from env variable: %s' % zookeeper_connection)
+        else:
+            zookeeper_connection = g_config.get_value('ConsumerRunner', 'zookeeper_connection')
+            print('ZooKeeper connection string, extracted from config file: %s' % zookeeper_connection)
+
         kafka_topic = "video"  # Kafka topic which this produces will subscribe to
         kafka_consumer_group = "testgroup"  # Kafka consumer group name for balanced consumers
         #
