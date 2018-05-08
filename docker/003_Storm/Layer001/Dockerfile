@@ -5,6 +5,7 @@ ENV PATH="$PATH:/root/apache-storm-1.2.1/bin"
 
 ADD ./lein                       /usr/bin
 ADD ./apache-storm-1.2.1.tar.gz  /root
+ADD ./startup.sh                 /root
 
 RUN apt-get install -y default-jdk
 RUN /bin/bash /usr/bin/lein
