@@ -1,8 +1,9 @@
 #
 # Module Imports
+import os
 from pykafka.exceptions import ConsumerStoppedException
 from streamparse import Spout
-from src.coding_framework.BDAConfigParser import g_config
+from    coding_framework.BDAConfigParser import g_config
 from kafka.consumer import Consumer # Module purposely starting from kafka.consum...
 import json
 #
