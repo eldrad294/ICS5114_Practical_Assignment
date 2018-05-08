@@ -28,7 +28,6 @@ else:
     zookeeper_connection = g_config.get_value('ConsumerRunner', 'zookeeper_connection')
     print('ZooKeeper connection string, extracted from config file: %s' % zookeeper_connection)
 
-zookeeper_connection = g_config.get_value('ConsumerRunner', 'zookeeper_connection')                    # Connection string used to connect to Zookeeper
 kafka_topic = g_config.get_value('ConsumerRunner', 'video')                                            # Kafka topic which this produces will subsribe to
 kafka_consumer_group = g_config.get_value('ConsumerRunner', 'kafka_consumer_group')                    # Kafka consumer group name for balanced consumers
 #
