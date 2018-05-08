@@ -22,3 +22,5 @@ docker build -t bda/kafka:1.0 .
 cd $DIR'/002_Kafka/Layer002'
 docker build -t bda/kafka:1.1 .
 
+cd $DIR'/003_Storm/Layer001'
+docker build -t bda/storm:1.0 .

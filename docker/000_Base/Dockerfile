@@ -24,7 +24,11 @@ RUN pip3 install streamlink                                                     
                  scipy                                                                                                     \
                  pykafka                                                                                                   \
                  google-cloud-speech                                                                                       \
-                 google-cloud-storage
+                 google-cloud-storage                                                                                      \
+                 streamparse                                                                                               \
+                 nltk                                                                                                      \
+                 neo4jdb                                                                                                   \
+                 neo4j-driver
 
 RUN mkdir /root/.ssh                                                                                                    && \
     mkdir /root/src

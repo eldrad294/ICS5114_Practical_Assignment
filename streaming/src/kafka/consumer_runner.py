@@ -1,5 +1,6 @@
 #
 # Module imports
+import os
 from src.kafka.consumer import Consumer
 from src.coding_framework.BDAConfigParser import g_config
 """
@@ -10,7 +11,23 @@ effectively into the Storm Topology
 """
 #
 # Script Parameters
-kafka_connection_strings = g_config.get_value('ConsumerRunner', 'kafka_connection_strings').split(",") # Connection strings used to connect to a number of Kafka Brokers
+# Connection strings used to connect to a number of Kafka Brokers
+kafka_connection_strings = os.environ.get('kafka_connection_strings')
+if kafka_connection_strings is not None:
+    kafka_connection_strings = kafka_connection_strings.split(',')
+    print('Kafka connection strings, extracted from env variable: %s' % kafka_connection_strings)
+else:
+    kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
+    print('Kafka connection strings, extracted from config file: %s' % kafka_connection_strings)
+
+# Connection string used to connect to Zookeeper
+zookeeper_connection = os.environ.get('zookeeper_connection')
+if zookeeper_connection is not None:
+    print('ZooKeeper connection string, extracted from env variable: %s' % zookeeper_connection)
+else:
+    zookeeper_connection = g_config.get_value('ConsumerRunner', 'zookeeper_connection')
+    print('ZooKeeper connection string, extracted from config file: %s' % zookeeper_connection)
+
 zookeeper_connection = g_config.get_value('ConsumerRunner', 'zookeeper_connection')                    # Connection string used to connect to Zookeeper
 kafka_topic = g_config.get_value('ConsumerRunner', 'video')                                            # Kafka topic which this produces will subsribe to
 kafka_consumer_group = g_config.get_value('ConsumerRunner', 'kafka_consumer_group')                    # Kafka consumer group name for balanced consumers

@@ -6,3 +6,5 @@ __pycache__/
 \.idea/
 src/testing/
 recording/src/producer/__pycache__/
+
+docker/003_Storm/Layer001/apache-storm-1\.2\.1\.tar\.gz
