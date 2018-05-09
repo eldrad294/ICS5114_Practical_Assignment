@@ -7,7 +7,8 @@
     "genre":["tabletop_gaming",
              "entertainment",
              "roleplay",
-             "dnd"]
+             "dnd"],
+    "type":"video"
   },
   {
     "platform":"twitch_tv",
@@ -17,14 +18,24 @@
              "strategy_gaming",
              "entertainment",
              "video_game",
-             "legacy_of_the_void"]
+             "legacy_of_the_void"],
+    "type":"video"
   },
   {
     "platform":"youtube",
     "src":"https://www.youtube.com/watch?v=BSjee-ond7w",
     "channel":"BobRoss",
     "genre":["painting",
-             "entertainment"]
+             "entertainment"],
+    "type":"video"
+  },
+  {
+    "platform":"youtube",
+    "src":"https://www.youtube.com/watch?v=BSjee-ond7w",
+    "channel":"BobRoss",
+    "genre":["painting",
+             "entertainment"],
+    "type":"text"
   },
   {
     "platform":"twitch_tv",
@@ -35,14 +46,16 @@
              "csgo",
              "moba",
              "league_of_legends",
-             "video_game"]
+             "video_game"],
+    "type":"video"
   },
   {
     "platform":"twitch_tv",
     "src":"https://www.twitch.tv/cohhcarnage",
     "channel":"CohhCarnage",
     "genre":["video_game",
-             "entertainment"]
+             "entertainment"],
+    "type":"video"
   },
   {
     "platform":"twitch_tv",
@@ -50,7 +63,8 @@
     "channel":"TotalBiscuit",
     "genre":["Gaming Discussion",
            "game_review",
-           "entertainment"]
+           "entertainment"],
+    "type":"video"
   },
   {
     "platform":"twitch_tv",
@@ -61,14 +75,16 @@
              "entertainment",
              "video_game",
              "starcraft2",
-             "legacy_of_the_void"]
+             "legacy_of_the_void"],
+    "type":"video"
   },
   {
     "platform":"youtube_live",
     "src":"https://www.youtube.com/watch?v=-cr2_8JP0R4",
     "channel":"ChapterMasterValrak",
     "genre":["warhammer40k",
-             "tabletop_gaming"]
+             "tabletop_gaming"],
+    "type":"video"
   },
   {
     "platform":"twitch_tv",
@@ -76,7 +92,8 @@
     "channel":"nl_kripp",
     "genre":["entertainment",
              "video_game",
-             "hearthstone"]
+             "hearthstone"],
+    "type":"video"
   },
   {
     "platform": "youtube_live",
@@ -84,8 +101,8 @@
     "channel": "sky_news",
     "genre": [
       "live_news",
-      "debate"
-    ]
+      "debate"],
+    "type":"video"
   },
   {
     "platform": "twitch_tv",
@@ -94,8 +111,8 @@
     "genre": [
       "video_game",
       "moba",
-      "league_of_legends"
-    ]
+      "league_of_legends"],
+    "type":"video"
   },
   {
     "platform": "youtube_live",
@@ -103,8 +120,8 @@
     "channel": "pokerstars",
     "genre": [
       "poker",
-      "montecarlo"
-    ]
+      "montecarlo"],
+    "type":"video"
   },
   {
     "platform": "facebook_live",
@@ -113,16 +130,16 @@
     "genre": [
       "live_interview",
       "football",
-      "chelsea"
-    ]
+      "chelsea"],
+    "type":"video"
   },
   {
     "platform": "youtube_live",
     "src": "https://www.youtube.com/watch?v=Ah04R0okNbQ",
     "channel": "euronews",
     "genre": [
-      "live_news"
-    ]
+      "live_news"],
+    "type":"video"
   },
   {
     "platform": "youtube",
@@ -132,7 +149,30 @@
       "warhammer40k",
       "review",
       "deathwatch",
-      "codex"
-    ]
+      "codex"],
+    "type":"video"
+  },
+  {
+    "platform": "youtube",
+    "src":"https://www.youtube.com/watch?v=nqvlcZ_g0z8",
+    "channel": "Fox Business",
+    "genre": [
+      "president",
+      "Trump",
+      "Iran",
+      "nuclear"],
+    "type":"text"
+  },
+  {
+    "platform": "youtube",
+    "src":"https://www.youtube.com/watch?v=sCUueUYH2KI",
+    "channel": "winterseo",
+    "genre": [
+      "warhammer40k",
+      "review",
+      "battlereport",
+      "tyranids",
+      "deathguard"],
+    "type":"text"
   }
 ]}

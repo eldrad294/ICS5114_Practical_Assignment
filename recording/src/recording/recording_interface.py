@@ -4,7 +4,6 @@ from subprocess import run
 from recording.src.constants import path_consts as pc
 import datetime, subprocess, re, math
 from pytube import YouTube
-
 #
 class RecordingInterface:
     """
@@ -14,7 +13,9 @@ class RecordingInterface:
     video data:
 
     1) Utilizes ffmpeg to split a video into several smaller
-    ones.
+    ones. This functionality is reserved for pre-recorded footage
+    which is downloaded, segmented locally into smaller chuncks,
+    to be eventually pushed down the pipeline.
 
     2) Utilizes the Streamlink command line
     tool, to connect to a streaming online source
@@ -26,8 +27,12 @@ class RecordingInterface:
     def __init__(self, config_obj, segment_time_span=300, extension='wav', quality='worst', video_buffer_path=pc.DIR_VIDEO_BUFFER):
         """
         Default constructor
-        :param config_obj:
-        :param segment_size: Denotes the time in seconds for each recording of each segmented file
+
+        :param config_obj:         A class structure used to contain information acquired from the input_channels.json config file
+        :param segment_time_span:  Denotes the time in seconds for each recording of each segmented file
+        :param extension:          Video file format to save footage in
+        :param quality:            Recording quality to capture footage with
+        :param video_buffer_path:  Local path to save file to disk during recording
         """
         self.config_obj = config_obj
         self.segment_time_span = segment_time_span

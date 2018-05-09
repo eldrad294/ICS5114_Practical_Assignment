@@ -63,7 +63,8 @@ class ConfigInterface:
             co = ConfigObject(platform=temp_value['platform'],
                               src=temp_value['src'],
                               channel=temp_value['channel'],
-                              genre=temp_value['genre'])
+                              genre=temp_value['genre'],
+                              type=temp_value['type'])
             self.input_channels.append(co)
         #
         print("Input channels loaded successfully -> Channel count: [" + str(self.get_input_channel_size()) + "]")
