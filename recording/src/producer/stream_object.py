@@ -5,19 +5,30 @@ class StreamObject:
 
     This object type is intended to be serialized and pushed onto
     the Kafka broker, which will eventually be picked by the
-    Storm Spout/ Kapfka Consumer, de-serialized and pushed down
+    Storm Spout/ Kafka Consumer, de-serialized and pushed down
     the pipeline into Storm.
     """
     #
     def __init__(self, platform, src_url, channel, genre, time_stamp,
-                 file_path, cloud_bucket_name, cloud_bucket_path,
-                 file=None, text=None):
+                 file_path, cloud_bucket_name, cloud_bucket_path, text=None):
+        """
+        Default Constructor
+
+        :param platform:          Retrieved from config_object
+        :param src_url:           Retrieved from config_object
+        :param channel:           Retrieved from config_object
+        :param genre:             Retrieved from config_object
+        :param time_stamp:        Retrieved from config_object
+        :param file_path:         Set to 'None' if extracting text
+        :param cloud_bucket_name: Set to 'None' if extracting text
+        :param cloud_bucket_path: Set to 'None' if extracting text
+        :param text:              Set to 'None' if extracting video
+        """
         self.platform = platform
         self.src_url = src_url
         self.channel = channel
         self.genre = genre
         self.file_path = file_path
-        self.file = file
         self.cloud_bucket_name = cloud_bucket_name
         self.cloud_bucket_path = cloud_bucket_path
         self.time_stamp = time_stamp
@@ -27,7 +38,6 @@ class StreamObject:
                              "cloud_bucket_name":self.cloud_bucket_name,
                              "cloud_bucket_path":self.cloud_bucket_path,
                              "file_path": self.file_path,
-                             "file": self.file,
                              "channel": self.channel,
                              "genre": self.genre,
                              "time_stamp": self.time_stamp,

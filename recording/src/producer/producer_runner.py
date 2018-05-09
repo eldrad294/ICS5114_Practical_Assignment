@@ -21,7 +21,7 @@ if stream_offset is not None:
 else:
     stream_offset = int(g_config.get_value('ProducerRunner', 'stream_offset'))
     print('Stream offset extracted from config file % d' % stream_offset)
-
+#
 # Connection strings used to connect to a number of Kafka Brokers
 kafka_connection_strings = os.environ.get('kafka_connection_strings')
 if kafka_connection_strings is not None:
@@ -30,26 +30,26 @@ if kafka_connection_strings is not None:
 else:
     kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
     print('Kafka connection strings, extracted from config file: %s' % kafka_connection_strings)
-
 file_segment_time_span = int(g_config.get_value('ProducerRunner', 'file_segment_time_span'))            # File recording segment size (seconds)
 file_extension = g_config.get_value('ProducerRunner', 'file_extension')                                 # File recording extension to save the file (Set to flac for Google Storage purposes)
 file_quality = g_config.get_value('ProducerRunner', 'file_quality')                                     # Video quality to record stream at
 kafka_topic_video = g_config.get_value('ProducerRunner', 'kafka_topic_video')                                       # Kafka topic which this produces will subscribe to
 kafka_topic_text = g_config.get_value('ProducerRunner', 'kafka_topic_text')
 exception_time_out = g_config.get_value('ProducerRunner', 'exception_time_out')                         # Time in seconds to delay process in the case of a timeout
+youtube_api_result_limit = g_config.get_value('ProducerRunner', 'youtube_api_result_limit')
 #
 print("Initiating producer runner..")
 #
 # Loads config from input_channels.json
 ci = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
 #
-if ci.get_input_channels()[stream_offset].type == "video":
+if ci.get_input_channels()[stream_offset].type == kafka_topic_video:
     interface = RecordingInterface(config_obj=ci.get_input_channels()[stream_offset],
                                    segment_time_span=file_segment_time_span,
                                    extension=file_extension,
                                    quality=file_quality,
                                    video_buffer_path=pc.DIR_VIDEO_BUFFER)
-elif ci.get_input_channels()[stream_offset].type == "text":
+elif ci.get_input_channels()[stream_offset].type == kafka_topic_text:
     interface = TextInterface(ci.get_input_channels()[stream_offset])
 else:
     raise("Unsupported source type - Must be 'video' or 'text'")
@@ -61,7 +61,7 @@ producer.connect(kafka_connection_strings)
 # Loads config object
 config_obj = ci.get_input_channels()[stream_offset]
 #
-# Producer Loop
+# Video Livestreaming
 if config_obj.get_src_type() == 0:
     # Initiates streamlink, to record footage locally of ongoing livestream
     while True:
@@ -75,6 +75,7 @@ if config_obj.get_src_type() == 0:
                                         kafka_config=config_obj.get_details(),
                                         kafka_topic=kafka_topic_video)
 #
+# Video Retrieval (YouTube Specific)
 elif config_obj.get_src_type() == 1:
     # Initiates a call to a local video file, and splits it into several files
     video_paths = interface.download_and_segment()
@@ -88,9 +89,10 @@ elif config_obj.get_src_type() == 1:
 elif config_obj.get_src_type() == 2:
     raise("Not Yet Supported!")
 #
+# Text Retrieval (YouTube Comments Section Specific)
 elif config_obj.get_src_type() == 3:
     # Initiates a call to YouTube page, and retrieves all comments and comment threads using YouTube api
-    comments = interface.get_youtube_comments()
+    comments = interface.get_youtube_comments(youtube_api_result_limit=youtube_api_result_limit)
     for author, comment in comments.items():
         ProducerHandler.produce_message(data=[author,comment],
                                         kafka_producer=producer,

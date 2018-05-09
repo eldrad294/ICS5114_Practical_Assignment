@@ -92,7 +92,7 @@ class TextInterface():
             doc = f.read()
             return build_from_document(doc, http=credentials.authorize(httplib2.Http()))
     #
-    def get_comment_threads(self, youtube, video_id):
+    def get_comment_threads(self, youtube, video_id, youtube_api_result_limit):
         """
         Call the API's commentThreads.list method to list the existing comment threads.
 
@@ -105,7 +105,7 @@ class TextInterface():
             part="snippet",
             videoId=video_id,
             textFormat="plainText",
-            maxResults=100
+            maxResults=youtube_api_result_limit
         ).execute()
         #
         comment_map = dict()
@@ -121,7 +121,7 @@ class TextInterface():
         #
         return results["items"], comment_map
     #
-    def get_comments(self, youtube, parent_id, comment_map):
+    def get_comments(self, youtube, parent_id, comment_map, youtube_api_result_limit):
         """
         Call the API's comments.list method to list the existing comment replies.
 
@@ -135,7 +135,7 @@ class TextInterface():
             part="snippet",
             parentId=parent_id,
             textFormat="plainText",
-            maxResults=100
+            maxResults=youtube_api_result_limit
         ).execute()
         #
         for item in results["items"]:
@@ -160,10 +160,11 @@ class TextInterface():
         src_url = src_url.replace(match_string_to_remove,'')
         return src_url
     #
-    def get_youtube_comments(self):
+    def get_youtube_comments(self, youtube_api_result_limit):
         """
         Wrapper method used to return all textual information
 
+        :param youtube_api_result_limit: Denotes maximum amount of results returned by YouTube API
         :return:
         """
         argparser.add_argument("--videoid", help="Required; ID for video for which the comment will be inserted.")
@@ -174,10 +175,15 @@ class TextInterface():
         #
         youtube = self.get_authenticated_service(args)
         try:
-            video_comment_threads, comment_map = self.get_comment_threads(youtube, args.videoid)
+            video_comment_threads, comment_map = self.get_comment_threads(youtube=youtube,
+                                                                          video_id=args.videoid,
+                                                                          youtube_api_result_limit=youtube_api_result_limit)
             for i in range(len(video_comment_threads)):
                 parent_id = video_comment_threads[i]["id"]
-                comment_map = self.get_comments(youtube, parent_id, comment_map)
+                comment_map = self.get_comments(youtube=youtube,
+                                                parent_id=parent_id,
+                                                comment_map=comment_map,
+                                                youtube_api_result_limit=youtube_api_result_limit)
         except Exception as e:
             comment_map = None
             print(str(e))

@@ -98,7 +98,7 @@ class Producer(KafkaInterface):
                 #
                 # Pushes serialized object onto Kafka broker
                 producer.produce(serialized_stream_object)
-                print("stream_object submitted to Kapfka broker with topic [" + str(topic) + "]..")
+                print("stream_object submitted to Kafka broker with topic [" + str(topic) + "]..")
         finally:
             self.__threadLock.release()
 
@@ -119,7 +119,10 @@ class ProducerHandler:
         if kafka_topic == "video":
             print(data)
             thread_fire_forget = threading.Thread(target=ProducerHandler.__process_file,
-                                                  args=(data, kafka_producer, kafka_config, kafka_topic))
+                                                  args=(data,
+                                                        kafka_producer,
+                                                        kafka_config,
+                                                        kafka_topic))
             thread_fire_forget.start()
         elif kafka_topic == "text":
             ProducerHandler.__process_file(data=data,
@@ -137,7 +140,7 @@ class ProducerHandler:
         1. Converts the input video file into FLAC audio format (48000Hz, 1-channel).
         2. Uploads resulting file to Google Storage.
         3. Posts the resulting task to Kafka.
-        :param video_path:     Absolute path to video file
+        :param data:           Absolute path to video file OR [author, comment]
         :param kafka_producer: Kafka producer
         :param kafka_config:   Kafka configuration
         :param kafka_topic:    Kafka topic
@@ -145,11 +148,19 @@ class ProducerHandler:
         """
         if kafka_topic == "video":
             cloud_url_tuple = ProducerHandler.__convert_upload(data)
-            ProducerHandler.__post_kafka(data, kafka_producer, kafka_config, kafka_topic, cloud_url_tuple)
+            ProducerHandler.__post_kafka(data=data,
+                                         kafka_producer=kafka_producer,
+                                         kafka_config=kafka_config,
+                                         kafka_topic=kafka_topic,
+                                         cloud_url_tuple=cloud_url_tuple)
             #print(video_path)
             os.remove(data) # Remove segmented file from disk
         elif kafka_topic == "text":
-            ProducerHandler.__post_kafka(data, kafka_producer, kafka_config, kafka_topic, None)
+            ProducerHandler.__post_kafka(data=data,
+                                         kafka_producer=kafka_producer,
+                                         kafka_config=kafka_config,
+                                         kafka_topic=kafka_topic,
+                                         cloud_url_tuple=None)
         else:
             raise ("Unsupported Kafka Topic! Aborting..")
 
@@ -168,7 +179,7 @@ class ProducerHandler:
         """
         1. Construct the Kafka message.
         2. Post message through the thread-safe method: Producer::produce_message(..)
-        :param data:            Absolute path to video file OR extracted text
+        :param data:            Absolute path to video file OR extracted text [author, comment]
         :param kafka_producer:  Kafka producer
         :param kafka_config:    Kafka configuration
         :param kafka_topic:     Kafka topic
@@ -185,7 +196,6 @@ class ProducerHandler:
                                          file_path=data,
                                          cloud_bucket_name=cloud_url_tuple[0],
                                          cloud_bucket_path=cloud_url_tuple[1],
-                                         file=None,
                                          text=None)
         elif kafka_topic == "text":
             stream_object = StreamObject(platform=kafka_config['platform'],
@@ -196,7 +206,6 @@ class ProducerHandler:
                                          file_path=None,
                                          cloud_bucket_name=None,
                                          cloud_bucket_path=None,
-                                         file=None,
                                          text=data)
         else:
             raise ("Unsupported Kafka Topic! Aborting..")
