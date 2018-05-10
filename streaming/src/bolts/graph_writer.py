@@ -16,7 +16,7 @@ class GraphWriter(Bolt):
     """
     #
     # Grouping Mechanism
-    outputs = ['video']
+    outputs = ['video','text']
     #
     # Overriding Bolt Configuration
     auto_anchor = True
@@ -50,59 +50,84 @@ class GraphWriter(Bolt):
         streaming_object = json.loads(streaming_object)
         self.log(streaming_object)
         #
-        if not streaming_object or not streaming_object['video_text']:
+        if not streaming_object or not streaming_object['text']:
             return
         #
         self.log("Preparing batch for graph writing..")
         #
-        word_list = streaming_object['video_text']
-        streamer = streaming_object['channel']
+        viewer = str(streaming_object['viewer'])
+        word_list = streaming_object['text']
+        streamer = str(streaming_object['channel'])
         genre = streaming_object['genre']
-        platform = streaming_object['platform']
+        platform = str(streaming_object['platform'])
         #
         try:
+            self.log('Entry 1')
             #
             # Creates streamer node
             self.interface.merge_node("streamer", streamer)
+            self.log('Entry 2')
             #
             # Creates platform node
             self.interface.merge_node("platform", platform)
+            self.log('Entry 3')
+            #
+            if viewer is not None:
+                #
+                # Creates viewer node
+                self.interface.merge_node("viewer", viewer)
+                self.log('Entry 3.1')
             #
             for g in list(genre):
                 #
                 # Creates genre node
                 self.interface.merge_node("genre", g)
+            self.log('Entry 4')
             #
             for word in word_list:
                 #
                 # Creates word node
                 self.interface.merge_node("word",word)
+                if viewer is None:
+                    #
+                    # streamer - [utters] - word
+                    self.interface.merge_relationship("streamer", streamer,
+                                                      "word", word,
+                                                      "utters")
+                else:
+                    #
+                    # viewer - [comments] - word
+                    self.interface.merge_relationship("viewer", viewer,
+                                                      "word", word,
+                                                      "comments")
+            self.log('Entry 5')
+            if viewer is None:
                 #
-                # streamer - [utters] - word
-                self.interface.merge_relationship("streamer", streamer,
-                                                  "word", word,
-                                                  "utters")
-                # #
-                # # genre - [features] - word
-                # for g in list(genre):
-                #     #
-                #     # word - [features] - genre
-                #     self.log("GRAPH LOG(10) Begin Genre[" + g + "] Word[" + word + "]")
-                #     self.interface.merge_relationship("genre", g,
-                #                                       "word", word,
-                #                                       "features")
-                #     self.log("GRAPH LOG(11) End Genre[" + g + "] Word[" + word + "]")
-            #
-            # streamer - [partakes] - genre
-            for g in list(genre):
-                self.interface.merge_relationship("streamer", streamer,
-                                                  "genre", g,
-                                                  "partakes")
+                # streamer - [partakes] - genre
+                for g in list(genre):
+                    self.interface.merge_relationship("streamer", streamer,
+                                                      "genre", g,
+                                                      "partakes")
+            else:
+                #
+                # viewer - [follows] - genre
+                for g in list(genre):
+                    self.interface.merge_relationship("viewer", viewer,
+                                                      "genre", g,
+                                                      "follows")
+            self.log('Entry 6')
             #
             # streamer - [uses] - platform
             self.interface.merge_relationship("streamer", streamer,
                                               "platform", platform,
                                               "uses")
+            self.log('Entry 7')
+            if viewer is not None:
+                #
+                # viewer - [subscribes] - streamer
+                self.interface.merge_relationship("viewer", viewer,
+                                                  "streamer", streamer,
+                                                  "subscribes")
             #
             self.log("Batch written to graph..")
         except Exception as e:

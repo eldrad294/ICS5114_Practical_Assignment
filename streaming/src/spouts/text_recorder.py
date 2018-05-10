@@ -6,16 +6,16 @@ from kafka.consumer import Consumer # Module purposely starting from kafka.consu
 import json
 import os
 #
-class VideoRecorder(Spout):
+class TextRecorder(Spout):
     """
     Storm Spout Logic
 
     Responsible for offloading streaming objects containing
-    video data (both real-time and prerecorded).
+    text data (both real-time and prerecorded).
     """
     #
     # Grouping Mechanism
-    outputs = ['video']
+    outputs = ['text']
     #
     def initialize(self, stormconf, context):
         """
@@ -43,10 +43,10 @@ class VideoRecorder(Spout):
             zookeeper_connection = g_config.get_value('ConsumerRunner', 'zookeeper_connection')
             print('ZooKeeper connection string, extracted from config file: %s' % zookeeper_connection)
 
-        kafka_topic = "video"  # Kafka topic which this produces will subscribe to
+        kafka_topic = "text"  # Kafka topic which this produces will subscribe to
         kafka_consumer_group = "testgroup"  # Kafka consumer group name for balanced consumers
         #
-        self.log("Initiating Video KafkaSpout..")
+        self.log("Initiating Text KafkaSpout..")
         #
         # Creating an instance of the consumer logic, and connecting with brokers
         consumer = Consumer()
@@ -58,12 +58,12 @@ class VideoRecorder(Spout):
                                                         zookeeper_connect=zookeeper_connection,
                                                         auto_commit_enable=True,
                                                         reset_offset_on_start=True)
-        self.log("Balanced Consumer (Video) Established.")
+        self.log("Balanced Consumer (Text) Established.")
     #
     def next_tuple(self):
         """
         Submitter method for Spout, emits captured
-        and segmented video file paths
+        and segmented text down the pipeline
         :return:
         """
         #
@@ -80,8 +80,9 @@ class VideoRecorder(Spout):
             #
             # De-serializes kafka message value
             message = message.value.decode()
-            stream_obj = message.replace("'", "\"")
-            stream_obj = json.loads(stream_obj)
+            stream_obj = json.loads(r""+message)
+            #stream_obj = message.replace("'", "\"")
+            #stream_obj = json.loads(stream_obj)
         except ImportError as e:
             self.log(str(e))
             return
@@ -91,9 +92,9 @@ class VideoRecorder(Spout):
         #
         # Stream_obj (which is now represented as a dictionary)
         # is pushed down stream through Storm, towards awaiting
-        # video_decoder bolts
+        # text_decoder bolts
         if not stream_obj:
             return
         #
         self.emit([json.dumps(stream_obj)])
-        self.log("Object de-pickled and pushed downstream - " + str(stream_obj['file_path']))
+        self.log("Object de-pickled and pushed downstream - " + str(stream_obj['text'][0]))

@@ -5,17 +5,17 @@ from speech_recognition.BDAGoogleStorage import BDAGoogleStorageConsume
 from coding_framework.BDATextProcessing import BDATextProcessing
 import json
 #
-class VideoDecoder(Bolt):
+class TextDecoder(Bolt):
     """
-    This bolt contains the logic to recieve segmented
-    video file paths, opens the respective file,
-    and decodes the video speech audio into text.
+    This bolt contains the logic to recieve text
+    [authors, comments], which are respectively
+    processed, cleaned and pushed downstream.
 
     The decoded text is emitted to another bolt (graph_writer).
     """
     #
     # Grouping Mechanism
-    outputs = ['video']
+    outputs = ['text']
     #
     # Overriding Bolt Configuration
     auto_anchor = True
@@ -39,30 +39,30 @@ class VideoDecoder(Bolt):
         """
         streaming_object = tup.values[0]
         #
-        streaming_object = streaming_object.replace("'", "\"")
-        streaming_object = json.loads(streaming_object)
+        #streaming_object = streaming_object.replace("'", "\"")
+        streaming_object = json.loads(r""+streaming_object)
         #
         if not streaming_object:
             return
         #
-        self.log("Received streaming object for URI: " + str(streaming_object['cloud_bucket_path']))
+        self.log("Received streaming object for Author: " + str(streaming_object['text'][0]))
         #
         try:
+            author = str(streaming_object['text'][0][0])
+            comments = str(' '.join(streaming_object['text'][1]))
             #
-            decoded_video_string = self.google_transcriber.transcribe_file(streaming_object['cloud_bucket_name'],
-                                                                           streaming_object['cloud_bucket_path'])
+            author = BDATextProcessing.simplify_text(author)
+            comments = BDATextProcessing.simplify_text(comments)
             #
-            clean_decoded_video_string = BDATextProcessing.simplify_text(decoded_video_string)
+            streaming_object['viewer'] = author
+            streaming_object['text'] = comments
             #
-            # self.log("CLEANED MESSAGE STRING [" + str(clean_decoded_video_string) + "]")
-            #
-            streaming_object['text'] = clean_decoded_video_string
-            #
-            self.log("Video decoding for [" + str(streaming_object['cloud_bucket_path']) +
+            self.log("Text cleanup for [" + str(streaming_object['viewer']) +
                      "] complete - Pushing downstream.. ")
         except Exception as e:
-            self.log("An exception was raised during video decoding!!")
+            self.log("An exception was raised during text decoding!!")
             self.log(str(e))
+            streaming_object['viewer'] = ["?????"]
             streaming_object['text'] = ["?????"] # We pass an error (dummy) string to avoid passing None values to graph writer
         finally:
             #
