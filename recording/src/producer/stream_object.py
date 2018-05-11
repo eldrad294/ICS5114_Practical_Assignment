@@ -10,7 +10,7 @@ class StreamObject:
     """
     #
     def __init__(self, platform, src_url, channel, genre, time_stamp,
-                 file_path, cloud_bucket_name, cloud_bucket_path, text=None):
+                 file_path, cloud_bucket_name, cloud_bucket_path, viewer=None, text=None):
         """
         Default Constructor
 
@@ -32,6 +32,7 @@ class StreamObject:
         self.cloud_bucket_name = cloud_bucket_name
         self.cloud_bucket_path = cloud_bucket_path
         self.time_stamp = time_stamp
+        self.viewer = viewer
         self.text = text
         self.detail_dict = { "platform": self.platform,
                              "source_url": self.src_url,
@@ -41,6 +42,7 @@ class StreamObject:
                              "channel": self.channel,
                              "genre": self.genre,
                              "time_stamp": self.time_stamp,
+                             "viewer": self.viewer,
                              "text": self.text}
     #
     def get_details(self, key=None):
@@ -63,7 +65,9 @@ class StreamObject:
               "\nFile Path: " + str(self.file_path) +
               "\nChanel: " + str(self.channel) +
               "\nGenre: " + str(self.genre) +
-              "\nTime Stamp: " + str(self.time_stamp))
+              "\nTime Stamp: " + str(self.time_stamp) +
+              "\nViewer: " + str(self.viewer) +
+              "\nText: " + str(self.text))
     #
     # def __getstate__(self):
     #     """

@@ -60,7 +60,7 @@ class BDATextProcessing:
         stripped_symbols = ("}","{","[","]","?",":","!","/",";",".",",",
                             "(",")","#","$","%","^","&","*","~","-","'",
                             "+","-","\'","\\","\b","\t","\n","\r","\f",
-                            "\"","\\uFEFF")
+                            "\"","\\uFEFF","`")
         #
         for word in str_input:
             temp_word = word

@@ -124,10 +124,6 @@ class CreateTransactionFunctions(object):
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         supported_relationships = GraphEntities.get_supported_relationship_types()
-        # cql = "MERGE (s:" + supported_nodes[0] + "{name:$name1})-[u:" + supported_relationships[0] + "]-(w:" + supported_nodes[3] + "{name:$name2}) " \
-        #       "ON CREATE SET u.count = 1 " \
-        #       "ON MATCH SET u.count = u.count + 1 " \
-        #       "RETURN type(u);"
         cql = "MATCH (s:" + supported_nodes[0] + "),(w:" + supported_nodes[3] + ") " \
               "WHERE s.name=$name1 " \
               "AND w.name=$name2 " \
@@ -154,7 +150,10 @@ class CreateTransactionFunctions(object):
         cql = "MATCH (v:" + supported_nodes[1] + "),(w:" + supported_nodes[3] + ") " \
               "WHERE v.name=$name1 " \
               "AND w.name=$name2 " \
-              "MERGE (v)-[c:" + supported_relationships[1] + "]-(w) " \
+              "MERGE (v)-[c:" + \
+              supported_relationships[1] + "]-(w) " \
+              "ON CREATE SET c.count = 1 " \
+              "ON MATCH SET c.count = c.count + 1 " \
               "RETURN type(c);"
         try:
             tx.run(cql, name1=name1, name2=name2)
@@ -196,7 +195,7 @@ class CreateTransactionFunctions(object):
         cql = "MATCH (v:" + supported_nodes[1] + "),(g:" + supported_nodes[2] + ") " \
               "WHERE v.name=$name1 " \
               "AND g.name=$name2 " \
-              "MERGE (w)-[f:" + supported_relationships[3] + "]-(g) " \
+              "MERGE (v)-[f:" + supported_relationships[3] + "]-(g) " \
               "RETURN type(f);"
         try:
             tx.run(cql, name1=name1, name2=name2)

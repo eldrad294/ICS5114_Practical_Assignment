@@ -196,6 +196,7 @@ class ProducerHandler:
                                          file_path=data,
                                          cloud_bucket_name=cloud_url_tuple[0],
                                          cloud_bucket_path=cloud_url_tuple[1],
+                                         viewer=None,
                                          text=None)
         elif kafka_topic == "text":
             stream_object = StreamObject(platform=kafka_config['platform'],
@@ -206,7 +207,8 @@ class ProducerHandler:
                                          file_path=None,
                                          cloud_bucket_name=None,
                                          cloud_bucket_path=None,
-                                         text=data)
+                                         viewer=str(data[0]),
+                                         text=str(data[1]))
         else:
             raise ("Unsupported Kafka Topic! Aborting..")
         #

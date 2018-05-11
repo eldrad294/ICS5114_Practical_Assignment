@@ -18,7 +18,7 @@ class MainTopology(Topology):
     text_spout_parallel_degree = 1
     video_decoder_parallel_degree = 1
     text_decoder_parallel_degreee = 1
-    graph_writer_parallel_degree = 1
+    graph_writer_parallel_degree = 2
     #
     print('Initiating Spouts..')
     video_recording_spout = VideoRecorder.spec(par=video_spout_parallel_degree)

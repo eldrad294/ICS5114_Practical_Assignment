@@ -54,8 +54,6 @@ class VideoDecoder(Bolt):
             #
             clean_decoded_video_string = BDATextProcessing.simplify_text(decoded_video_string)
             #
-            # self.log("CLEANED MESSAGE STRING [" + str(clean_decoded_video_string) + "]")
-            #
             streaming_object['text'] = clean_decoded_video_string
             #
             self.log("Video decoding for [" + str(streaming_object['cloud_bucket_path']) +

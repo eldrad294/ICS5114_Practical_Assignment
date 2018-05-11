@@ -80,14 +80,14 @@ class TextRecorder(Spout):
             #
             # De-serializes kafka message value
             message = message.value.decode()
-            stream_obj = json.loads(r""+message)
             #stream_obj = message.replace("'", "\"")
-            #stream_obj = json.loads(stream_obj)
+            #self.log(message)
+            stream_obj = json.loads(message)
         except ImportError as e:
             self.log(str(e))
             return
         except Exception as e:
-            self.log(str(e))
+            self.log(str(e) + " Viewer [" + str(stream_obj['viewer']) + "] ,Text [" + str(stream_obj['text']) + "]")
             return
         #
         # Stream_obj (which is now represented as a dictionary)
@@ -97,4 +97,4 @@ class TextRecorder(Spout):
             return
         #
         self.emit([json.dumps(stream_obj)])
-        self.log("Object de-pickled and pushed downstream - " + str(stream_obj['text'][0]))
+        self.log("Object de-pickled and pushed downstream - " + str(stream_obj['viewer']))

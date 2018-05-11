@@ -96,4 +96,4 @@ class VideoRecorder(Spout):
             return
         #
         self.emit([json.dumps(stream_obj)])
-        self.log("Object de-pickled and pushed downstream - " + str(stream_obj['file_path']))
+        self.log("Object de-pickled and pushed downstream - [" + str(stream_obj['file_path']) + "]")
