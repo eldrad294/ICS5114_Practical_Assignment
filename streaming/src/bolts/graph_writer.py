@@ -47,6 +47,7 @@ class GraphWriter(Bolt):
         streaming_object = tup.values[0]
         #
         #streaming_object = streaming_object.replace("'", "\"")
+        self.log(str(streaming_object))
         streaming_object = json.loads(streaming_object)
         # self.log(streaming_object)
         #
@@ -56,38 +57,33 @@ class GraphWriter(Bolt):
         self.log("Preparing batch for graph writing..")
         #
         viewer = streaming_object['viewer']
-        word_list = streaming_object['text']
-        self.log(word_list)
+        word_list = list(streaming_object['text'])
         streamer = str(streaming_object['channel'])
-        genre = streaming_object['genre']
+        genre = list(streaming_object['genre'])
         platform = str(streaming_object['platform'])
         #
         try:
-            self.log("GRAPHWRITER1")
             #
             # Creates streamer node
             self.interface.merge_node("streamer", streamer)
-            self.log("GRAPHWRITER2")
             #
             # Creates platform node
             self.interface.merge_node("platform", platform)
             #
             #self.log("Viewer [" + viewer + "]")
             if viewer is not None:
-                self.log("GRAPHWRITER3")
                 #
                 # Creates viewer node
                 self.interface.merge_node("viewer", viewer)
-            #
-            for g in list(genre):
-                self.log("GRAPHWRITER4 [" + g + "]")
-                #
-                # Creates genre node
-                self.interface.merge_node("genre", g)
-                self.log("GRAPHWRITER4.5 [" + g + "]")
+            # #
+            # for g in genre:
+            #     self.log("GRAPHWRITER4 [" + g + "]")
+            #     #
+            #     # Creates genre node
+            #     self.interface.merge_node("genre", g)
+            #     self.log("GRAPHWRITER4.5 [" + g + "]")
             #
             for word in word_list:
-                self.log("GRAPHWRITER5")
                 #
                 # Creates word node
                 self.interface.merge_node("word", word)
@@ -97,44 +93,38 @@ class GraphWriter(Bolt):
                     self.interface.merge_relationship("streamer", streamer,
                                                       "word", word,
                                                       "utters")
-                    self.log("GRAPHWRITER6.5 Word[" + word + "] Streamer[" + streamer + "]")
                 else:
-                    self.log("GRAPHWRITER6")
                     #
                     # viewer - [comments] - word
                     self.interface.merge_relationship("viewer", viewer,
                                                       "word", word,
                                                       "comments")
-                    self.log("GRAPHWRITER6.5 Word[" + word + "] Viewer[" + viewer + "]")
-            for g in list(genre):
-                self.log("GRAPHWRITER7")
+            for g in genre:
+                #
+                # Creates genre node
+                self.interface.merge_node("genre", g)
                 #
                 # streamer - [partakes] - genre
                 self.interface.merge_relationship("streamer", streamer,
                                                   "genre", g,
                                                   "partakes")
                 if viewer is not None:
-                    self.log("GRAPHWRITER8 Viewer[" + viewer + "] Genre[" + g + "]")
                     #
                     # viewer - [follows] - genre
                     self.interface.merge_relationship("viewer", viewer,
                                                       "genre", g,
                                                       "follows")
-                    self.log("GRAPHWRITER8.5 Viewer[" + viewer + "] Genre[" + g + "]")
-            self.log("GRAPHWRITER9")
             #
             # streamer - [uses] - platform
             self.interface.merge_relationship("streamer", streamer,
                                               "platform", platform,
                                               "uses")
             if viewer is not None:
-                self.log("GRAPHWRITER10 Viewer[" + viewer + "] Streamer[" + streamer + "]")
                 #
                 # viewer - [subscribes] - streamer
                 self.interface.merge_relationship("viewer", viewer,
                                                   "streamer", streamer,
                                                   "subscribes")
-                self.log("GRAPHWRITER11 Viewer[" + viewer + "] Streamer[" + streamer + "]")
             #
             self.log("Batch written to graph..")
         except Exception as e:

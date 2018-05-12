@@ -33,27 +33,20 @@ class CreateInterface(BasicInterface):
         bookmark = None
         #
         if node_type not in self.supported_node_types:
-            print("Unsupported node type - ["+str(node_type)+"]")
             return bookmark
         #
         with self._driver.session() as session:
             if node_type == self.supported_node_types[0]:
                 session.write_transaction(CreateTransactionFunctions.add_streamer, node_name)
-                print("'Stream' node merged")
             elif node_type == self.supported_node_types[1]:
                 session.write_transaction(CreateTransactionFunctions.add_viewer, node_name)
-                print("'Viewer' node merged")
             elif node_type == self.supported_node_types[2]:
                 session.write_transaction(CreateTransactionFunctions.add_genre, node_name)
-                print("'Genre' node merged")
             elif node_type == self.supported_node_types[3]:
                 session.write_transaction(CreateTransactionFunctions.add_word, node_name)
-                print("'Word' node merged")
             elif node_type == self.supported_node_types[4]:
                 session.write_transaction(CreateTransactionFunctions.add_platform, node_name)
-                print("'Platform' node merged")
             else:
-                print("Unsupported node type!")
                 return bookmark
             #
             bookmark = session.last_bookmark()
@@ -71,15 +64,12 @@ class CreateInterface(BasicInterface):
         relationship = relationship.lower()
         #
         if node_type_1 not in self.supported_node_types:
-            print("Unsupported node type - [" + str(node_type_1) + "]")
             return False
         #
         if node_type_2 not in self.supported_node_types:
-            print("Unsupported node type - [" + str(node_type_2) + "]")
             return False
         #
         if relationship not in self.supported_relationship_types:
-            print("Unsupported relationship type - [" + str(relationship) + "]")
             return False
         #
         # Merging node 1
@@ -106,27 +96,19 @@ class CreateInterface(BasicInterface):
         with self._driver.session() as session:
             if relationship == self.supported_relationship_types[0]:
                 session.write_transaction(CreateTransactionFunctions.add_uterrance, node_name_1, node_name_2)
-                print("'utters' relationship merged")
             elif relationship == self.supported_relationship_types[1]:
                 session.write_transaction(CreateTransactionFunctions.add_comment, node_name_1, node_name_2)
-                print("'comments' relationship merged")
             elif relationship == self.supported_relationship_types[2]:
                 session.write_transaction(CreateTransactionFunctions.add_features, node_name_1, node_name_2)
-                print("'features' relationship merged")
             elif relationship == self.supported_relationship_types[3]:
                 session.write_transaction(CreateTransactionFunctions.add_follows, node_name_1, node_name_2)
-                print("'follows' relationship merged")
             elif relationship == self.supported_relationship_types[4]:
                 session.write_transaction(CreateTransactionFunctions.add_partakes, node_name_1, node_name_2)
-                print("'partakes' relationship merged")
             elif relationship == self.supported_relationship_types[5]:
                 session.write_transaction(CreateTransactionFunctions.add_subscribes, node_name_1, node_name_2)
-                print("'subscribes' relationship merged")
             elif relationship == self.supported_relationship_types[6]:
                 session.write_transaction(CreateTransactionFunctions.add_uses, node_name_1, node_name_2)
-                print("'uses' relationship merged")
             else:
-                print("Unsupported relationship type!")
                 return False
         #
         # If we got this far, this means that node creation was successful
