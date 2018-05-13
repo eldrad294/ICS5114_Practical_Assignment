@@ -8,7 +8,8 @@ import os
 import time
 import threading
 import json
-#
+
+
 class Producer(KafkaInterface):
     ###################
     # Private members
@@ -103,9 +104,74 @@ class Producer(KafkaInterface):
             self.__threadLock.release()
 
 
+class ProducerTask:
+    ###################
+    # Public members
+    task_data = None
+    task_kafka_config = None
+    task_kafka_topic = None
+    ###################
+
+    def __init__(self, data, kafka_config, kafka_topic):
+        self.task_data = data
+        self.task_kafka_config = kafka_config
+        self.task_kafka_topic = kafka_topic
+
+
 class ProducerHandler:
+    ###################
+    # Private members
+    __kafka_producer_ref = None
+    __task_queue = None
+    __mutex = None
+    __worker_threads = None
+    ###################
+
+    def __init__(self, kafka_producer_ref, upload_thread_count: int):
+        self.__kafka_producer_ref = kafka_producer_ref
+        self.__task_queue = []
+        self.__mutex = threading.Lock()
+
+        self.__worker_threads = []
+        for idx in range(upload_thread_count):
+            self.__worker_threads.append(threading.Thread(target=ProducerHandler.__work,
+                                                          args=(self.__task_queue,
+                                                                self.__mutex,
+                                                                self.__kafka_producer_ref)))
+
+        for thread in self.__worker_threads:
+            thread.start()
+
+    def add_task(self, data, kafka_config, kafka_topic):
+        task = ProducerTask(data, kafka_config, kafka_topic)
+
+        self.__mutex.acquire()
+        try:
+            self.__task_queue.append(task)
+        finally:
+            self.__mutex.release()
+
     @staticmethod
-    def produce_message(data, kafka_producer, kafka_config, kafka_topic):
+    def __work(task_queue, mutex, producer):
+        current_task = None
+        while True:
+            mutex.acquire()
+            try:
+                if len(task_queue) > 0:
+                    current_task = task_queue.pop(0)
+                else:
+                    current_task = None
+            finally:
+                mutex.release()
+
+            if current_task is not None:
+                ProducerHandler.__produce_message(current_task.task_data, producer, current_task.task_kafka_config,
+                                                  current_task.task_kafka_topic)
+            else:
+                time.sleep(1)
+
+    @staticmethod
+    def __produce_message(data, kafka_producer, kafka_config, kafka_topic):
         """
         ProducerHandler entry point:
         1. Initiates a separate thread.
@@ -117,22 +183,13 @@ class ProducerHandler:
         :return:               None
         """
         if kafka_topic == "video":
-            print(data)
-            thread_fire_forget = threading.Thread(target=ProducerHandler.__process_file,
-                                                  args=(data,
-                                                        kafka_producer,
-                                                        kafka_config,
-                                                        kafka_topic))
-            thread_fire_forget.start()
+            print('Kafka video message received: %s' % data)
+            ProducerHandler.__process_file(data, kafka_producer, kafka_config, kafka_topic)
         elif kafka_topic == "text":
-            ProducerHandler.__process_file(data=data,
-                                           kafka_producer=kafka_producer,
-                                           kafka_config=kafka_config,
-                                           kafka_topic=kafka_topic)
+            print('Kafka text message received: %s' % data)
+            ProducerHandler.__process_file(data, kafka_producer, kafka_config, kafka_topic)
         else:
-            raise ("Unsupported Kafka Topic! Aborting..")
-
-
+            raise ValueError('Unsupported Kafka Topic! Aborting..')
 
     @staticmethod
     def __process_file(data, kafka_producer, kafka_config, kafka_topic):
@@ -153,7 +210,6 @@ class ProducerHandler:
                                          kafka_config=kafka_config,
                                          kafka_topic=kafka_topic,
                                          cloud_url_tuple=cloud_url_tuple)
-            #print(video_path)
             os.remove(data) # Remove segmented file from disk
         elif kafka_topic == "text":
             ProducerHandler.__post_kafka(data=data,
@@ -162,7 +218,7 @@ class ProducerHandler:
                                          kafka_topic=kafka_topic,
                                          cloud_url_tuple=None)
         else:
-            raise ("Unsupported Kafka Topic! Aborting..")
+            raise ValueError('Unsupported Kafka Topic! Aborting..')
 
     @staticmethod
     def __convert_upload(data):
@@ -210,7 +266,7 @@ class ProducerHandler:
                                          viewer=str(data[0]),
                                          text=str(data[1]))
         else:
-            raise ("Unsupported Kafka Topic! Aborting..")
+            raise ValueError('Unsupported Kafka Topic! Aborting..')
         #
         # Submits message to Kafka broker
         kafka_producer.produce_message(topic=kafka_topic, stream_object=stream_object)

@@ -7,94 +7,146 @@ from recording.src.recording.text_interface import TextInterface
 from recording.src.constants import path_consts as pc
 from recording.src.producer.producer import Producer, ProducerHandler
 from recording.src.coding_framework.BDAConfigParser import g_config
+
 """
-This script is intended to run on producer nodes. The
-producer node will be responsible for capturing and
-submission of data onto the Kafka Broker.
+This script is intended to run on producer nodes. The producer node will be responsible for capturing and submission of
+data onto the Kafka Broker.
 """
-#
-# Script Parameters
-stream_offset = os.environ.get(g_config.get_value('ProducerRunner', 'StreamOffset_EvnVarName'))
-if stream_offset is not None:
-    stream_offset = int(stream_offset)
-    print('Stream offset extracted from env variable % d' % stream_offset)
-else:
-    stream_offset = int(g_config.get_value('ProducerRunner', 'stream_offset'))
-    print('Stream offset extracted from config file % d' % stream_offset)
-#
-# Connection strings used to connect to a number of Kafka Brokers
-kafka_connection_strings = os.environ.get('kafka_connection_strings')
-if kafka_connection_strings is not None:
-    kafka_connection_strings = kafka_connection_strings.split(',')
-    print('Kafka connection strings, extracted from env variable: %s' % kafka_connection_strings)
-else:
-    kafka_connection_strings = g_config.get_value('ProducerRunner', 'kafka_connection_strings').split(',')
-    print('Kafka connection strings, extracted from config file: %s' % kafka_connection_strings)
-file_segment_time_span = int(g_config.get_value('ProducerRunner', 'file_segment_time_span'))            # File recording segment size (seconds)
-file_extension = g_config.get_value('ProducerRunner', 'file_extension')                                 # File recording extension to save the file (Set to flac for Google Storage purposes)
-file_quality = g_config.get_value('ProducerRunner', 'file_quality')                                     # Video quality to record stream at
-kafka_topic_video = g_config.get_value('ProducerRunner', 'kafka_topic_video')                                       # Kafka topic which this produces will subscribe to
-kafka_topic_text = g_config.get_value('ProducerRunner', 'kafka_topic_text')
-exception_time_out = g_config.get_value('ProducerRunner', 'exception_time_out')                         # Time in seconds to delay process in the case of a timeout
-youtube_api_result_limit = g_config.get_value('ProducerRunner', 'youtube_api_result_limit')
-#
-print("Initiating producer runner..")
-#
-# Loads config from input_channels.json
-ci = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
-#
-if ci.get_input_channels()[stream_offset].type == kafka_topic_video:
-    interface = RecordingInterface(config_obj=ci.get_input_channels()[stream_offset],
-                                   segment_time_span=file_segment_time_span,
-                                   extension=file_extension,
-                                   quality=file_quality,
-                                   video_buffer_path=pc.DIR_VIDEO_BUFFER)
-elif ci.get_input_channels()[stream_offset].type == kafka_topic_text:
-    interface = TextInterface(ci.get_input_channels()[stream_offset])
-else:
-    raise("Unsupported source type - Must be 'video' or 'text'")
-#
-# Creating an instance of the producer logic, and connecting with brokers
-producer = Producer()
-producer.connect(kafka_connection_strings)
-#
-# Loads config object
-config_obj = ci.get_input_channels()[stream_offset]
-#
-# Video Livestreaming
-if config_obj.get_src_type() == 0:
-    # Initiates streamlink, to record footage locally of ongoing livestream
-    while True:
+
+
+class ProducerRunner:
+    ###################
+    # Private members
+    __stream_offset = None
+    __kafka_connection_strings = None
+    __file_segment_time_span = None         # File recording segment size (seconds)
+    __file_extension = None                 # File recording storage extension (GoogleStorage recommends FLAC)
+    __file_quality = None                   # Recorded stream video quality
+    __kafka_topic_video = None              # Kafka topic which this producer will subscribe to
+    __kafka_topic_text = None
+    __exception_time_out = None             # Time in seconds to delay process in the case of a timeout
+    __youtube_api_result_limit = None
+    __recording_iface = None
+    __recording_config_container = None
+    __producer = None
+    __producer_handler = None
+    ###################
+
+    def __init__(self):
+        self.__load_producer_params()
+        self.__initialize_producer()
+
+    def start_producer(self):
+        print('>> ProducerRunner --> Start')
+        if self.__recording_config_container.get_src_type() == 0:
+            # Video live streaming
+            self.__video_live_streaming()
+        elif self.__recording_config_container.get_src_type() == 1:
+            # Video Retrieval (YouTube Specific)
+            self.__video_retrieval_youtube()
+        elif self.__recording_config_container.get_src_type() == 2:
+            # Source type not Yet Supported
+            raise ValueError('Not Yet Supported!')
+        elif self.__recording_config_container.get_src_type() == 3:
+            # Text Retrieval (YouTube Comments Section Specific)
+            self.__text_retrieval_youtube()
+        else:
+            raise ValueError('Invalid source type')
+
+    def __load_producer_params(self):
+        print('>> ProducerRunner --> Load config')
+        self.__stream_offset = int(self.__load_param('ProducerRunner', 'stream_offset', 'StreamOffset_EvnVarName'))
+        self.__kafka_connection_strings = self.__load_param('ProducerRunner', 'kafka_connection_strings',
+                                                            'KafkaConnectionStrings_EvnVarName').split(',')
+        self.__file_segment_time_span = int(self.__load_param('ProducerRunner', 'file_segment_time_span'))
+        self.__file_extension = self.__load_param('ProducerRunner', 'file_extension')
+        self.__file_quality = self.__load_param('ProducerRunner', 'file_quality')
+        self.__kafka_topic_video = self.__load_param('ProducerRunner', 'kafka_topic_video')
+        self.__kafka_topic_text = self.__load_param('ProducerRunner', 'kafka_topic_text')
+        self.__exception_time_out = self.__load_param('ProducerRunner', 'exception_time_out')
+        self.__youtube_api_result_limit = self.__load_param('ProducerRunner', 'youtube_api_result_limit')
+        print('<< ProducerRunner --> Load config')
+
+    def __load_param(self, section_name: str, key_name: str, key_env_var: str=None) -> str:
+        """
+        Helper method, responsible for loading ProducerRunner config parameter
+        :param section_name:  Section name within the config.ini file
+        :param key_name:      Parameter key within the config.ini file
+        :param key_env_var:   If set, load parameter from the environment variable or from config.ini file, in this
+                              order.
+        :return:              String representation of the config param
+        """
+        result = None
+
+        if key_env_var:
+            result = os.environ.get(g_config.get_value(section_name, key_env_var))
+
+        if result is None:
+            result = g_config.get_value(section_name, key_name)
+
+        return result
+
+    def __initialize_producer(self):
+        print('>> ProducerRunner --> Initialization')
+        # Loads config from input_channels.json
+        config_iface = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
         #
-        # Initiates a call to Streamlink, and records the stream into a file locally
-        video_path = interface.capture_and_return()
-        #
-        # video = ri.get_video(video_path=video_path)
-        ProducerHandler.produce_message(data=video_path,
-                                        kafka_producer=producer,
-                                        kafka_config=config_obj.get_details(),
-                                        kafka_topic=kafka_topic_video)
-#
-# Video Retrieval (YouTube Specific)
-elif config_obj.get_src_type() == 1:
-    # Initiates a call to a local video file, and splits it into several files
-    video_paths = interface.download_and_segment()
-    #
-    for video_path in video_paths:
-        ProducerHandler.produce_message(data=video_path,
-                                        kafka_producer=producer,
-                                        kafka_config=config_obj.get_details(),
-                                        kafka_topic=kafka_topic_video)
-#
-elif config_obj.get_src_type() == 2:
-    raise("Not Yet Supported!")
-#
-# Text Retrieval (YouTube Comments Section Specific)
-elif config_obj.get_src_type() == 3:
-    # Initiates a call to YouTube page, and retrieves all comments and comment threads using YouTube api
-    comments = interface.get_youtube_comments(youtube_api_result_limit=youtube_api_result_limit)
-    for author, comment in comments.items():
-        ProducerHandler.produce_message(data=[author,comment],
-                                        kafka_producer=producer,
-                                        kafka_config=config_obj.get_details(),
-                                        kafka_topic=kafka_topic_text)
+        if config_iface.get_input_channels()[self.__stream_offset].type == self.__kafka_topic_video:
+            self.__recording_iface = RecordingInterface(
+                config_obj=config_iface.get_input_channels()[self.__stream_offset],
+                segment_time_span=self.__file_segment_time_span,
+                extension=self.__file_extension,
+                quality=self.__file_quality,
+                video_buffer_path=pc.DIR_VIDEO_BUFFER)
+        elif config_iface.get_input_channels()[self.__stream_offset].type == self.__kafka_topic_text:
+            self.__recording_iface = TextInterface(config_iface.get_input_channels()[self.__stream_offset])
+        else:
+            raise ValueError("Unsupported source type - Must be 'video' or 'text'")
+
+        # Loads config object
+        self.__recording_config_container = config_iface.get_input_channels()[self.__stream_offset]
+
+        # Creating an instance of the producer logic and connecting with brokers
+        self.__producer = Producer()
+        self.__producer.connect(self.__kafka_connection_strings)
+
+        upload_thread_count = int(self.__load_param('ProducerRunner', 'UploadThreadCount'))
+        self.__producer_handler = ProducerHandler(self.__producer, upload_thread_count)
+        print('<< ProducerRunner --> Initialization')
+
+    def __video_live_streaming(self):
+        # Initiates streamlink, record ongoing live-stream footage locally
+        print('>> ProducerRunner --> Video live streaming')
+        while True:
+            # Initiates a call to Streamlink, and records the stream into a file locally
+            video_path = self.__recording_iface.capture_and_return()
+
+            # video = ri.get_video(video_path=video_path)
+            ProducerHandler.add_task(data=video_path, kafka_producer=self.__producer,
+                                     kafka_config=self.__recording_config_container.get_details(),
+                                     kafka_topic=self.__kafka_topic_video)
+
+    def __video_retrieval_youtube(self):
+        # Initiates a call to a local video file and splits it into several files
+        print('>> ProducerRunner --> YouTube video live streaming')
+        video_paths = self.__recording_iface.download_and_segment()
+
+        for video_path in video_paths:
+            ProducerHandler.add_task(data=video_path, kafka_producer=self.__producer,
+                                     kafka_config=self.__recording_config_container.get_details(),
+                                     kafka_topic=self.__kafka_topic_video)
+        print('<< ProducerRunner --> YouTube video live streaming')
+
+    def __text_retrieval_youtube(self):
+        # Initiates a call to YouTube page, and retrieves all comments and comment threads using YouTube api
+        print('>> ProducerRunner --> YouTube text retrieval')
+        comments = self.__recording_iface.get_youtube_comments(youtube_api_result_limit=self.__youtube_api_result_limit)
+        for author, comment in comments.items():
+            ProducerHandler.add_task(data=[author, comment], kafka_producer=self.__producer,
+                                     kafka_config=self.__recording_config_container.get_details(),
+                                     kafka_topic=self.__kafka_topic_text)
+        print('<< ProducerRunner --> YouTube text retrieval')
+
+
+producer_runner = ProducerRunner()
+producer_runner.start_producer()
