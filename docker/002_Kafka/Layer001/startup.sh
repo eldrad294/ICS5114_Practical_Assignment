@@ -32,6 +32,7 @@ done
 
 # Kafka server up, create kafka topic/s
 /opt/kafka_2.11-1.1.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic video
+/opt/kafka_2.11-1.1.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic text
 
 # Read kafka server output and keep OS process in memory
 tail -f /tmp/bda_kafka_logs/kafka.logs
