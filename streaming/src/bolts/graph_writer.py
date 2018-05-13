@@ -1,5 +1,6 @@
 #
 # Module Imports
+import os
 from streamparse import Bolt
 from graph.CRUD_interface import CRUDInterface
 from coding_framework.BDAConfigParser import g_config
@@ -30,7 +31,10 @@ class GraphWriter(Bolt):
         :param ctx:
         :return:
         """
-        uri = g_config.get_value('GraphDB', 'neo4j_connection_string')
+        uri = os.environ.get('neo4j_connection_string')
+        if uri is None:
+            uri = g_config.get_value('GraphDB', 'neo4j_connection_string')
+            
         user = g_config.get_value('GraphDB', 'user')
         password = g_config.get_value('GraphDB', 'password')
         self.interface = CRUDInterface(uri=uri,
