@@ -5,4 +5,4 @@ git pull
 
 cd /root/src/ICS5114_Practical_Assignment/streaming
 
-sparse run
+sparse run -o supervisor.worker.timeout.secs=600

@@ -1,0 +1,4 @@
+FROM neo4j:3.3
+
+ENV NEO4J_AUTH none
+

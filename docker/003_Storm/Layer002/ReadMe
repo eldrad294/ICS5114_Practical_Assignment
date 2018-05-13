@@ -1,0 +1,5 @@
+How to create container:
+------------------------
+
+Create a container:
+>> docker run -e kafka_connection_strings=172.17.0.2:9092 -e kafka_connection_strings=172.17.0.2:2181 -e neo4j_connection_string bolt://172.17.0.2:7687 --name storm bda/storm:1.1

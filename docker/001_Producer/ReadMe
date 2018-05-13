@@ -1,9 +1,5 @@
-How to
-------
+How to create container:
+------------------------
 
-1. Build the producer docker images:
-- cd to current directory
-  >> docker build -t bda/producer:1.0 .
-
-2. Create a container:
-- docker run --name producer_01 -e stream_offset=1 bda/producer:1.0
+Create a container:
+>> docker run -e stream_offset=0 -e kafka_connection_strings=172.17.0.2:9092 --name producer bda/producer:1.0
