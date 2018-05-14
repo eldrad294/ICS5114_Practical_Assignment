@@ -174,5 +174,12 @@
       "tyranids",
       "deathguard"],
     "type":"text"
+  },
+  {
+  "platform":"youtube",
+  "src":"https://www.youtube.com/watch?v=IYfgvS0FA7U",
+  "channel":"LastWeekTonight",
+  "genre":["Venezuela", "politics"],
+  "type":"video"
   }
 ]}
