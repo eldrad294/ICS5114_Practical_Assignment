@@ -122,9 +122,9 @@ class ProducerRunner:
             video_path = self.__recording_iface.capture_and_return()
 
             # video = ri.get_video(video_path=video_path)
-            ProducerHandler.add_task(data=video_path, kafka_producer=self.__producer,
-                                     kafka_config=self.__recording_config_container.get_details(),
-                                     kafka_topic=self.__kafka_topic_video)
+            self.__producer_handler.add_task(data=video_path,
+                                             kafka_config=self.__recording_config_container.get_details(),
+                                             kafka_topic=self.__kafka_topic_video)
 
     def __video_retrieval_youtube(self):
         # Initiates a call to a local video file and splits it into several files
@@ -132,9 +132,9 @@ class ProducerRunner:
         video_paths = self.__recording_iface.download_and_segment()
 
         for video_path in video_paths:
-            ProducerHandler.add_task(data=video_path, kafka_producer=self.__producer,
-                                     kafka_config=self.__recording_config_container.get_details(),
-                                     kafka_topic=self.__kafka_topic_video)
+            self.__producer_handler.add_task(data=video_path,
+                                             kafka_config=self.__recording_config_container.get_details(),
+                                             kafka_topic=self.__kafka_topic_video)
         print('<< ProducerRunner --> YouTube video live streaming')
 
     def __text_retrieval_youtube(self):
@@ -142,9 +142,9 @@ class ProducerRunner:
         print('>> ProducerRunner --> YouTube text retrieval')
         comments = self.__recording_iface.get_youtube_comments(youtube_api_result_limit=self.__youtube_api_result_limit)
         for author, comment in comments.items():
-            ProducerHandler.add_task(data=[author, comment], kafka_producer=self.__producer,
-                                     kafka_config=self.__recording_config_container.get_details(),
-                                     kafka_topic=self.__kafka_topic_text)
+            self.__producer_handler.add_task(data=[author, comment],
+                                             kafka_config=self.__recording_config_container.get_details(),
+                                             kafka_topic=self.__kafka_topic_text)
         print('<< ProducerRunner --> YouTube text retrieval')
 
 
