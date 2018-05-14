@@ -121,10 +121,12 @@ class ProducerRunner:
             # Initiates a call to Streamlink, and records the stream into a file locally
             video_path = self.__recording_iface.capture_and_return()
 
-            # video = ri.get_video(video_path=video_path)
-            self.__producer_handler.add_task(data=video_path,
-                                             kafka_config=self.__recording_config_container.get_details(),
-                                             kafka_topic=self.__kafka_topic_video)
+            if video_path is not None:
+                self.__producer_handler.add_task(data=video_path,
+                                                 kafka_config=self.__recording_config_container.get_details(),
+                                                 kafka_topic=self.__kafka_topic_video)
+            else:
+                print('__video_live_streaming --> capture_and_return() returned None')
 
     def __video_retrieval_youtube(self):
         # Initiates a call to a local video file and splits it into several files
@@ -132,9 +134,12 @@ class ProducerRunner:
         video_paths = self.__recording_iface.download_and_segment()
 
         for video_path in video_paths:
-            self.__producer_handler.add_task(data=video_path,
-                                             kafka_config=self.__recording_config_container.get_details(),
-                                             kafka_topic=self.__kafka_topic_video)
+            if video_path is not None:
+                self.__producer_handler.add_task(data=video_path,
+                                                 kafka_config=self.__recording_config_container.get_details(),
+                                                 kafka_topic=self.__kafka_topic_video)
+            else:
+                print('__video_retrieval_youtube --> download_and_segment() returned None')
         print('<< ProducerRunner --> YouTube video live streaming')
 
     def __text_retrieval_youtube(self):
