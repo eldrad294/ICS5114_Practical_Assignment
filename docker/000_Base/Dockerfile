@@ -25,6 +25,7 @@ RUN pip3 install streamlink                                                     
                  pykafka                                                                                                   \
                  google-cloud-speech                                                                                       \
                  google-cloud-storage                                                                                      \
+                 google-api-python-client                                                                                  \
                  streamparse                                                                                               \
                  nltk                                                                                                      \
                  neo4jdb                                                                                                   \
