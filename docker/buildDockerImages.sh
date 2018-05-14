@@ -33,4 +33,4 @@ docker tag bda/storm:1.1 nikifrendo/bda_storm:1.1
 
 cd $DIR'/004_Neo4j'
 docker build -t bda/neo4j:1.0 .
-docker tag bda/neo4j:1.0 nikifrendo/neo4j:1.0
+docker tag bda/neo4j:1.0 nikifrendo/bda_neo4j:1.0
