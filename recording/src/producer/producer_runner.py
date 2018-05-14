@@ -3,7 +3,7 @@
 import os
 from recording.src.recording.config_interface import ConfigInterface
 from recording.src.recording.recording_interface import RecordingInterface
-from recording.src.recording.text_interface import TextInterface
+# from recording.src.recording.text_interface import TextInterface
 from recording.src.constants import path_consts as pc
 from recording.src.producer.producer import Producer, ProducerHandler
 from recording.src.coding_framework.BDAConfigParser import g_config
