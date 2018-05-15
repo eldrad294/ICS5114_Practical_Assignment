@@ -51,7 +51,7 @@ class GraphWriter(Bolt):
         streaming_object = tup.values[0]
         #
         #streaming_object = streaming_object.replace("'", "\"")
-        self.log(str(streaming_object))
+        #self.log(str(streaming_object))
         streaming_object = json.loads(streaming_object)
         # self.log(streaming_object)
         #
@@ -79,13 +79,6 @@ class GraphWriter(Bolt):
                 #
                 # Creates viewer node
                 self.interface.merge_node("viewer", viewer)
-            # #
-            # for g in genre:
-            #     self.log("GRAPHWRITER4 [" + g + "]")
-            #     #
-            #     # Creates genre node
-            #     self.interface.merge_node("genre", g)
-            #     self.log("GRAPHWRITER4.5 [" + g + "]")
             #
             for word in word_list:
                 #

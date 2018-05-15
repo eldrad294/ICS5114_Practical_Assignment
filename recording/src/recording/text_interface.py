@@ -3,26 +3,19 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
 from recording.src.constants import path_consts as pc
+from irc import bot
 import httplib2
 import os
 import sys
+import requests
 #
-class TextInterface():
+class _YouTubeInterface():
     """
-    This class is reserved for logic pertaining to text acquisition from
-    online resources. The logic is structured to serve two different modes
-    of text gathering:
-
-    1) Pre-recorded text acquisition - Applies to YouTube comments &
-    comment threads only
-
-    2) Live text acquisition - Applies to live chats which are updated
-    in realtime.
-
-    This class will operate on data pulled off the config_interface.
+    Class dedicated to interfacing with the
+    comment extraction Youtube API
     """
     #
-    def __init__(self,config_obj):
+    def __init__(self, config_obj):
         """
         Default Constructor
 
@@ -100,26 +93,66 @@ class TextInterface():
         :param video_id:
         :return:
         """
-        print("Retrieving YouTube comment threads..")
-        results = youtube.commentThreads().list(
-            part="snippet",
-            videoId=video_id,
-            textFormat="plainText",
-            maxResults=youtube_api_result_limit
-        ).execute()
-        #
+        # print("Retrieving initial page comment thread..\n--------------------")
+        # results = youtube.commentThreads().list(
+        #     part="snippet",
+        #     videoId=video_id,
+        #     textFormat="plainText",
+        #     maxResults=youtube_api_result_limit
+        # ).execute()
+        # #
+        # # Gets first batch of comments
+        # comment_map = dict()
+        # for item in results["items"]:
+        #     comment = item["snippet"]["topLevelComment"]
+        #     author = comment["snippet"]["authorDisplayName"]
+        #     text = comment["snippet"]["textDisplay"]
+        #     if author in comment_map:
+        #         comment_map[author].append(text)
+        #     else:
+        #         comment_map[author] = []
+        #         comment_map[author].append(text)
+        #     #
+        #     comment_map = self.get_comments(youtube=youtube,
+        #                                     parent_id=item['id'],
+        #                                     comment_map=comment_map,
+        #                                     youtube_api_result_limit=youtube_api_result_limit)
+        # #
+        # Keep getting comments from following pages
+        nextPageToken = ''
         comment_map = dict()
-        for item in results["items"]:
-            comment = item["snippet"]["topLevelComment"]
-            author = comment["snippet"]["authorDisplayName"]
-            text = comment["snippet"]["textDisplay"]
-            if author in comment_map:
-                comment_map[author].append(text)
-            else:
-                comment_map[author] = []
-                comment_map[author].append(text)
         #
-        return results["items"], comment_map
+        while(nextPageToken is not None):
+            print("Retrieving a page comment thread..\n--------------------")
+            results = youtube.commentThreads().list(
+                part="snippet",
+                videoId=video_id,
+                textFormat="plainText",
+                maxResults=youtube_api_result_limit,
+                pageToken=nextPageToken
+            ).execute()
+            #
+            try:
+                nextPageToken = results["nextPageToken"]
+            except Exception:
+                nextPageToken = None #Eventully nextPageToken will be returned as null and exit loop
+            #
+            for item in results["items"]:
+                comment = item["snippet"]["topLevelComment"]
+                author = comment["snippet"]["authorDisplayName"]
+                text = comment["snippet"]["textDisplay"]
+                if author in comment_map:
+                    comment_map[author].append(text)
+                else:
+                    comment_map[author] = []
+                    comment_map[author].append(text)
+                #
+                comment_map = self.get_comments(youtube=youtube,
+                                                parent_id=item['id'],
+                                                comment_map=comment_map,
+                                                youtube_api_result_limit=youtube_api_result_limit)
+        #
+        return comment_map
     #
     def get_comments(self, youtube, parent_id, comment_map, youtube_api_result_limit):
         """
@@ -174,78 +207,151 @@ class TextInterface():
         args.videoid = self.__get_video_id()
         #
         youtube = self.get_authenticated_service(args)
-        try:
-            video_comment_threads, comment_map = self.get_comment_threads(youtube=youtube,
-                                                                          video_id=args.videoid,
-                                                                          youtube_api_result_limit=youtube_api_result_limit)
-            for i in range(len(video_comment_threads)):
-                parent_id = video_comment_threads[i]["id"]
-                comment_map = self.get_comments(youtube=youtube,
-                                                parent_id=parent_id,
-                                                comment_map=comment_map,
-                                                youtube_api_result_limit=youtube_api_result_limit)
-        except Exception as e:
-            comment_map = None
-            print(str(e))
+        comment_map = self.get_comment_threads(youtube=youtube,
+                                               video_id=args.videoid,
+                                               youtube_api_result_limit=youtube_api_result_limit)
         #
         return comment_map
-    """ 
-    Unused code below this line
-    ---------------------------
+#
+class TwitchBot(bot.SingleServerIRCBot):
     """
-    # #
-    # # Call the API's comments.insert method to reply to a comment.
-    # # (If the intention is to create a new to-level comment, commentThreads.insert
-    # # method should be used instead.)
-    # def insert_comment(youtube, parent_id, text):
-    #     insert_result = youtube.comments().insert(
-    #         part="snippet",
-    #         body=dict(
-    #             snippet=dict(
-    #                 parentId=parent_id,
-    #                 textOriginal=text
-    #             )
-    #         )
-    #     ).execute()
+    Twitch Bot Logic
+    """
+    def __init__(self, username, client_id, token, channel, producer_handler, kafka_config, kafka_topic):
+        self.client_id = client_id
+        self.token = token
+        self.channel = '#' + channel
+        self.channel_name = channel
+        self.__producer_handler = producer_handler
+        self.__kafka_config = kafka_config
+        self.__kafka_topic = kafka_topic
+        #
+        # Get the channel id, we will need this for v5 API calls
+        url = 'https://api.twitch.tv/kraken/users?login=' + channel
+        headers = {'Client-ID': client_id, 'Accept': 'application/vnd.twitchtv.v5+json'}
+        r = requests.get(url, headers=headers).json()
+        self.channel_id = r['users'][0]['_id']
+        #
+        # Create IRC bot connection
+        server = 'irc.chat.twitch.tv'
+        port = 80
+        print('Connecting to ' + server + ' on port ' + str(port) + '...')
+        bot.SingleServerIRCBot.__init__(self, [(server, port, 'oauth:' + token)], username, username)
+
+    def on_welcome(self, c, e):
+        print('Joining ' + self.channel)
+
+        # You must request specific capabilities before you can use them
+        c.cap('REQ', ':twitch.tv/membership')
+        c.cap('REQ', ':twitch.tv/tags')
+        c.cap('REQ', ':twitch.tv/commands')
+        c.join(self.channel)
+
+    def on_pubmsg(self, c, e):
+
+        # If a chat message starts with an exclamation point, try to run it as a command
+        #print("Author[" + e.source + "] - Message[" + e.arguments[0] + "]")
+        # if e.arguments[0][:1] == '!':
+        #     cmd = e.arguments[0].split(' ')[0][1:]
+        #     print('Received command: ' + cmd)
+        #     self.do_command(e, cmd)
+        author = self.__clean_source(e.source)
+        comment = e.arguments[0]
+        self.__producer_handler.add_task(data=[author, comment],
+                                         kafka_config=self.__kafka_config,
+                                         kafka_topic=self.__kafka_topic)
+        return
+
+    def do_command(self, e, cmd):
+        c = self.connection
+
+        # Poll the API to get current game.
+        if cmd == "game":
+            url = 'https://api.twitch.tv/kraken/channels/' + self.channel_id
+            headers = {'Client-ID': self.client_id, 'Accept': 'application/vnd.twitchtv.v5+json'}
+            r = requests.get(url, headers=headers).json()
+            c.privmsg(self.channel, r['display_name'] + ' is currently playing ' + r['game'])
+
+        # Poll the API the get the current status of the stream
+        elif cmd == "title":
+            url = 'https://api.twitch.tv/kraken/channels/' + self.channel_id
+            headers = {'Client-ID': self.client_id, 'Accept': 'application/vnd.twitchtv.v5+json'}
+            r = requests.get(url, headers=headers).json()
+            c.privmsg(self.channel, r['display_name'] + ' channel title is currently ' + r['status'])
+
+        # Provide basic information to viewers for specific commands
+        elif cmd == "raffle":
+            message = "This is an example bot, replace this text with your raffle text."
+            c.privmsg(self.channel, message)
+        elif cmd == "schedule":
+            message = "This is an example bot, replace this text with your schedule text."
+            c.privmsg(self.channel, message)
+
+        # The command was not recognized
+        else:
+            c.privmsg(self.channel, "Did not understand command: " + cmd)
     #
-    #     author = insert_result["snippet"]["authorDisplayName"]
-    #     text = insert_result["snippet"]["textDisplay"]
-    #     print("Replied to a comment for " + str(author) + ": " + str(text) + "")
+    def __clean_source(self, source):
+        """
+        Cleans Twitch Author String
+        eg: 'topkoumou!topkoumou@topkoumou.tmi.twitch.tv'
+        into
+            'topkoumou'
+        :return:
+        """
+        char_index = source.find('!')
+        return source[0:char_index]
+#
+class _TwitchInterface():
+    """
+    Class dedicated to interfacing with the
+    live chat extraction of TwitchTV. Establishes
+    an IRC (Internet Relay Chat) connection with
+    Twitch servers, allowing the bot to connect
+    to a desired Twitch chat and record all textual
+    information passing through chat.
+    """
     #
-    # # Call the API's comments.update method to update an existing comment.
-    # def update_comment(youtube, comment):
-    #     comment["snippet"]["textOriginal"] = 'updated'
-    #     update_result = youtube.comments().update(
-    #         part="snippet",
-    #         body=comment
-    #     ).execute()
+    def __init__(self, config_obj):
+        """
+        Default Constructor
+
+        :param config_obj:  A class structure used to contain information acquired from the input_channels.json config file
+        """
+        self.__username = 'databot'                            # Name of Twitch bot - will appear using this alias in twitch chat
+        self.__client_id = 'vixafhn68m11y18w6r3jhwvyhknwh1'    # Twitch secret client_id retrieved from Twitch console
+        self.__token = 'ijxoygmxowpduu7iwumn7jb1t5k90r'        # Twitch Oauth toekn retrieved from Twitch console
+        self.__channel = config_obj.get_details()['channel']   # Channel name with which to connect
     #
-    #     author = update_result["snippet"]["authorDisplayName"]
-    #     text = update_result["snippet"]["textDisplay"]
-    #     print("Updated comment for " + str(author) + ": " + str(text) + "")
-    #
-    # # Call the API's comments.setModerationStatus method to set moderation status of an
-    # # existing comment.
-    # def set_moderation_status(youtube, comment):
-    #     youtube.comments().setModerationStatus(
-    #         id=comment["id"],
-    #         moderationStatus="published"
-    #     ).execute()
-    #
-    #     print(comment["id"] + " moderated succesfully")
-    #
-    # # Call the API's comments.markAsSpam method to mark an existing comment as spam.
-    # def mark_as_spam(youtube, comment):
-    #     youtube.comments().markAsSpam(
-    #         id=comment["id"]
-    #     ).execute()
-    #
-    #     print(comment["id"] + " marked as spam succesfully")
-    #
-    # # Call the API's comments.delete method to delete an existing comment.
-    # def delete_comment(youtube, comment):
-    #     youtube.comments().delete(
-    #         id=comment["id"]
-    #     ).execute()
-    #
-    #     print(comment["id"] + " deleted succesfully")
+    def start_twitch_bot(self, producer_handler, kafka_config, kafka_topic):
+        """
+        Initiates twitch bot
+
+        :return:
+        """
+        bot = TwitchBot(self.__username,
+                        self.__client_id,
+                        self.__token,
+                        self.__channel,
+                        producer_handler,
+                        kafka_config,
+                        kafka_topic)
+        bot.start()
+#
+class TextInterface(_YouTubeInterface, _TwitchInterface):
+    """
+    This class is reserved for logic pertaining to text acquisition from
+    online resources. The logic is structured to serve two different modes
+    of text gathering:
+
+    1) Pre-recorded text acquisition - Applies to YouTube comments &
+    comment threads only
+
+    2) Live text acquisition - Applies to live chats which are updated
+    in realtime.
+
+    This class will operate on data pulled off the config_interface.
+    """
+    def __init__(self, config_obj):
+        _YouTubeInterface.__init__(self, config_obj=config_obj)
+        _TwitchInterface.__init__(self, config_obj=config_obj)

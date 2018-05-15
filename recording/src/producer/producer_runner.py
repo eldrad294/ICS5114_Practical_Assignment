@@ -1,19 +1,17 @@
 #
 # Module imports
-import os
 from recording.src.recording.config_interface import ConfigInterface
 from recording.src.recording.recording_interface import RecordingInterface
-# from recording.src.recording.text_interface import TextInterface
+from recording.src.recording.text_interface import TextInterface
 from recording.src.constants import path_consts as pc
 from recording.src.producer.producer import Producer, ProducerHandler
 from recording.src.coding_framework.BDAConfigParser import g_config
-
+import os
+#
 """
 This script is intended to run on producer nodes. The producer node will be responsible for capturing and submission of
 data onto the Kafka Broker.
 """
-
-
 class ProducerRunner:
     ###################
     # Private members
@@ -45,8 +43,8 @@ class ProducerRunner:
             # Video Retrieval (YouTube Specific)
             self.__video_retrieval_youtube()
         elif self.__recording_config_container.get_src_type() == 2:
-            # Source type not Yet Supported
-            raise ValueError('Not Yet Supported!')
+            # Text Retrieval (Twitch.Tv) live chat extraction
+            self.__text_retrieval_twitch()
         elif self.__recording_config_container.get_src_type() == 3:
             # Text Retrieval (YouTube Comments Section Specific)
             self.__text_retrieval_youtube()
@@ -143,7 +141,11 @@ class ProducerRunner:
         print('<< ProducerRunner --> YouTube video live streaming')
 
     def __text_retrieval_youtube(self):
-        # Initiates a call to YouTube page, and retrieves all comments and comment threads using YouTube api
+        """
+        Initiates a call to YouTube page, and retrieves all comments and comment threads using YouTube api
+
+        :return:
+        """
         print('>> ProducerRunner --> YouTube text retrieval')
         comments = self.__recording_iface.get_youtube_comments(youtube_api_result_limit=self.__youtube_api_result_limit)
         for author, comment in comments.items():
@@ -152,6 +154,19 @@ class ProducerRunner:
                                              kafka_topic=self.__kafka_topic_text)
         print('<< ProducerRunner --> YouTube text retrieval')
 
+    def __text_retrieval_twitch(self):
+        """
+        Initiates IRC connection to Twitch TV streaming channel.
+        Call is blocking, and will only return upon termination
+        of the producer.
 
+        :return:
+        """
+        print('>> ProducerRunner --> Twitch.Tv text retrieval')
+        self.__recording_iface.start_twitch_bot(producer_handler=self.__producer_handler,
+                                                kafka_config=self.__recording_config_container.get_details(),
+                                                kafka_topic=self.__kafka_topic_text)
+        print('<< ProducerRunner --> Twitch.TV text retrieval')
+#
 producer_runner = ProducerRunner()
 producer_runner.start_producer()

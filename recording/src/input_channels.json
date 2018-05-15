@@ -12,13 +12,26 @@
   },
   {
     "platform":"twitch_tv",
+    "src":"https://www.twitch.tv/riotgames",
+    "channel":"riotgames",
+    "genre":["MOBA",
+             "video_game",
+             "5v5",
+             "entertainment",
+             "e-sport",
+             "league_of_legends"],
+    "type":"text"
+  },
+  {
+    "platform":"twitch_tv",
     "src":"https://www.twitch.tv/neuro",
     "channel":"Neuro",
     "genre":["starcraft2",
              "strategy_gaming",
              "entertainment",
              "video_game",
-             "legacy_of_the_void"],
+             "legacy_of_the_void",
+             "e-sport"],
     "type":"video"
   },
   {
