@@ -106,10 +106,10 @@ case $cmd in
     while IFS='' read -r line || [[ -n "$line" ]]; do
         while IFS=',' read -ra currentLine; do
             elementCount=${#currentLine[@]}
-            if [[ $environment == "local" ]] && [[ "$elementCount" -gt "1" ]]; then
-                source VirtualBox/VMCreate.sh ${currentLine[0]} ${currentLine[1]}
-            elif [[ $environment == "remote" ]] && [[ "$elementCount" -gt "6" ]]; then
-                source Azure/VMCreate.sh ${currentLine[0]} ${currentLine[1]} ${currentLine[2]} ${currentLine[3]} ${currentLine[4]} ${currentLine[5]} ${currentLine[6]}
+            if [[ $environment == "local" ]] && [[ "$elementCount" -gt "2" ]]; then
+                source VirtualBox/VMCreate.sh ${currentLine[0]} ${currentLine[1]} ${currentLine[2]}
+            elif [[ $environment == "remote" ]] && [[ "$elementCount" -gt "7" ]]; then
+                source Azure/VMCreate.sh ${currentLine[0]} ${currentLine[1]} ${currentLine[2]} ${currentLine[3]} ${currentLine[4]} ${currentLine[5]} ${currentLine[6]} ${currentLine[7]}
             fi
         done <<< $line
     done < "$setupFile"

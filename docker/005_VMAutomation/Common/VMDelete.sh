@@ -8,7 +8,7 @@ if [[ ${#arrayVMs[@]} -gt "0" ]]; then
     printf "  $i) %s\n" ${arrayVMs[$i]}
   done
 
-  printf "\nSelect VM index, if empty, start all: "
+  printf "\nSelect VM index, if empty, delete all: "
   read userSelection
 
   if [[ -z "${userSelection}" ]]; then
