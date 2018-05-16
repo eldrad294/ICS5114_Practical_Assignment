@@ -8,12 +8,12 @@ for (( i=0; i<${#arrayRunningVMs[@]}; i++ )); do
   printf "  * %s\n" ${arrayRunningVMs[$i]}
 done
 
-printf "\nStopped VMs:\n"
-for (( i=0; i<${#arrayStoppedVMs[@]}; i++ )); do
-  printf "  $i) %s\n" ${arrayStoppedVMs[$i]}
-done
-
 if [[ ${#arrayStoppedVMs[@]} -gt "0" ]]; then
+  printf "\nStopped VMs:\n"
+  for (( i=0; i<${#arrayStoppedVMs[@]}; i++ )); do
+    printf "  $i) %s\n" ${arrayStoppedVMs[$i]}
+  done
+
   printf "\nSelect VM index, if empty, start all: "
   read userSelection
 
