@@ -20,6 +20,8 @@ else:
     kafka_connection_strings = g_config.get_value('ConsumerRunner', 'kafka_connection_strings').split(',')
     print('Kafka connection strings, extracted from config file: %s' % kafka_connection_strings)
 
+raise ValueError(kafka_connection_strings)
+
 # Connection string used to connect to Zookeeper
 zookeeper_connection = os.environ.get('zookeeper_connection')
 if zookeeper_connection is not None:
