@@ -89,7 +89,7 @@ def main():
     username = 'databot'
     client_id = 'vixafhn68m11y18w6r3jhwvyhknwh1'
     token = 'ijxoygmxowpduu7iwumn7jb1t5k90r'
-    channel = 'geekandsundry'
+    channel = 'riotgames'
 
     bot = TwitchBot(username, client_id, token, channel)
     bot.start()
