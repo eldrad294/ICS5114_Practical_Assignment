@@ -2,10 +2,12 @@
 
 cp -f /root/kafka.server.properties.template /root/kafka.server.properties
 
-# Network interface should be called eth0
-ipAddr=$(ifconfig eth0 | awk '/inet addr/{print substr($2,6)}')
+if [[ -z $kafka_host_ip ]]; then
+    printf "Environment variable 'kafka_host_ip' not set. Aborting.\n"
+    exit 1
+fi
 
-listenerConfig="listeners=PLAINTEXT://$ipAddr:9092"
+listenerConfig="advertised.listeners=PLAINTEXT://$kafka_host_ip:9092"
 echo $listenerConfig >> /root/kafka.server.properties
 mv -f /root/kafka.server.properties /opt/kafka_2.11-1.1.0/config/
 

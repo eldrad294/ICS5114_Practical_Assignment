@@ -30,7 +30,8 @@ RUN pip3 install streamlink                                                     
                  nltk                                                                                                      \
                  neo4jdb                                                                                                   \
                  neo4j-driver                                                                                              \
-                 pytube
+                 pytube                                                                                                    \
+                 irc
 
 RUN mkdir /root/.ssh                                                                                                    && \
     mkdir /root/src
