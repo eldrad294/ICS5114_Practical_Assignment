@@ -1,4 +1,4 @@
-producer,1,Standard_D2_v2,bda-assignment,nik,westeurope,7244e700-f1a6-4cdf-b969-082fa2bf8b8e
-kafka,1,Standard_D2_v2,bda-assignment,nik,westeurope,7244e700-f1a6-4cdf-b969-082fa2bf8b8e
-storm,1,Standard_D2_v2,bda-assignment,nik,westeurope,7244e700-f1a6-4cdf-b969-082fa2bf8b8e
-neo4j,1,Standard_D2_v2,bda-assignment,nik,westeurope,7244e700-f1a6-4cdf-b969-082fa2bf8b8e
+producer,1,nikifrendo/bda_producer:1.0,Standard_D2_v2,bda-assignment,nik,westeurope,7244e700-f1a6-4cdf-b969-082fa2bf8b8e
+kafka,1,nikifrendo/bda_kafka:1.1,Standard_D2_v2,bda-assignment,nik,westeurope,7244e700-f1a6-4cdf-b969-082fa2bf8b8e
+storm,1,nikifrendo/bda_storm:1.1,Standard_D2_v2,bda-assignment,nik,westeurope,7244e700-f1a6-4cdf-b969-082fa2bf8b8e
+neo4j,1,nikifrendo/bda_neo4j:1.0,Standard_D2_v2,bda-assignment,nik,westeurope,7244e700-f1a6-4cdf-b969-082fa2bf8b8e

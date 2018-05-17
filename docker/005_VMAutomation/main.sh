@@ -14,6 +14,8 @@ PrintHelp()
     printf "  * stop:              Stop VM/s for a given environment.\n"
     printf "  * create:            Create VM/s for a given environment.\n"
     printf "  * delete:            Delete VM/s for a given environment.\n"
+    printf "  * dockerstart:       Docker start-up sequence for a given environment.\n"
+    printf "  * dockerstop:        Stop docker containers for a given environment.\n"
 
     printf "\nOPTIONS:\n--------\n"
     printf "  * -e|--environment:  Environment where the command should be executed.\n"
@@ -67,17 +69,14 @@ case $cmd in
     ;;
 
     start)
-    param=""
     if [[ $environment == "local" ]]; then
-        param="virtualbox"
+        source VirtualBox/VMStart.sh "virtualbox"
     elif [[ $environment == "remote" ]]; then
-        param="azure"
+        source Azure/VMStart.sh "azure"
     else
         PrintHelp
         exit 1
     fi
-
-    source Common/VMStart.sh $param
     ;;
 
     stop)
@@ -120,6 +119,30 @@ case $cmd in
         source Common/VMDelete.sh "virtualbox"
     elif [[ $environment == "remote" ]]; then
         source Common/VMDelete.sh "azure"
+    else
+        PrintHelp
+        exit 1
+    fi
+    ;;
+
+    dockerstart)
+    if [[ $environment == "local" ]]; then
+        source VirtualBox/VMDockerStartup.sh
+    elif [[ $environment == "remote" ]]; then
+        # source Azure/VMDockerStartup.sh
+        printf "Azure docker not implemented.."
+    else
+        PrintHelp
+        exit 1
+    fi
+    ;;
+
+    dockerstop)
+    if [[ $environment == "local" ]]; then
+        source VirtualBox/VMDockerStop.sh
+    elif [[ $environment == "remote" ]]; then
+        # source Azure/VMDockerStartup.sh
+        printf "Azure docker not implemented.."
     else
         PrintHelp
         exit 1
