@@ -1,12 +1,16 @@
 #
 # Module Imports
+import nltk
 from streamparse import Grouping, Topology
 from spouts.video_recorder import VideoRecorder
 from spouts.text_recorder import TextRecorder
 from bolts.video_decoder import VideoDecoder
 from bolts.text_decoder import TextDecoder
 from bolts.graph_writer import GraphWriter
-#
+
+# Ensure required nltk resources are present
+nltk.download('punkt')
+
 class MainTopology(Topology):
     """
     Storm Topology
