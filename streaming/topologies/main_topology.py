@@ -10,6 +10,7 @@ from bolts.graph_writer import GraphWriter
 
 # Ensure required nltk resources are present
 nltk.download('punkt')
+nltk.download('stopwords')
 
 class MainTopology(Topology):
     """
