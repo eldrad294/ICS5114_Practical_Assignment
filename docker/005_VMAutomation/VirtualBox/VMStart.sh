@@ -21,10 +21,14 @@ if [[ ${#arrayStoppedVMs[@]} -gt "0" ]]; then
         docker-machine start ${arrayStoppedVMs[@]}
         for (( i=0; i<${#arrayStoppedVMs[@]}; i++ )); do
             docker-machine ssh ${arrayStoppedVMs[$i]} "tce-load -i /mnt/sda1/tce/optional/nmap.tcz"
+            docker-machine env ${arrayStoppedVMs[$i]}
+            docker-machine regenerate-certs -f ${arrayStoppedVMs[$i]}
         done
     elif [[ "${userSelection}" -lt ${#arrayStoppedVMs[@]} ]]; then
         docker-machine start ${arrayStoppedVMs[$userSelection]}
-        docker-machine ssh ${arrayStoppedVMs[@]} "tce-load -i /mnt/sda1/tce/optional/nmap.tcz"
+        docker-machine ssh ${arrayStoppedVMs[$userSelection]} "tce-load -i /mnt/sda1/tce/optional/nmap.tcz"
+        docker-machine env ${arrayStoppedVMs[$userSelection]}
+        docker-machine regenerate-certs -f ${arrayStoppedVMs[$userSelection]}
     else
         printf "Wrong input.\n"
     fi
