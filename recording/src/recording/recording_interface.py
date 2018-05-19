@@ -81,14 +81,14 @@ class RecordingInterface:
         """
         print("Initiating file segmentation..")
         segmented_file_name = self.get_segmented_file_name()
-        proc = None
         try:
             proc = self.stream_link_wrapper(segmented_file_name)
 
             # The spawned process does not terminate, therefore it is expected that a subprocess.TimeoutExpired
             # exception is raised.
             proc.wait(self.segment_time_span)
-            return self.video_buffer_path + "/" + segmented_file_name
+            print('Unreachable code.')
+            return None
 
         except subprocess.TimeoutExpired:
             print("File [" + segmented_file_name + "] has been shipped to [" + self.video_buffer_path + "]")
@@ -115,7 +115,7 @@ class RecordingInterface:
                   " " + self.config_obj.get_details()['src'] + \
                   " " + self.quality
 
-        return subprocess.Popen(shlex.split(command), shell=True, stdout=subprocess.PIPE)
+        return subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
     #
     def get_segmented_file_name(self):
         """
