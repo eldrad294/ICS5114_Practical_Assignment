@@ -1,6 +1,6 @@
 #
 # Module imports
-from subprocess import run
+import shlex
 from recording.src.constants import path_consts as pc
 import datetime, subprocess, re, math
 from pytube import YouTube
@@ -81,17 +81,25 @@ class RecordingInterface:
         """
         print("Initiating file segmentation..")
         segmented_file_name = self.get_segmented_file_name()
+        proc = None
         try:
-            output = self.stream_link_wrapper(segmented_file_name)
-            #
-            if (output.returncode == 0):
-                print("File [" + segmented_file_name + "] has been shipped to [" + self.video_buffer_path + "]")
-                return self.video_buffer_path + "/" + segmented_file_name
+            proc = self.stream_link_wrapper(segmented_file_name)
+
+            # The spawned process does not terminate, therefore it is expected that a subprocess.TimeoutExpired
+            # exception is raised.
+            proc.wait(self.segment_time_span)
+            print('Unreachable code.')
+            return None
+
         except subprocess.TimeoutExpired:
+            print("File [" + segmented_file_name + "] has been shipped to [" + self.video_buffer_path + "]")
+            proc.terminate()
             return self.video_buffer_path + "/" + segmented_file_name
+
         except KeyboardInterrupt:
             print("User Interrupt!")
             return None
+
         except Exception as e:
             print("Capture method aborted in an unhandled manner!\n")
             print(str(e))
@@ -107,12 +115,8 @@ class RecordingInterface:
                   "/" + segmented_file_name + \
                   " " + self.config_obj.get_details()['src'] + \
                   " " + self.quality
-        #
-        output = run(args=command,
-                     timeout=self.segment_time_span,
-                     shell=True)
-        #
-        return output
+
+        return subprocess.Popen(shlex.split(command), shell=True, stdout=subprocess.PIPE)
     #
     def get_segmented_file_name(self):
         """
