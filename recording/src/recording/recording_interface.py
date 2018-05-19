@@ -88,8 +88,7 @@ class RecordingInterface:
             # The spawned process does not terminate, therefore it is expected that a subprocess.TimeoutExpired
             # exception is raised.
             proc.wait(self.segment_time_span)
-            print('Unreachable code.')
-            return None
+            return self.video_buffer_path + "/" + segmented_file_name
 
         except subprocess.TimeoutExpired:
             print("File [" + segmented_file_name + "] has been shipped to [" + self.video_buffer_path + "]")
