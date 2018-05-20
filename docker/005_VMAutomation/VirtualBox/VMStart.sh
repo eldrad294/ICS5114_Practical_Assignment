@@ -17,20 +17,25 @@ if [[ ${#arrayStoppedVMs[@]} -gt "0" ]]; then
     printf "\nSelect VM index, if empty, start all: "
     read userSelection
 
-    if [[ -z "${userSelection}" ]]; then
+    if [[ -z "$userSelection" ]]; then
         docker-machine start ${arrayStoppedVMs[@]}
         for (( i=0; i<${#arrayStoppedVMs[@]}; i++ )); do
             docker-machine ssh ${arrayStoppedVMs[$i]} "tce-load -i /mnt/sda1/tce/optional/nmap.tcz"
             docker-machine env ${arrayStoppedVMs[$i]}
             docker-machine regenerate-certs -f ${arrayStoppedVMs[$i]}
         done
-    elif [[ "${userSelection}" -lt ${#arrayStoppedVMs[@]} ]]; then
-        docker-machine start ${arrayStoppedVMs[$userSelection]}
-        docker-machine ssh ${arrayStoppedVMs[$userSelection]} "tce-load -i /mnt/sda1/tce/optional/nmap.tcz"
-        docker-machine env ${arrayStoppedVMs[$userSelection]}
-        docker-machine regenerate-certs -f ${arrayStoppedVMs[$userSelection]}
     else
-        printf "Wrong input.\n"
+        arrayUserSelection=($userSelection)
+        for (( i=0; i<${#arrayUserSelection[@]}; i++ )); do
+            if [[ "${arrayUserSelection[$i]}" -lt ${#arrayStoppedVMs[@]} ]]; then
+                docker-machine start ${arrayStoppedVMs[${arrayUserSelection[$i]}]}
+                docker-machine ssh ${arrayStoppedVMs[${arrayUserSelection[$i]}]} "tce-load -i /mnt/sda1/tce/optional/nmap.tcz"
+                docker-machine env ${arrayStoppedVMs[${arrayUserSelection[$i]}]}
+                docker-machine regenerate-certs -f ${arrayStoppedVMs[${arrayUserSelection[$i]}]}
+            else
+                printf "Wrong input --> ${arrayUserSelection[$i]}\n"
+            fi
+        done
     fi
 else
     printf "No available VMs.\n"
