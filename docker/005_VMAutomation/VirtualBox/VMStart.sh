@@ -1,7 +1,7 @@
 #!/bin/bash
 
-arrayRunningVMs=($(docker-machine ls --filter driver=$1 --filter state=running --format={{.Name}}))
-arrayStoppedVMs=($(docker-machine ls --filter driver=$1 --filter state=stopped --format={{.Name}}))
+arrayRunningVMs=($(docker-machine ls -t 60 --filter driver=$1 --filter state=running --format={{.Name}}))
+arrayStoppedVMs=($(docker-machine ls -t 60 --filter driver=$1 --filter state=stopped --format={{.Name}}))
 
 printf "Running VMs:\n"
 for (( i=0; i<${#arrayRunningVMs[@]}; i++ )); do
