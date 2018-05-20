@@ -1,7 +1,7 @@
 #!/bin/bash
 
-arrayRunningVMs=($(docker-machine ls --filter driver=$1 --filter state=running --format={{.Name}}))
-arrayStoppedVMs=($(docker-machine ls --filter driver=$1 --filter state=stopped --format={{.Name}}))
+arrayRunningVMs=($(docker-machine ls -t 60 --filter driver=$1 --filter state=running --format={{.Name}} | grep 'azure-'))
+arrayStoppedVMs=($(docker-machine ls -t 60 --filter driver=$1 --filter state=stopped --format={{.Name}} | grep 'azure-'))
 
 printf "Running VMs:\n"
 for (( i=0; i<${#arrayRunningVMs[@]}; i++ )); do
@@ -19,8 +19,14 @@ if [[ ${#arrayStoppedVMs[@]} -gt "0" ]]; then
 
     if [[ -z "${userSelection}" ]]; then
         docker-machine start ${arrayStoppedVMs[@]}
+        for (( i=0; i<${#arrayStoppedVMs[@]}; i++ )); do
+            docker-machine env ${arrayStoppedVMs[$i]}
+            docker-machine regenerate-certs -f ${arrayStoppedVMs[$i]}
+        done
     elif [[ "${userSelection}" -lt ${#arrayStoppedVMs[@]} ]]; then
         docker-machine start ${arrayStoppedVMs[$userSelection]}
+        docker-machine env ${arrayStoppedVMs[$userSelection]}
+        docker-machine regenerate-certs -f ${arrayStoppedVMs[$userSelection]}
     else
         printf "Wrong input.\n"
     fi

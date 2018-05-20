@@ -1,6 +1,6 @@
 #!/bin/bash
 
-arrayRunningVMs=($(docker-machine ls --filter driver=$1 --filter state=running --format={{.Name}}))
+arrayRunningVMs=($(docker-machine ls -t 60 --filter driver=$1 --filter state=running --format={{.Name}}))
 
 if [[ ${#arrayRunningVMs[@]} -gt "0" ]]; then
     printf "\nRunning VMs:\n"
@@ -8,7 +8,7 @@ if [[ ${#arrayRunningVMs[@]} -gt "0" ]]; then
         printf "  $i) %s\n" ${arrayRunningVMs[$i]}
     done
 
-    printf "\nSelect VM index, if empty, start all: "
+    printf "\nSelect VM index: "
     read userSelection
 
     if [[ "$userSelection" -lt ${#arrayRunningVMs[@]} ]]; then
@@ -23,7 +23,7 @@ if [[ ${#arrayRunningVMs[@]} -gt "0" ]]; then
             containerName="neo4j"
         fi
 
-        docker-machine ssh ${arrayRunningVMs[$userSelection]} "docker logs -f $containerName"
+        docker-machine ssh ${arrayRunningVMs[$userSelection]} "sudo docker logs -f $containerName"
     else
         printf "Wrong input.\n"
     fi

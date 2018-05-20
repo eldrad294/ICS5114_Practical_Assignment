@@ -1,18 +1,18 @@
 #!/bin/bash
 
-arrayRunningVMs=($(docker-machine ls --filter driver=$1 --filter state=running --format={{.Name}}))
+arrayRunningVMs=($(docker-machine ls -t 60 --filter driver=$1 --filter state=running --format={{.Name}}))
 
 cmdArray=()
 
 for (( i=0; i<${#arrayRunningVMs[@]}; i++ )); do
     if [[ ${arrayRunningVMs[$i]} = *"kafka"* ]]; then
-        cmdArray[$i]="docker-machine ssh ${arrayRunningVMs[$i]} 'docker stats kafka --no-stream'"
+        cmdArray[$i]="docker-machine ssh ${arrayRunningVMs[$i]} 'sudo docker stats kafka --no-stream'"
     elif [[ ${arrayRunningVMs[$i]} = *"storm"* ]]; then
-        cmdArray[$i]="docker-machine ssh ${arrayRunningVMs[$i]} 'docker stats storm --no-stream'"
+        cmdArray[$i]="docker-machine ssh ${arrayRunningVMs[$i]} 'sudo docker stats storm --no-stream'"
     elif [[ ${arrayRunningVMs[$i]} = *"producer"* ]]; then
-        cmdArray[$i]="docker-machine ssh ${arrayRunningVMs[$i]} 'docker stats producer --no-stream'"
+        cmdArray[$i]="docker-machine ssh ${arrayRunningVMs[$i]} 'sudo docker stats producer --no-stream'"
     elif [[ ${arrayRunningVMs[$i]} = *"neo4j"* ]]; then
-        cmdArray[$i]="docker-machine ssh ${arrayRunningVMs[$i]} 'docker stats neo4j --no-stream'"
+        cmdArray[$i]="docker-machine ssh ${arrayRunningVMs[$i]} 'sudo docker stats neo4j --no-stream'"
     fi
 done
 

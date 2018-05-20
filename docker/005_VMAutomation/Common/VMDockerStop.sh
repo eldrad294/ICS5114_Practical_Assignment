@@ -1,6 +1,6 @@
 #!/bin/bash
 
-arrayVMs=($(docker-machine ls --filter driver=virtualbox --filter state=running --format={{.Name}}))
+arrayVMs=($(docker-machine ls -t 60 --filter driver=$1 --filter state=running --format={{.Name}}))
 
 for (( i=0; i<${#arrayVMs[@]}; i++ )); do
     containerName=""
@@ -15,5 +15,5 @@ for (( i=0; i<${#arrayVMs[@]}; i++ )); do
     fi
 
     printf "Stopping container: $containerName\n"
-    docker-machine ssh ${arrayVMs[$i]} "docker stop $containerName" >/dev/null 2>&1
+    docker-machine ssh ${arrayVMs[$i]} "sudo docker stop $containerName" >/dev/null 2>&1
 done

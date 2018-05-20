@@ -1,6 +1,6 @@
 #!/bin/bash
 
-arrayVMs=($(docker-machine ls --filter driver=$1 --format={{.Name}}))
+arrayVMs=($(docker-machine ls -t 60 --filter driver=$1 --format={{.Name}}))
 
 if [[ ${#arrayVMs[@]} -gt "0" ]]; then
   printf "VMs present:\n"
