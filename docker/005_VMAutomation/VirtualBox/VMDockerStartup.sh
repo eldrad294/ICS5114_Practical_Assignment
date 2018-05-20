@@ -87,8 +87,11 @@ RunStorm()
 
 RunProducer()
 {
+    printf "\n\nEnter video source offset ($2): "
+    read userSelection
+
     imageName=$(docker-machine ssh $2 "docker images --filter=reference='nikifrendo/*producer:*' --format={{.Repository}}:{{.Tag}}")
-    docker-machine ssh $2 "docker run --rm -d --memory=2g -e kafka_connection_strings=$1 -e stream_offset=$3 --name producer $imageName" >/dev/null 2>&1
+    docker-machine ssh $2 "docker run --rm -d --memory=2g -e kafka_connection_strings=$1 -e stream_offset=$userSelection --name producer $imageName" >/dev/null 2>&1
 }
 
 
@@ -143,6 +146,6 @@ zooKeeperConnectionString=$ipAddrKafka":2181"
 RunKafkaContainer $ipAddrKafka $vmNameKafka
 RunNeo4J $ipAddrNeo4j $vmNameNeo4j
 RunStorm $ipAddrStorm $vmNameStorm $kafkaConnectionString $zooKeeperConnectionString
-RunProducer $kafkaConnectionString ${vmNameProducers[0]} 0
+RunProducer $kafkaConnectionString ${vmNameProducers[0]}
 
 printf "Docker containers started.\n"
