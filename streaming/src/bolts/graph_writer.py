@@ -70,7 +70,8 @@ class GraphWriter(Bolt):
             #
             # Creates streamer node
             self.log(streamer)
-            self.interface.merge_node("streamer", streamer)
+            res = self.interface.merge_node("streamer", streamer)
+            self.log(res)
             #
             # Creates platform node
             # self.interface.merge_node("platform", platform)

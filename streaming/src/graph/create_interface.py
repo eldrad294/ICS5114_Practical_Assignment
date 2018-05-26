@@ -36,6 +36,7 @@ class CreateInterface(BasicInterface):
             return bookmark
         #
         with self._driver.session() as session:
+            return 'ThisIsATest'
             if node_type == self.supported_node_types[0]:
                 session.write_transaction(CreateTransactionFunctions.add_streamer, node_name)
             elif node_type == self.supported_node_types[1]:
