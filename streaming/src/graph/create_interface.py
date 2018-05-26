@@ -8,7 +8,9 @@ class CreateInterface(BasicInterface):
     A class focused on the create aspect of the Neo4J Implementation
     """
     def __init__(self, uri, user, password):
-        BasicInterface.__init__(self, uri, user, password)
+        # BasicInterface.__init__(self, uri, user, password)
+        BasicInterface.__init__(self, uri, '', '')
+        self.__tempURI = uri
     #
     def merge_node(self, node_type, node_name):
         """
@@ -35,6 +37,9 @@ class CreateInterface(BasicInterface):
         if node_type not in self.supported_node_types:
             return bookmark
         #
+
+        return self.__tempURI
+
         with self._driver.session() as session:
             return 'ThisIsATest'
             if node_type == self.supported_node_types[0]:
