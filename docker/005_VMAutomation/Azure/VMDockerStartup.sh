@@ -67,7 +67,7 @@ RunNeo4J()
 RunStorm()
 {
     imageName=$(docker-machine ssh $2 "sudo docker images --filter=reference='nikifrendo/*storm:*' --format={{.Repository}}:{{.Tag}}")
-    docker-machine ssh $2 "sudo docker run --rm -d --memory=2g -e kafka_connection_strings=$3 -e zookeeper_connection=$4 --name storm $imageName" >/dev/null 2>&1
+    docker-machine ssh $2 "sudo docker run --rm -d --memory=2g -e kafka_connection_strings=$3 -e zookeeper_connection=$4 -e neo4j_connection_string=$5 --name storm $imageName" >/dev/null 2>&1
 
     printf "Storm service.."
     while true; do
@@ -141,11 +141,13 @@ fi
 
 kafkaConnectionString=$ipAddrKafka":9092"
 zooKeeperConnectionString=$ipAddrKafka":2181"
+neo4jConnectionString="bolt://$ipAddrNeo4j:7687"
 
 
 RunKafkaContainer $ipAddrKafka $vmNameKafka
 RunNeo4J $ipAddrNeo4j $vmNameNeo4j
-RunStorm $ipAddrStorm $vmNameStorm $kafkaConnectionString $zooKeeperConnectionString
+RunStorm $ipAddrStorm $vmNameStorm $kafkaConnectionString $zooKeeperConnectionString $neo4jConnectionString
 RunProducer $kafkaConnectionString ${vmNameProducers[0]}
+
 
 printf "Docker containers started.\n"
