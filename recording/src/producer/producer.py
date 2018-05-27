@@ -153,7 +153,6 @@ class ProducerHandler:
 
     @staticmethod
     def __work(task_queue, mutex, producer):
-        current_task = None
         while True:
             mutex.acquire()
             try:
@@ -165,6 +164,8 @@ class ProducerHandler:
                 mutex.release()
 
             if current_task is not None:
+                print(current_task)
+                print(str(current_task.task_data))
                 ProducerHandler.__produce_message(current_task.task_data, producer, current_task.task_kafka_config,
                                                   current_task.task_kafka_topic)
             else:

@@ -36,7 +36,8 @@
   },
   {
     "platform":"youtube",
-    "src":"https://www.youtube.com/watch?v=BSjee-ond7w",
+    "src":["https://www.youtube.com/watch?v=lLWEXRAnQd0",
+           "https://www.youtube.com/watch?v=kJFB6rH3z2A"],
     "channel":"BobRoss",
     "genre":["painting",
              "entertainment"],

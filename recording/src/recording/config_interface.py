@@ -52,7 +52,9 @@ class ConfigInterface:
             temp_value = {}
             for attribute, value in streams.items():
                 if attribute == "src":
-                    temp_value[attribute.lower()] = value
+                    temp_list = []
+                    [(temp_list.append(src)) for src in list(value)]
+                    temp_value[attribute.lower()] = temp_list
                 elif attribute == "genre":
                     temp_list = []
                     [(temp_list.append(genre)) for genre in list(value)]

@@ -49,6 +49,7 @@ class ConfigObject:
         """
         Returns the type of src which will be utilized
 
+        Return -1 if src is not supported
         Return 0 if src is a livestream source and video
         Return 1 if src is not a livestream source and video
         Return 2 if src is a livestream source and text

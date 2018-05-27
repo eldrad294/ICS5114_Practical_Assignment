@@ -159,76 +159,83 @@ class RecordingInterface:
     #
     def download_and_segment(self):
         """
-        Wrapper function for downloading and segmenting of youtube video
+        Wrapper function for downloading and segmenting of youtube videos
         :return:
         """
-        local_video_path = self.__download_video()
-        return self.__segment_local_video(local_video_path=local_video_path)
+        local_video_paths = self.__download_videos()
+        return self.__segment_local_videos(local_video_paths=local_video_paths)
     #
-    def __download_video(self):
+    def __download_videos(self):
         """
-        Downloads video from youtube src
+        Downloads videos from youtube src
         :return:
         """
+        local_paths = []
         print("Initiating YouTube Connection..")
-        yt = YouTube(self.config_obj.get_details()['src'])
-        stream = yt.streams.filter(resolution='144p').first()
-        print("Downloading content at " + pc.PARENT_DIR + "/src/video_buffer..")
-        stream.download(output_path=pc.PARENT_DIR+"/src/video_buffer/",filename=yt.title)
-        #print(pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp")
-        return pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp"
+        for yt_src in self.config_obj.get_details()['src']:
+            yt = YouTube(yt_src)
+            stream = yt.streams.filter(resolution='144p').first()
+            print("Downloading content at " + pc.PARENT_DIR + "/src/video_buffer..")
+            stream.download(output_path=pc.PARENT_DIR+"/src/video_buffer/",filename=yt.title)
+            #print(pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp")
+            local_paths.append(pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp")
+            #local_paths.append(local_paths)
+        return local_paths
     #
-    def __segment_local_video(self,local_video_path):
+    def __segment_local_videos(self,local_video_paths):
         """
-        Segments a local video
-        :param file path were the content was downloaded
+        Segments a number local videos
+        :param file path where the content was downloaded
         :return:
         """
+        video_paths = []
         length_regexp = 'Duration: (\d{2}):(\d{2}):(\d{2})\.\d+,'
         re_length = re.compile(length_regexp)
         #
         print("Initiating file segmentation..")
-        segmented_file_name = local_video_path
-        #
-        if self.segment_time_span <= 0:
-            print("Split length can't be 0")
-            raise SystemExit
-        #
-        cmd = "ffmpeg -i '" + segmented_file_name + "' 2>&1 | grep Duration"
-        output = subprocess.Popen(cmd,
-                                  shell=True,
-                                  stdout=subprocess.PIPE
-                                  ).stdout.read()
-        #print(cmd)
-        #print(output)
-        matches = re_length.search(str(output))
-        if matches:
-            video_length = int(matches.group(1)) * 3600 + \
-                           int(matches.group(2)) * 60 + \
-                           int(matches.group(3))
-            print("Video length in seconds: " + str(video_length))
-        else:
-            print("Can't determine video length for [" + segmented_file_name + "]")
-            raise SystemExit
-        #
-        split_count = math.ceil(video_length / float(self.segment_time_span))
-        if (split_count == 1):
-            print("Video length is less then the target split length.")
-            raise SystemExit
-        #
-        split_cmd = "ffmpeg -i '" + segmented_file_name + "' -vcodec copy "
-        video_paths = []
-        for n in range(int(split_count)):
-            split_str = ""
-            if n == 0:
-                split_start = 0
-            else:
-                split_start = self.segment_time_span * n
+        for file_path in local_video_paths:
+            segmented_file_name = file_path
+            print("Segmenting [" + segmented_file_name + "]")
             #
-            segmented_file_name = pc.PARENT_DIR + "/src/video_buffer/" + str(n) + "_" + self.get_segmented_file_name()
-            split_str += " -ss " + str(split_start) + " -t " + str(self.segment_time_span) + \
-                         " '" + segmented_file_name + "'"
-            print("About to run: " + split_cmd + split_str)
-            output = subprocess.Popen(split_cmd + split_str, shell=True, stdout=subprocess.PIPE).stdout.read()
-            video_paths.append(segmented_file_name)
+            if self.segment_time_span <= 0:
+                print("Split length can't be 0")
+                raise SystemExit
+            #
+            cmd = "ffmpeg -i '" + segmented_file_name + "' 2>&1 | grep Duration"
+            output = subprocess.Popen(cmd,
+                                      shell=True,
+                                      stdout=subprocess.PIPE
+                                      ).stdout.read()
+            #print(cmd)
+            #print(output)
+            matches = re_length.search(str(output))
+            if matches:
+                video_length = int(matches.group(1)) * 3600 + \
+                               int(matches.group(2)) * 60 + \
+                               int(matches.group(3))
+                print("Video length in seconds: " + str(video_length))
+            else:
+                print("Can't determine video length for [" + segmented_file_name + "]")
+                raise SystemExit
+            #
+            split_count = math.ceil(video_length / float(self.segment_time_span))
+            if (split_count == 1):
+                print("Video length is less then the target split length.")
+                raise SystemExit
+            #
+            split_cmd = "ffmpeg -i '" + segmented_file_name + "' -vcodec copy "
+            #
+            for n in range(int(split_count)):
+                split_str = ""
+                if n == 0:
+                    split_start = 0
+                else:
+                    split_start = self.segment_time_span * n
+                #
+                segmented_file_name = pc.PARENT_DIR + "/src/video_buffer/" + str(n) + "_" + self.get_time_stamp() + "_" + self.get_segmented_file_name()
+                split_str += " -ss " + str(split_start) + " -t " + str(self.segment_time_span) + \
+                             " '" + segmented_file_name + "'"
+                print("About to run: " + split_cmd + split_str)
+                output = subprocess.Popen(split_cmd + split_str, shell=True, stdout=subprocess.PIPE).stdout.read()
+                video_paths.append(segmented_file_name)
         return video_paths
