@@ -85,12 +85,12 @@ class _YouTubeInterface():
             doc = f.read()
             return build_from_document(doc, http=credentials.authorize(httplib2.Http()))
     #
-    def get_comment_threads(self, youtube, video_id, youtube_api_result_limit):
+    def get_comment_threads(self, youtube, video_ids, youtube_api_result_limit):
         """
         Call the API's commentThreads.list method to list the existing comment threads.
 
         :param youtube:
-        :param video_id:
+        :param video_ids:
         :return:
         """
         # print("Retrieving initial page comment thread..\n--------------------")
@@ -122,35 +122,36 @@ class _YouTubeInterface():
         nextPageToken = ''
         comment_map = dict()
         #
-        while(nextPageToken is not None):
-            print("Retrieving a page comment thread..\n--------------------")
-            results = youtube.commentThreads().list(
-                part="snippet",
-                videoId=video_id,
-                textFormat="plainText",
-                maxResults=youtube_api_result_limit,
-                pageToken=nextPageToken
-            ).execute()
-            #
-            try:
-                nextPageToken = results["nextPageToken"]
-            except Exception:
-                nextPageToken = None #Eventully nextPageToken will be returned as null and exit loop
-            #
-            for item in results["items"]:
-                comment = item["snippet"]["topLevelComment"]
-                author = comment["snippet"]["authorDisplayName"]
-                text = comment["snippet"]["textDisplay"]
-                if author in comment_map:
-                    comment_map[author].append(text)
-                else:
-                    comment_map[author] = []
-                    comment_map[author].append(text)
+        for video_id in video_ids:
+            while(nextPageToken is not None):
+                print("Retrieving a page comment thread..\n--------------------")
+                results = youtube.commentThreads().list(
+                    part="snippet",
+                    videoId=video_id,
+                    textFormat="plainText",
+                    maxResults=youtube_api_result_limit,
+                    pageToken=nextPageToken
+                ).execute()
                 #
-                comment_map = self.get_comments(youtube=youtube,
-                                                parent_id=item['id'],
-                                                comment_map=comment_map,
-                                                youtube_api_result_limit=youtube_api_result_limit)
+                try:
+                    nextPageToken = results["nextPageToken"]
+                except Exception:
+                    nextPageToken = None #Eventully nextPageToken will be returned as null and exit loop
+                #
+                for item in results["items"]:
+                    comment = item["snippet"]["topLevelComment"]
+                    author = comment["snippet"]["authorDisplayName"]
+                    text = comment["snippet"]["textDisplay"]
+                    if author in comment_map:
+                        comment_map[author].append(text)
+                    else:
+                        comment_map[author] = []
+                        comment_map[author].append(text)
+                    #
+                    comment_map.update(self.get_comments(youtube=youtube,
+                                                                       parent_id=item['id'],
+                                                                       comment_map=comment_map,
+                                                                       youtube_api_result_limit=youtube_api_result_limit))
         #
         return comment_map
     #
@@ -184,14 +185,16 @@ class _YouTubeInterface():
     #
     def __get_video_id(self):
         """
-        Parses youtube url and returns only the video id
+        Parses youtube urls and returns only the video ids
 
         :return:
         """
-        src_url = self.config_obj.get_details()['src']
+        src_url_list = []
+        src_urls = self.config_obj.get_details()['src']
         match_string_to_remove = "https://www.youtube.com/watch?v="
-        src_url = src_url.replace(match_string_to_remove,'')
-        return src_url
+        for src in src_urls:
+            src_url_list.append(src.replace(match_string_to_remove,''))
+        return src_url_list
     #
     def get_youtube_comments(self, youtube_api_result_limit):
         """
@@ -208,7 +211,7 @@ class _YouTubeInterface():
         #
         youtube = self.get_authenticated_service(args)
         comment_map = self.get_comment_threads(youtube=youtube,
-                                               video_id=args.videoid,
+                                               video_ids=args.videoid,
                                                youtube_api_result_limit=youtube_api_result_limit)
         #
         return comment_map

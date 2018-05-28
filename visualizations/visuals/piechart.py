@@ -9,8 +9,12 @@ class PieChart():
     and formats it into
     a piechart visualization
     """
+    def __init__(self, uri, user, password):
+        self.uri = uri
+        self.user = user
+        self.password = password
     #
-    def draw_ratio_piechart(self, uri, user, password, save_path):
+    def draw_ratio_piechart(self, save_path):
         """
         Plots a pie chart based off Neo4j word distribution
 
@@ -22,7 +26,7 @@ class PieChart():
         """
         #
         # Establishes connection to graph database
-        gi = GraphInterface(uri=uri, user=user, password=password)
+        gi = GraphInterface(uri=self.uri, user=self.user, password=self.password)
         #
         # Establish session and return cursor
         with gi.get_driver().session() as session:

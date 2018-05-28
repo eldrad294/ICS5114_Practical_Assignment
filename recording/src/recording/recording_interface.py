@@ -112,9 +112,8 @@ class RecordingInterface:
         command = "streamlink -o " + \
                   self.video_buffer_path + \
                   "/" + segmented_file_name + \
-                  " " + self.config_obj.get_details()['src'] + \
+                  " " + self.config_obj.get_details()['src'][0] + \
                   " " + self.quality
-
         return subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
     #
     def get_segmented_file_name(self):

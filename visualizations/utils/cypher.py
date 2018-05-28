@@ -19,12 +19,45 @@ class Cypher():
                 union all
                 match(g:genre)
                 with count(g) as count
-                return 'genres' as label,count, 'yellow' as color;
+                return 'genres' as label,count, 'yellow' as color
+                union all
+                match(v:viewer)
+                with count(v) as count
+                return 'viewers' as label,count, 'black' as color;
                """
     #
     @staticmethod
-    def cypher_words_per_streamer():
+    def cypher_word_per_streamer():
         return """
                 match((s:streamer)-[u:utters]-(w:word))
-                return s.name as streamer, count(u) as count;
+                return  s.name as streamer, 
+                count(u) as variety_count,
+                sum(u.count) as tot_count;
+               """
+    #
+    @staticmethod
+    def cypher_word_per_platform():
+        return """
+                match((w:word)-[ut:utters]-(s:streamer)-[u:uses]-(p:platform))
+                return  p.name as platform, 
+                sum(ut.count) as tot_count, 
+                count(ut.count) as variety_count;
+               """
+    #
+    @staticmethod
+    def cypher_word_per_viewer():
+        return """
+                match((v:viewer)-[c:comments]-(w:word))
+                return  v.name as viewer, 
+                count(c) as variety_count,
+                sum(c.count) as tot_count;
+               """
+    #
+    @staticmethod
+    def cypher_word_per_genre():
+        return """
+                match((g:genre)-[p:partakes]-(s:streamer)-[u:utters]-(w:word))
+                return g.name as genre, 
+                sum(u.count) as tot_count, 
+                count(u.count) as variety_count;
                """
