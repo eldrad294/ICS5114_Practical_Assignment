@@ -61,3 +61,12 @@ class Cypher():
                 sum(u.count) as tot_count, 
                 count(u.count) as variety_count;
                """
+    #
+    @staticmethod
+    def cypher_word_cloud():
+        return """
+                match(()-[c:comments]-(w:word)-[u:utters]-()) 
+                return distinct w.name as word, 
+                       (u.count + c.count) as count 
+                order by count desc; 
+               """

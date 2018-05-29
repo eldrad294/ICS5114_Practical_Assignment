@@ -1,5 +1,6 @@
 from visualizations.visuals.piechart import PieChart
 from visualizations.visuals.barchart import BarChart
+from visualizations.visuals.wordcloud import WordCloudChart
 #
 uri = "bolt://localhost:7687"
 user = "neo4j"
@@ -11,6 +12,9 @@ pc = PieChart(uri=uri,
 bc = BarChart(uri=uri,
               user=user,
               password=password)
+wc = WordCloudChart(uri=uri,
+                    user=user,
+                    password=password)
 #
 """
 ---------------------PIE CHARTS---------------------
@@ -26,3 +30,7 @@ bc.draw_word_per_platform(save_path=save_path + "Word_Platform_Distribution.html
 bc.draw_word_per_viewer(save_path=save_path + "Word_Viewer_Distribution.html")
 #
 bc.draw_word_per_genre(save_path=save_path + "Word_Genre_Distribution.html")
+"""
+---------------------WORD CLOUD---------------------
+"""
+wc.draw_ratio_wordcloud(save_path=save_path + "Word_Cloud.png")
