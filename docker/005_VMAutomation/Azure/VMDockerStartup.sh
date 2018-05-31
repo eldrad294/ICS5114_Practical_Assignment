@@ -87,11 +87,19 @@ RunStorm()
 
 RunProducer()
 {
-    printf "\n\nEnter video source offset ($2): "
-    read userSelection
+    while true; do
+        printf "* Enter video source offset ($2): "
+        read userSelection
 
-    imageName=$(docker-machine ssh $2 "sudo docker images --filter=reference='nikifrendo/*producer:*' --format={{.Repository}}:{{.Tag}}")
-    docker-machine ssh $2 "sudo docker run --rm -d --memory=2g -e kafka_connection_strings=$1 -e stream_offset=$userSelection --name producer $imageName" >/dev/null 2>&1
+        # Check if userSelection is an integer, otherwise break out.
+        if [[ $userSelection =~ ^-?[0-9]+$ ]]; then
+            imageName=$(docker-machine ssh $2 "sudo docker images --filter=reference='nikifrendo/*producer:*' --format={{.Repository}}:{{.Tag}}")
+            docker-machine ssh $2 "sudo docker run --rm -d --memory=2g -e kafka_connection_strings=$1 -e stream_offset=$userSelection --name producer$userSelection $imageName" >/dev/null 2>&1
+        else
+            printf "$2 - Complete.\n\n"
+            break
+        fi
+    done
 }
 
 
@@ -144,10 +152,18 @@ zooKeeperConnectionString=$ipAddrKafka":2181"
 neo4jConnectionString="bolt://$ipAddrNeo4j:7687"
 
 
-RunKafkaContainer $ipAddrKafka $vmNameKafka
-RunNeo4J $ipAddrNeo4j $vmNameNeo4j
-RunStorm $ipAddrStorm $vmNameStorm $kafkaConnectionString $zooKeeperConnectionString $neo4jConnectionString
-RunProducer $kafkaConnectionString ${vmNameProducers[0]}
+if [[ ${#vmNameProducers[@]} != ${#ipAddrProducers[@]} ]]; then
+    printf "Producer configuration inconsistent. Aborting docker container startup.\n"
+else
+    RunKafkaContainer $ipAddrKafka $vmNameKafka
+    RunNeo4J $ipAddrNeo4j $vmNameNeo4j
+    RunStorm $ipAddrStorm $vmNameStorm $kafkaConnectionString $zooKeeperConnectionString $neo4jConnectionString
+
+    for (( i=0; i<${#vmNameProducers[@]}; i++ )); do
+        printf "${vmNameProducers[$i]} - Container startup\n"
+        RunProducer $kafkaConnectionString ${vmNameProducers[$i]}
+    done
 
 
-printf "Docker containers started.\n"
+    printf "Docker containers started.\n"
+fi
