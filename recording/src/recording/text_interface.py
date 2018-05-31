@@ -81,7 +81,7 @@ class _YouTubeInterface():
         #
         # Trusted testers can download this discovery document from the developers page
         # and it should be in the same directory with the code.
-        with open(pc.FILE_YOUTUBE_API_V3_DISCOVERYDOCUMENT, "r") as f:
+        with open(pc.FILE_YOUTUBE_API_V3_DISCOVERYDOCUMENT, "r", encoding='utf-8') as f:
             doc = f.read()
             return build_from_document(doc, http=credentials.authorize(httplib2.Http()))
     #

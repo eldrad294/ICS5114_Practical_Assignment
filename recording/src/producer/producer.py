@@ -164,8 +164,6 @@ class ProducerHandler:
                 mutex.release()
 
             if current_task is not None:
-                print(current_task)
-                print(str(current_task.task_data))
                 ProducerHandler.__produce_message(current_task.task_data, producer, current_task.task_kafka_config,
                                                   current_task.task_kafka_topic)
             else:
@@ -183,11 +181,10 @@ class ProducerHandler:
         :param kafka_topic:    Kafka topic
         :return:               None
         """
+        # Due to encoding issues, do not insert any logs here.
         if kafka_topic == "video":
-            print('Kafka video message received: %s' % data)
             ProducerHandler.__process_file(data, kafka_producer, kafka_config, kafka_topic)
         elif kafka_topic == "text":
-            print('Kafka text message received: %s' % data)
             ProducerHandler.__process_file(data, kafka_producer, kafka_config, kafka_topic)
         else:
             raise ValueError('Unsupported Kafka Topic! Aborting..')

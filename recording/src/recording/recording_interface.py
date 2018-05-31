@@ -204,8 +204,8 @@ class RecordingInterface:
                                       shell=True,
                                       stdout=subprocess.PIPE
                                       ).stdout.read()
-            #print(cmd)
-            #print(output)
+            print(cmd)
+            print(output)
             matches = re_length.search(str(output))
             if matches:
                 video_length = int(matches.group(1)) * 3600 + \
