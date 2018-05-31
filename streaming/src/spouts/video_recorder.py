@@ -66,17 +66,16 @@ class VideoRecorder(Spout):
         and segmented video file paths
         :return:
         """
-        #
-        # Consumes message from Kafka Broker. 'block'
-        # parameter must be set to false or otherwise
-        # will hog Storm Spout and get timed out
-        message = self.bconsumer.consume(block=False)
-        if not message:
-            # nothing to emit
-            return
-        self.log("Message offloaded from consumer..")
-        #
         try:
+            #
+            # Consumes message from Kafka Broker. 'block'
+            # parameter must be set to false or otherwise
+            # will hog Storm Spout and get timed out
+            message = self.bconsumer.consume(block=False)
+            if not message:
+                # nothing to emit
+                return
+            self.log("Message offloaded from consumer..")
             #
             # De-serializes kafka message value
             message = message.value.decode()
