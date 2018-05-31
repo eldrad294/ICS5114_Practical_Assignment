@@ -164,6 +164,20 @@ class RecordingInterface:
         local_video_paths = self.__download_videos()
         return self.__segment_local_videos(local_video_paths=local_video_paths)
     #
+    def __clean_downloaded_videos(self, title_name):
+        """
+        Cleans video name from illegal characters
+
+        :param title_name:
+        :return:
+        """
+        illegal_characters = ('"', "'", "\\", "/", ",", ".", "&", "%", " ", "+","-","#","$","!","?")
+        return_string = []
+        for char in str(title_name):
+            if char not in illegal_characters:
+                return_string.append(char)
+        return "".join(return_string)
+    #
     def __download_videos(self):
         """
         Downloads videos from youtube src
@@ -175,9 +189,10 @@ class RecordingInterface:
             yt = YouTube(yt_src)
             stream = yt.streams.filter(resolution='144p').first()
             print("Downloading content at " + pc.PARENT_DIR + "/src/video_buffer..")
-            stream.download(output_path=pc.PARENT_DIR+"/src/video_buffer/",filename=yt.title)
+            title = self.__clean_downloaded_videos(yt.title)
+            stream.download(output_path=pc.PARENT_DIR+"/src/video_buffer/",filename=title)
             #print(pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp")
-            local_paths.append(pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp")
+            local_paths.append(pc.PARENT_DIR + "/src/video_buffer/" + title + ".3gpp")
         return local_paths
     #
     def __segment_local_videos(self,local_video_paths):
