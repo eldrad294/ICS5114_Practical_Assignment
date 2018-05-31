@@ -134,7 +134,7 @@ class BadVocab():
     #
     def __init__(self, corpus_path):
         self.__vocab_list = []
-        with open(corpus_path, 'r') as f:
+        with open(corpus_path, 'r', encoding='utf-8') as f:
             for line in f:
                 self.__vocab_list.append(line.lower())
     #
