@@ -178,7 +178,6 @@ class RecordingInterface:
             stream.download(output_path=pc.PARENT_DIR+"/src/video_buffer/",filename=yt.title)
             #print(pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp")
             local_paths.append(pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp")
-            #local_paths.append(local_paths)
         return local_paths
     #
     def __segment_local_videos(self,local_video_paths):
