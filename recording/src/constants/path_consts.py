@@ -13,5 +13,4 @@ DIR_VIDEO_BUFFER = BASE_DIR + "/video_buffer"
 # File Path Constants
 FILE_INPUT_CHANNELS = BASE_DIR + "/input_channels.json"
 FILE_YOUTUBE_API_SECRET = BASE_DIR + "/client_secrets.json"
-# FILE_YOUTUBE_API_V3_DISCOVERYDOCUMENT = BASE_DIR + "/youtube-v3-discoverydocument.json"
-FILE_YOUTUBE_API_V3_DISCOVERYDOCUMENT = "youtube-v3-discoverydocument.json"
+FILE_YOUTUBE_API_V3_DISCOVERYDOCUMENT = BASE_DIR + "/youtube-v3-discoverydocument.json"
