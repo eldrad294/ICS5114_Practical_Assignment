@@ -18,7 +18,20 @@ if [[ ${#arrayRunningVMs[@]} -gt "0" ]]; then
         elif [[ ${arrayRunningVMs[$userSelection]} = *"storm"* ]]; then
             containerName="storm"
         elif [[ ${arrayRunningVMs[$userSelection]} = *"producer"* ]]; then
-            containerName="producer"
+            runningContainers=($(docker-machine ssh ${arrayRunningVMs[$userSelection]} "docker ps --format={{.Names}}" | grep producer))
+            printf "  Running containers:\n"
+            for (( j=0; j<${#runningContainers[@]}; j++ )); do
+                printf "  $j) %s\n" ${runningContainers[$j]}
+            done
+            printf "\nSelect container index: "
+            read userContainerSelection
+
+            if [[ "$userContainerSelection" -lt ${#runningContainers[@]} ]]; then
+                containerName=${runningContainers[$userContainerSelection]}
+            else
+                printf "Wrong input.\n"
+                exit 1
+            fi
         elif [[ ${arrayRunningVMs[$userSelection]} = *"neo4j"* ]]; then
             containerName="neo4j"
         fi

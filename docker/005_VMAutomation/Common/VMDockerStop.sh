@@ -5,15 +5,17 @@ arrayVMs=($(docker-machine ls -t 60 --filter driver=$1 --filter state=running --
 for (( i=0; i<${#arrayVMs[@]}; i++ )); do
     containerName=""
     if [[ ${arrayVMs[$i]} = *"kafka"* ]]; then
-        containerName="kafka"
+        containerName[0]="kafka"
     elif [[ ${arrayVMs[$i]} = *"storm"* ]]; then
-        containerName="storm"
+        containerName[0]="storm"
     elif [[ ${arrayVMs[$i]} = *"producer"* ]]; then
-        containerName="producer"
+        containerName=($(docker-machine ssh ${arrayVMs[$i]} "docker ps --format={{.Names}}" | grep producer))
     elif [[ ${arrayVMs[$i]} = *"neo4j"* ]]; then
-        containerName="neo4j"
+        containerName[0]="neo4j"
     fi
 
-    printf "Stopping container: $containerName\n"
-    docker-machine ssh ${arrayVMs[$i]} "sudo docker stop $containerName" >/dev/null 2>&1
+    for (( j=0; j<${#containerName[@]}; j++ )); do
+        printf "Stopping container: ${containerName[$j]}\n"
+        docker-machine ssh ${arrayVMs[$i]} "sudo docker stop ${containerName[$j]}" >/dev/null 2>&1
+    done
 done
