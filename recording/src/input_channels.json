@@ -2,12 +2,9 @@
   "streams":[
   {
     "platform":"youtube",
-    "src":["https://www.youtube.com/watch?v=nH5rNAdEKRc"],
-    "channel":"The Late Show with Stephen Colbert",
-    "genre":["tabletop_gaming",
-             "entertainment",
-             "roleplay",
-             "dnd"],
+    "src":["https://www.youtube.com/watch?v=p7zFrbf5ib4"],
+    "channel":"Next of Ken",
+    "genre":["swearing","Gordon Ramsay"],
     "type":"video"
   },
   {

@@ -1,10 +1,10 @@
 #
 # Module Imports
-import os
 from streamparse import Bolt
 from graph.CRUD_interface import CRUDInterface
 from coding_framework.BDAConfigParser import g_config
 import json
+import os
 #
 class GraphWriter(Bolt):
     """

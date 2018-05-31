@@ -70,25 +70,19 @@ class CreateTransactionFunctions(object):
             print(str(e))
     #
     @staticmethod
-    def add_word(tx, name):
+    def add_word(tx, name, foul_flag):
         """
         Add Word Node
-        :param self:
         :param tx:
         :param name: Word Node Name
+        :param foul_flag: Denotes whether word is considered foul language
         :return:
         """
-        # supported_nodes = GraphEntities.get_supported_node_types()
-        # cql = "MERGE (w:" + supported_nodes[3] + \
-        #       "{name:$name,type:'" + supported_nodes[3] + "'}) " \
-        #       "ON CREATE SET w.count=1 " \
-        #       "ON MATCH SET w.count = w.count + 1 " \
-        #       "RETURN w;"
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (w:" + supported_nodes[3] + " {name:$name,type:'" + supported_nodes[3] + "'}) " \
+        cql = "MERGE (w:" + supported_nodes[3] + " {name:$name,foul_flag:$foul_flag,type:'" + supported_nodes[3] + "'}) " \
                                                                                               "RETURN w;"
         try:
-            tx.run(cql, name=name)
+            tx.run(cql, name=name, foul_flag=foul_flag)
         except Exception as e:
             print(str(e))
     #

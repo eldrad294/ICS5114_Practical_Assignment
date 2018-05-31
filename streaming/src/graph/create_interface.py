@@ -2,6 +2,8 @@
 # Module Imports
 from graph.basic_interface import BasicInterface
 from graph.transaction_functions import CreateTransactionFunctions
+from coding_framework.BDAConfigParser import g_config
+import os
 #
 class CreateInterface(BasicInterface):
     """
@@ -9,6 +11,11 @@ class CreateInterface(BasicInterface):
     """
     def __init__(self, uri, user, password):
         BasicInterface.__init__(self, uri, user, password)
+        #
+        corpus_path = os.environ.get('FoulWord_Corpus')
+        if corpus_path is None:
+            corpus_path = g_config.get_value('GraphDB', 'FoulWord_Corpus')
+        self.bad_vocab_obj = BadVocab(corpus_path=corpus_path)
     #
     def merge_node(self, node_type, node_name):
         """
@@ -44,7 +51,8 @@ class CreateInterface(BasicInterface):
             elif node_type == self.supported_node_types[2]:
                 session.write_transaction(CreateTransactionFunctions.add_genre, node_name)
             elif node_type == self.supported_node_types[3]:
-                session.write_transaction(CreateTransactionFunctions.add_word, node_name)
+                foul_flag = self.bad_vocab_obj.check_foul_language(node_name)
+                session.write_transaction(CreateTransactionFunctions.add_word, node_name, foul_flag)
             elif node_type == self.supported_node_types[4]:
                 session.write_transaction(CreateTransactionFunctions.add_platform, node_name)
             else:
@@ -114,3 +122,31 @@ class CreateInterface(BasicInterface):
         #
         # If we got this far, this means that node creation was successful
         return True
+#
+class BadVocab():
+    """
+    This class is dedicated to the loading and tracking of bad vocab,
+    during the graph writing procedure. The class constructor loads
+    the bad corpus from disk into main memory, and employs a 'check'
+    method which returns True/False depending if an input word is
+    considered Foul/NotFoul
+    """
+    #
+    def __init__(self, corpus_path):
+        self.__vocab_list = []
+        with open(corpus_path, 'r') as f:
+            for line in f:
+                self.__vocab_list.append(line.lower())
+    #
+    def check_foul_language(self, word):
+        """
+        Returns True if input word is a foul word (found in corpus)
+        , otherwise returns False
+        :param word:
+        :return:
+        """
+        for foul_word in self.__vocab_list:
+            foul_word = "".join(foul_word.split())
+            if foul_word in word:
+                return True
+        return False
