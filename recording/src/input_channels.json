@@ -55,16 +55,16 @@
   {
     "platform":"youtube",
     "src":[
-      "https://www.youtube.com/watch?v=Kye2oX-b39E&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
-      "https://www.youtube.com/watch?v=fpbOEoRrHyU&index=2&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
-      "https://www.youtube.com/watch?v=DlJEt2KU33I&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=3",
-      "https://www.youtube.com/watch?v=WA0wKeokWUU&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=4",
-      "https://www.youtube.com/watch?v=G2W41pvvZs0&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=5",
-      "https://www.youtube.com/watch?v=LfgSEwjAeno&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=6",
-      "https://www.youtube.com/watch?v=_Pz3syET3DY&index=7&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
-      "https://www.youtube.com/watch?v=1Y1ya-yF35g&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=8",
-      "https://www.youtube.com/watch?v=E_F5GxCwizc&index=9&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
-      "https://www.youtube.com/watch?v=PDylgzybWAw&index=10&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh"
+      "https://www.youtube.com/watch?v=Kye2oX-b39E",
+      "https://www.youtube.com/watch?v=fpbOEoRrHyU",
+      "https://www.youtube.com/watch?v=DlJEt2KU33I",
+      "https://www.youtube.com/watch?v=WA0wKeokWUU",
+      "https://www.youtube.com/watch?v=G2W41pvvZs0",
+      "https://www.youtube.com/watch?v=LfgSEwjAeno",
+      "https://www.youtube.com/watch?v=_Pz3syET3DY",
+      "https://www.youtube.com/watch?v=1Y1ya-yF35g",
+      "https://www.youtube.com/watch?v=E_F5GxCwizc",
+      "https://www.youtube.com/watch?v=PDylgzybWAw"
     ],
     "channel":"Last Week Tonight With John Oliver",
     "genre":[
@@ -122,16 +122,16 @@
   {
     "platform":"youtube",
     "src":[
-      "https://www.youtube.com/watch?v=KUdHIatS36A&index=11&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
-      "https://www.youtube.com/watch?v=P8pjd1QEA0c&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=12",
-      "https://www.youtube.com/watch?v=-YkLPxQp_y0&index=13&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
-      "https://www.youtube.com/watch?v=oDPCmmZifE8&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=14",
-      "https://www.youtube.com/watch?v=K4NRJoCNHIs&index=15&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
-      "https://www.youtube.com/watch?v=3kEpZWGgJks&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=16",
-      "https://www.youtube.com/watch?v=QplQL5eAxlY&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=17",
-      "https://www.youtube.com/watch?v=MepXBJjsNxs&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=18",
-      "https://www.youtube.com/watch?v=aIMgfBZrrZ8&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=19",
-      "https://www.youtube.com/watch?v=9PK-netuhHA&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=20"
+      "https://www.youtube.com/watch?v=KUdHIatS36A",
+      "https://www.youtube.com/watch?v=P8pjd1QEA0c",
+      "https://www.youtube.com/watch?v=-YkLPxQp_y0",
+      "https://www.youtube.com/watch?v=oDPCmmZifE8",
+      "https://www.youtube.com/watch?v=K4NRJoCNHIs",
+      "https://www.youtube.com/watch?v=3kEpZWGgJks",
+      "https://www.youtube.com/watch?v=QplQL5eAxlY",
+      "https://www.youtube.com/watch?v=MepXBJjsNxs",
+      "https://www.youtube.com/watch?v=aIMgfBZrrZ8",
+      "https://www.youtube.com/watch?v=9PK-netuhHA"
     ],
     "channel":"Last Week Tonight With John Oliver",
     "genre":[
@@ -196,7 +196,8 @@
   },
   {
     "platform":"youtube",
-    "src":["https://www.youtube.com/watch?v=BSjee-ond7w"],
+    "src":[
+      "https://www.youtube.com/watch?v=BSjee-ond7w"],
     "channel":"BobRoss",
     "genre":["painting",
              "entertainment"],

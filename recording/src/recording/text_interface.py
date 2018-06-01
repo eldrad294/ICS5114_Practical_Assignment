@@ -8,6 +8,7 @@ import httplib2
 import os
 import sys
 import requests
+import time
 #
 class _YouTubeInterface():
     """
@@ -77,6 +78,7 @@ class _YouTubeInterface():
         credentials = storage.get()
         #
         if credentials is None or credentials.invalid:
+            # args.noauth_local_webserver = True
             credentials = run_flow(flow, storage, args)
         #
         # Trusted testers can download this discovery document from the developers page
@@ -93,50 +95,25 @@ class _YouTubeInterface():
         :param video_ids:
         :return:
         """
-        # print("Retrieving initial page comment thread..\n--------------------")
-        # results = youtube.commentThreads().list(
-        #     part="snippet",
-        #     videoId=video_id,
-        #     textFormat="plainText",
-        #     maxResults=youtube_api_result_limit
-        # ).execute()
-        # #
-        # # Gets first batch of comments
-        # comment_map = dict()
-        # for item in results["items"]:
-        #     comment = item["snippet"]["topLevelComment"]
-        #     author = comment["snippet"]["authorDisplayName"]
-        #     text = comment["snippet"]["textDisplay"]
-        #     if author in comment_map:
-        #         comment_map[author].append(text)
-        #     else:
-        #         comment_map[author] = []
-        #         comment_map[author].append(text)
-        #     #
-        #     comment_map = self.get_comments(youtube=youtube,
-        #                                     parent_id=item['id'],
-        #                                     comment_map=comment_map,
-        #                                     youtube_api_result_limit=youtube_api_result_limit)
-        # #
-        # Keep getting comments from following pages
         nextPageToken = ''
         comment_map = dict()
         #
         for video_id in video_ids:
             while(nextPageToken is not None):
-                print("Retrieving a page comment thread..\n--------------------")
-                results = youtube.commentThreads().list(
-                    part="snippet",
-                    videoId=video_id,
-                    textFormat="plainText",
-                    maxResults=youtube_api_result_limit,
-                    pageToken=nextPageToken
-                ).execute()
-                #
+                print("Retrieving a page comment thread..")
                 try:
+                    results = youtube.commentThreads().list(
+                        part="snippet",
+                        videoId=video_id,
+                        textFormat="plainText",
+                        maxResults=youtube_api_result_limit,
+                        pageToken=nextPageToken
+                    ).execute()
                     nextPageToken = results["nextPageToken"]
-                except Exception:
+                except Exception as e:
+                    print(str(e))
                     nextPageToken = None #Eventully nextPageToken will be returned as null and exit loop
+                    continue
                 #
                 for item in results["items"]:
                     comment = item["snippet"]["topLevelComment"]
@@ -148,10 +125,12 @@ class _YouTubeInterface():
                         comment_map[author] = []
                         comment_map[author].append(text)
                     #
+                    # time.sleep(1) # Sleep Thread to avoid greedy consumption of resource api and get throttled
+                    #
                     comment_map.update(self.get_comments(youtube=youtube,
-                                                                       parent_id=item['id'],
-                                                                       comment_map=comment_map,
-                                                                       youtube_api_result_limit=youtube_api_result_limit))
+                                                         parent_id=item['id'],
+                                                         comment_map=comment_map,
+                                                         youtube_api_result_limit=youtube_api_result_limit))
         #
         return comment_map
     #
