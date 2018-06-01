@@ -18,7 +18,7 @@ if [[ ${#arrayRunningVMs[@]} -gt "0" ]]; then
         elif [[ ${arrayRunningVMs[$userSelection]} = *"storm"* ]]; then
             containerName="storm"
         elif [[ ${arrayRunningVMs[$userSelection]} = *"producer"* ]]; then
-            runningContainers=($(docker-machine ssh ${arrayRunningVMs[$userSelection]} "docker ps --format={{.Names}}" | grep producer))
+            runningContainers=($(docker-machine ssh ${arrayRunningVMs[$userSelection]} "sudo docker ps --format={{.Names}}" | grep producer))
             printf "  Running containers:\n"
             for (( j=0; j<${#runningContainers[@]}; j++ )); do
                 printf "  $j) %s\n" ${runningContainers[$j]}

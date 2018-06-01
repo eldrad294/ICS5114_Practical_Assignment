@@ -9,7 +9,7 @@ for (( i=0; i<${#arrayVMs[@]}; i++ )); do
     elif [[ ${arrayVMs[$i]} = *"storm"* ]]; then
         containerName[0]="storm"
     elif [[ ${arrayVMs[$i]} = *"producer"* ]]; then
-        containerName=($(docker-machine ssh ${arrayVMs[$i]} "docker ps --format={{.Names}}" | grep producer))
+        containerName=($(docker-machine ssh ${arrayVMs[$i]} "sudo docker ps --format={{.Names}}" | grep producer))
     elif [[ ${arrayVMs[$i]} = *"neo4j"* ]]; then
         containerName[0]="neo4j"
     fi
