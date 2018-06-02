@@ -1,4 +1,4 @@
-CONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+CONTAINER_ID        NAME                CPU                 MEM_USAGE / LIMIT   MEM                 NET_IO              BLOCK_IO            PIDS
 f1b358226c41        kafka               3.53%               347MiB / 2GiB       16.94%              275kB / 472kB       61.5MB / 815kB      81
 f5e1b100bcfa        neo4j               0.60%               681.5MiB / 2GiB     33.28%              10.7kB / 11.1kB     29.2MB / 356kB      38
 0cb60bd40a86        producer1           15.06%              113.6MiB / 2GiB     5.55%               1.26MB / 47.4kB     562MB / 1.56MB      10
