@@ -171,7 +171,7 @@ class RecordingInterface:
         :param title_name:
         :return:
         """
-        illegal_characters = ('"', "'", "\\", "/", ",", ".", "&", "%", " ", "+","-","#","$","!","?")
+        illegal_characters = ('"', "'", "\\", "/", ",", ".", "&", "%", " ", "+","-","#","$","!","?",":","(",")","^","@","~","*","<",">")
         return_string = []
         for char in str(title_name):
             if char not in illegal_characters:
