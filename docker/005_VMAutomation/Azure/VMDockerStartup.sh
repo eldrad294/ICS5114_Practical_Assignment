@@ -3,7 +3,7 @@
 RunKafkaContainer()
 {
     imageName=$(docker-machine ssh $2 "sudo docker images --filter=reference='nikifrendo/*kafka:*' --format={{.Repository}}:{{.Tag}}")
-    docker-machine ssh $2 "sudo docker run --rm -d --memory=2g --publish 2181:2181 --publish 9092:9092 -e kafka_host_ip=$1 --name kafka $imageName" >/dev/null 2>&1
+    docker-machine ssh $2 "sudo docker run --rm -d --memory=3g --publish 2181:2181 --publish 9092:9092 -e kafka_host_ip=$1 --name kafka $imageName" >/dev/null 2>&1
 
     printf "ZooKeeper.."
     while true; do
@@ -35,7 +35,7 @@ RunKafkaContainer()
 RunNeo4J()
 {
     imageName=$(docker-machine ssh $2 "sudo docker images --filter=reference='nikifrendo/*neo4j:*' --format={{.Repository}}:{{.Tag}}")
-    docker-machine ssh $2 "sudo docker run --rm -d --memory=2g --publish=7474:7474 --publish=7687:7687 --volume=/mnt/sda1/neo4j/data:/data --name neo4j $imageName" >/dev/null 2>&1
+    docker-machine ssh $2 "sudo docker run --rm -d --memory=3g --publish=7474:7474 --publish=7687:7687 --volume=/mnt/sda1/neo4j/data:/data --name neo4j $imageName" >/dev/null 2>&1
 
     printf "Neo4j WebServer.."
     while true; do
@@ -67,7 +67,7 @@ RunNeo4J()
 RunStorm()
 {
     imageName=$(docker-machine ssh $2 "sudo docker images --filter=reference='nikifrendo/*storm:*' --format={{.Repository}}:{{.Tag}}")
-    docker-machine ssh $2 "sudo docker run --rm -d --memory=2g -e kafka_connection_strings=$3 -e zookeeper_connection=$4 -e neo4j_connection_string=$5 --name storm $imageName" >/dev/null 2>&1
+    docker-machine ssh $2 "sudo docker run --rm -d --memory=3g -e kafka_connection_strings=$3 -e zookeeper_connection=$4 -e neo4j_connection_string=$5 --name storm $imageName" >/dev/null 2>&1
 
     printf "Storm service.."
     while true; do
