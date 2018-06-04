@@ -206,7 +206,7 @@ class RecordingInterface:
         re_length = re.compile(length_regexp)
         #
         print("Initiating file segmentation..")
-        for file_path in local_video_paths:
+        for i, file_path in enumerate(local_video_paths):
             segmented_file_name = file_path
             print("Segmenting [" + segmented_file_name + "]")
             #
@@ -245,10 +245,13 @@ class RecordingInterface:
                 else:
                     split_start = self.segment_time_span * n
                 #
-                segmented_file_name = pc.PARENT_DIR + "/src/video_buffer/" + str(n) + "_" + self.get_time_stamp() + "_" + self.get_segmented_file_name()
+                segmented_file_name = pc.PARENT_DIR + "/src/video_buffer/" + str(i) + str(n) + "_" + self.get_segmented_file_name() #Ensures a unique file_name for the segmented file on disk
                 split_str += " -ss " + str(split_start) + " -t " + str(self.segment_time_span) + \
                              " '" + segmented_file_name + "'"
-                print("About to run: " + split_cmd + split_str)
-                output = subprocess.Popen(split_cmd + split_str, shell=True, stdout=subprocess.PIPE).stdout.read()
-                video_paths.append(segmented_file_name)
+                try:
+                    print("About to run: " + split_cmd + split_str)
+                    output = subprocess.Popen(split_cmd + split_str, shell=True, stdout=subprocess.PIPE).stdout.read()
+                    video_paths.append(segmented_file_name)
+                except Exception as e:
+                    print("Exception caught during local video segmentation [" + str(e) + "]")
         return video_paths

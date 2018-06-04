@@ -50,7 +50,7 @@ class WordCloudChart():
         #     fig.suptitle(title, fontsize=20)
         #     fig.subplots_adjust(top=2.3)
         plt.imshow(wordcloud)
-        plt.show()
+        #plt.show()
         fig.savefig(save_path)
     #
 class Transactions():

@@ -141,7 +141,7 @@ class BarChart():
         ])
         layout = go.Layout(
             barmode='group',
-            title="Platform Word Variety Distribution"
+            title="Viewer Word Variety Distribution"
         )
         config = None
         fig = go.Figure(data=data, layout=layout)

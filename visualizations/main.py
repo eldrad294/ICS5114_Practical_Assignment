@@ -42,7 +42,19 @@ except Exception as e:
 """
 ---------------------LINE GRAPH---------------------
 """
-load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/stats.txt"
-lg.draw_resource_graph_CPU(load_path=load_path, save_path=save_path + "CPUResourceConsumption.html")
+load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/JohnOliverDockerStats.txt"
+lg.draw_resource_graph_CPU_percentage(load_path=load_path, save_path=save_path + "CPU_Resource_Percentage_Consumption.html")
 #
-lg.draw_resource_graph_MEM_USAGE(load_path=load_path, save_path=save_path + "MainMemoryResourceConsumption.html")
+lg.draw_resource_graph_MEM_USAGE_percentage(load_path=load_path, save_path=save_path + "Main_Memory_Resource_Percentage_Consumption.html")
+#
+lg.draw_resource_graph_MEM_USAGE(load_path=load_path, save_path=save_path + "Main_Memory_Consumption.html")
+#
+lg.draw_resource_graph_NETIO_USAGE(load_path=load_path, save_path=save_path + "NET_IO_Consumption.html")
+#
+lg.draw_resource_graph_BLOCKIO_USAGE(load_path=load_path, save_path=save_path + "BLOCK_IO_Consumption.html")
+#
+load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/latency.csv"
+lg.draw_resource_graph_latency(load_path=load_path, save_path=save_path + "GoogleConsole_Latency.html")
+#
+load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/traffic.csv"
+lg.draw_resource_graph_traffic(load_path=load_path, save_path=save_path + "GoogleConsole_Traffic.html")
