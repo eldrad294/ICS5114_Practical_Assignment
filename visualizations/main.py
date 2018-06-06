@@ -3,7 +3,7 @@ from visualizations.visuals.barchart import BarChart
 from visualizations.visuals.wordcloud import WordCloudChart
 from visualizations.visuals.linegraph import LineGraph
 #
-uri = "bolt://localhost:7687"
+uri = "bolt://localhost:11008"
 user = "neo4j"
 password = "lol123"
 save_path = "artifacts/"
@@ -32,6 +32,14 @@ bc.draw_word_per_platform(save_path=save_path + "Word_Platform_Distribution.html
 bc.draw_word_per_viewer(save_path=save_path + "Word_Viewer_Distribution.html")
 #
 bc.draw_word_per_genre(save_path=save_path + "Word_Genre_Distribution.html")
+#
+bc.draw_top_foul_streamers(save_path=save_path + "Top_foul_worded_streamers.html")
+#
+bc.draw_top_foul_viewers(save_path=save_path + "Top_foul_worded_viewers.html")
+#
+bc.draw_top_foul_platforms(save_path=save_path + "Top_foul_worded_platforms.html")
+#
+bc.draw_top_foul_genre(save_path=save_path + "Top_foul_worded_genre.html")
 """
 ---------------------WORD CLOUD---------------------
 """

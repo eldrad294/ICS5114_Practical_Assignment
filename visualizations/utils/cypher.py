@@ -70,3 +70,70 @@ class Cypher():
                        (u.count + c.count) as count 
                 order by count desc; 
                """
+    #
+    @staticmethod
+    def cypher_foul_word_streamer():
+        return """
+               match((s:streamer)-[u:utters]-(w:word)) 
+               where w.foul_flag=true 
+               return s.name as streamer,sum(u.count) as tot_foul 
+               order by tot_foul desc 
+               limit 20; 
+               """
+    #
+    @staticmethod
+    def cypher_foul_word_viewer():
+        return """
+               match ((v:viewer)-[c:comments]-(w:word)) 
+               where w.foul_flag=true 
+               return v.name as viewer, sum(c.count) as tot_foul 
+               order by tot_foul desc 
+               limit 20;
+               """
+    #
+    @staticmethod
+    def cypher_foul_word_platform():
+        """
+        As of current time, cypher does not support post union processing.
+        Therefore we return subsets of union and sum them through python.
+        """
+        return """
+               match((p:platform)-[us:uses]-(s:streamer)-[u:utters]-(w:word)) 
+               where w.foul_flag=true 
+               return p.name as platform,count(us) as tot_foul 
+               union 
+               match((p:platform)-[us:uses]-(s:streamer)-[su:subscribes]-(v:viewer)-[c:comments]-(w:word))
+               where w.foul_flag=true
+               return p.name as platform, sum(c.count) as tot_foul
+               order by tot_foul desc
+               limit 20;
+               """
+    #
+    @staticmethod
+    def cypher_foul_word_genre():
+        """
+        As of current time, cypher does not support post union processing.
+        Therefore we return subsets of union and sum them through python.
+        """
+        return """
+               match((g:genre)-[p:partakes]-(s:streamer)-[u:utters]-(w:word)) 
+               where w.foul_flag=true 
+               return g.name as genre, count(g) as tot_foul 
+               union 
+               match((g:genre)-[p:partakes]-(s:streamer)-[su:subscribes]-(v:viewer)-[c:comments]-(w:word))
+               where w.foul_flag=true
+               return g.name as genre, sum(c.count) as tot_foul
+               order by tot_foul desc
+               limit 20;
+               """
+    #
+    @staticmethod
+    def cypher_viewer_word_relationship():
+        return """
+               match((v:viewer)-[c:comments]-(w:word)) 
+               where v.name='sethan dotts' 
+               return v.name as viewer,
+                      c.count as comment_count,
+                      w.name as word,
+                      w.foul_flag as foul_flag;
+               """
