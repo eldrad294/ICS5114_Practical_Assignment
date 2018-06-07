@@ -4,7 +4,7 @@ from visualizations.visuals.wordcloud import WordCloudChart
 from visualizations.visuals.linegraph import LineGraph
 from visualizations.visuals.treegraph import TreeGraph
 #
-uri = "bolt://localhost:11008"
+uri = "bolt://40.91.193.247:7687"
 user = "neo4j"
 password = "lol123"
 save_path = "artifacts/"
@@ -22,7 +22,6 @@ tg = TreeGraph(uri=uri,
                user=user,
                password=password)
 #
-"""
 """
 #---------------------PIE CHARTS---------------------
 """
@@ -73,7 +72,6 @@ load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/traf
 lg.draw_resource_graph_traffic(load_path=load_path, save_path=save_path + "GoogleConsole_Traffic.html")
 """
 #---------------------TREE GRAPH---------------------
-"""
 """
 open_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/artifacts/tree_graph.html"
 data_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/artifacts/actors.json"
