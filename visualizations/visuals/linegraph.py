@@ -20,7 +20,7 @@ class LineGraph():
         :return:
         """
         df = self.__load_data_txt(load_path)
-        x = np.linspace(0, 510) #510 minutes
+        x = np.linspace(0, 510, 510) #510 minutes
         df_kafka = df[df['NAME']=='kafka']
         df_storm = df[df['NAME']=='storm']
         df_neo4j = df[df['NAME']=='neo4j']
@@ -90,7 +90,7 @@ class LineGraph():
         :return:
         """
         df = self.__load_data_txt(load_path)
-        x = np.linspace(0, 510) #510 minutes
+        x = np.linspace(0, 510, 510) #510 minutes
         df_kafka = df[df['NAME'] == 'kafka']
         df_storm = df[df['NAME'] == 'storm']
         df_neo4j = df[df['NAME'] == 'neo4j']
@@ -160,7 +160,7 @@ class LineGraph():
         :return:
         """
         df = self.__load_data_txt(load_path)
-        x = np.linspace(0, 510) #510 minutes
+        x = np.linspace(0, 510, 510) #510 minutes
         df_kafka = df[df['NAME'] == 'kafka']
         df_storm = df[df['NAME'] == 'storm']
         df_neo4j = df[df['NAME'] == 'neo4j']
@@ -230,7 +230,7 @@ class LineGraph():
         :return:
         """
         df = self.__load_data_txt(load_path)
-        x = np.linspace(0, 510)  # 510 minutes
+        x = np.linspace(0, 510, 510)  # 510 minutes
         df_kafka = df[df['NAME'] == 'kafka']
         df_storm = df[df['NAME'] == 'storm']
         df_neo4j = df[df['NAME'] == 'neo4j']
@@ -300,7 +300,7 @@ class LineGraph():
         :return:
         """
         df = self.__load_data_txt(load_path)
-        x = np.linspace(0, 510)  # 510 minutes
+        x = np.linspace(0, 510, 510)  # 510 minutes
         df_kafka = df[df['NAME'] == 'kafka']
         df_storm = df[df['NAME'] == 'storm']
         df_neo4j = df[df['NAME'] == 'neo4j']
