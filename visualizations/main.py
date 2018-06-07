@@ -2,6 +2,7 @@ from visualizations.visuals.piechart import PieChart
 from visualizations.visuals.barchart import BarChart
 from visualizations.visuals.wordcloud import WordCloudChart
 from visualizations.visuals.linegraph import LineGraph
+from visualizations.visuals.treegraph import TreeGraph
 #
 uri = "bolt://localhost:11008"
 user = "neo4j"
@@ -16,14 +17,18 @@ bc = BarChart(uri=uri,
 wc = WordCloudChart(uri=uri,
                     user=user,
                     password=password)
-lg = LineGraph()
+lg = LineGraph() # Empty constructor intended, since we do not read from graph database for these visuals
+tg = TreeGraph(uri=uri,
+               user=user,
+               password=password)
 #
 """
----------------------PIE CHARTS---------------------
+"""
+#---------------------PIE CHARTS---------------------
 """
 pc.draw_ratio_piechart(save_path=save_path + "Node_Distribution.html")
 """
----------------------BAR GRAPHS---------------------
+#---------------------BAR GRAPHS---------------------
 """
 bc.draw_word_per_streamer(save_path=save_path + "Word_Streamer_Distribution.html")
 #
@@ -41,14 +46,14 @@ bc.draw_top_foul_platforms(save_path=save_path + "Top_foul_worded_platforms.html
 #
 bc.draw_top_foul_genre(save_path=save_path + "Top_foul_worded_genre.html")
 """
----------------------WORD CLOUD---------------------
+#---------------------WORD CLOUD---------------------
 """
 try:
     wc.draw_ratio_wordcloud(save_path=save_path + "Word_Cloud.png")
 except Exception as e:
     print("Word Cloud Graph was not plotted [" + str(e) + "]")
 """
----------------------LINE GRAPH---------------------
+#---------------------LINE GRAPH---------------------
 """
 load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/JohnOliverDockerStats.txt"
 lg.draw_resource_graph_CPU_percentage(load_path=load_path, save_path=save_path + "CPU_Resource_Percentage_Consumption.html")
@@ -66,3 +71,10 @@ lg.draw_resource_graph_latency(load_path=load_path, save_path=save_path + "Googl
 #
 load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/traffic.csv"
 lg.draw_resource_graph_traffic(load_path=load_path, save_path=save_path + "GoogleConsole_Traffic.html")
+"""
+#---------------------TREE GRAPH---------------------
+"""
+"""
+open_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/artifacts/tree_graph.html"
+data_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/artifacts/actors.json"
+tg.draw_tree_graph(save_path=data_path,html_path=open_path)
