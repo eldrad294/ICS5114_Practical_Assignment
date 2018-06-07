@@ -17,7 +17,7 @@ class TreeGraph():
         self.user = user
         self.password = password
     #
-    def draw_tree_graph(self, save_path, html_path):
+    def draw_tree_graph(self, save_path, html_path, viewer=None):
         """
         Plots a tree graph visualization of a particular viewer, with all word relationships
 
@@ -30,12 +30,8 @@ class TreeGraph():
         #
         # Establish session and return cursor
         with gi.get_driver().session() as session:
-            cursor = session.read_transaction(Transactions.load_word_per_streamer)
+            cursor = session.read_transaction(Transactions.load_word_per_viewer,viewer)
         #
-        """
-        Following chunk is based upon
-        http://graphalchemist.github.io/Alchemy/#/examples
-        """
         viewer, duplicate_viewer, comment_count, word, foul_flag = [], [], [], [], []
         for rec in cursor:
             viewer.append(rec['viewer'])
@@ -59,7 +55,7 @@ class TreeGraph():
                     json_nodes_string += '{"id":"' + str(word[i]) + '" ,"group":4}'
                 else:
                     json_nodes_string += '{"id":"' + str(word[i]) + '" ,"group":5}'
-            json_edges_string += '{"source":"' + str(word[i]) + '","target":"' + str(viewer[i]) + '", "value":"' + str(comment_count[i]) + '"}'
+            json_edges_string += '{"source":"' + str(word[i]) + '","target":"' + str(viewer[i]) + '", "value":"' + str(comment_count[i]*4) + '"}'
             if i != len(word)-1:
                 json_nodes_string += ','
                 json_edges_string += ','
@@ -74,5 +70,5 @@ class TreeGraph():
 #
 class Transactions():
     @staticmethod
-    def load_word_per_streamer(tx):
-        return tx.run(Cypher.cypher_viewer_word_relationship())
+    def load_word_per_viewer(tx, viewer):
+        return tx.run(Cypher.cypher_viewer_word_relationship(viewer))

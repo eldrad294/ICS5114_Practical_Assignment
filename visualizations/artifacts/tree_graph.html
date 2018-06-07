@@ -13,7 +13,7 @@
 }
 
 </style>
-<svg width="960" height="600"></svg>
+<svg width="1280" height="1280"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
@@ -52,6 +52,9 @@ d3.json("actors.json", function(error, graph) {
 
   node.append("title")
       .text(function(d) { return d.id; });
+
+  link.append("title")
+      .text(function(d) { return d.value; });
 
   simulation
       .nodes(graph.nodes)

@@ -128,13 +128,23 @@ class Cypher():
                """
     #
     @staticmethod
-    def cypher_viewer_word_relationship():
-        return """
-               match((v:viewer)-[c:comments]-(w:word))  
-                return v.name as viewer,
-                c.count as comment_count,
-                w.name as word,
-                w.foul_flag as foul_flag
-                order by comment_count desc
-                limit 100;
-               """
+    def cypher_viewer_word_relationship(viewer):
+        if viewer is None:
+            return """
+                   match((v:viewer)-[c:comments]-(w:word))  
+                    return v.name as viewer,
+                    c.count as comment_count,
+                    w.name as word,
+                    w.foul_flag as foul_flag
+                    order by comment_count desc
+                    limit 100;
+                   """
+        else:
+            return ("match((v:viewer)-[c:comments]-(w:word)) "
+                    "where v.name = '" + str(viewer) + "' "
+                    "return v.name as viewer, "
+                    "c.count as comment_count, "
+                    "w.name as word, "
+                    "w.foul_flag as foul_flag "
+                    "order by comment_count desc "
+                    "limit 100;")

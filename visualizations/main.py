@@ -4,9 +4,20 @@ from visualizations.visuals.wordcloud import WordCloudChart
 from visualizations.visuals.linegraph import LineGraph
 from visualizations.visuals.treegraph import TreeGraph
 #
-uri = "bolt://40.91.193.247:7687"
+"""
+User Defined Parameters
+------------------------------------------------
+"""
+# Denotes which viewer to build treegraph around. If left None, will display top number of viewers ranked by word usage
+tree_graph_viewer_name=None
+#tree_graph_viewer_name="sterling_mustang"
+uri = "bolt://localhost:11008"
 user = "neo4j"
 password = "lol123"
+"""
+Parameter Scripts: DO NOT CHANGE BELOW THIS LINE
+------------------------------------------------
+"""
 save_path = "artifacts/"
 pc = PieChart(uri=uri,
               user=user,
@@ -65,14 +76,14 @@ lg.draw_resource_graph_NETIO_USAGE(load_path=load_path, save_path=save_path + "N
 #
 lg.draw_resource_graph_BLOCKIO_USAGE(load_path=load_path, save_path=save_path + "BLOCK_IO_Consumption.html")
 #
-load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/latency.csv"
+load_path = "data/latency.csv"
 lg.draw_resource_graph_latency(load_path=load_path, save_path=save_path + "GoogleConsole_Latency.html")
 #
-load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/traffic.csv"
+load_path = "data/traffic.csv"
 lg.draw_resource_graph_traffic(load_path=load_path, save_path=save_path + "GoogleConsole_Traffic.html")
 """
 #---------------------TREE GRAPH---------------------
 """
-open_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/artifacts/tree_graph.html"
-data_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/artifacts/actors.json"
-tg.draw_tree_graph(save_path=data_path,html_path=open_path)
+open_path = "artifacts/tree_graph.html"
+data_path = "artifacts/actors.json"
+tg.draw_tree_graph(save_path=data_path,html_path=open_path, viewer=tree_graph_viewer_name)
