@@ -370,7 +370,7 @@ class BarChart():
         #
         # Establish session and return cursor
         with gi.get_driver().session() as session:
-            cursor = session.read_transaction(Transactions.load_top_foul_viewers)
+            cursor = session.read_transaction(Transactions.load_top_n_foul_words)
         #
         # Plot visualization from cursor
         word_name, foul_word_count = [], []
