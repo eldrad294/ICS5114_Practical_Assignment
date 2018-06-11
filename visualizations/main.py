@@ -11,7 +11,7 @@ User Defined Parameters
 # Denotes which viewer to build treegraph around. If left None, will display top number of viewers ranked by word usage
 tree_graph_viewer_name=None
 #tree_graph_viewer_name="sterling_mustang"
-uri = "bolt://localhost:11008"
+uri = "bolt://51.145.136.202:7687"
 user = "neo4j"
 password = "lol123"
 """
@@ -55,6 +55,8 @@ bc.draw_top_foul_viewers(save_path=save_path + "Top_foul_worded_viewers.html")
 bc.draw_top_foul_platforms(save_path=save_path + "Top_foul_worded_platforms.html")
 #
 bc.draw_top_foul_genre(save_path=save_path + "Top_foul_worded_genre.html")
+#
+bc.draw_top_n_foul_words(save_path=save_path + "Top_foul_n_words.html")
 """
 #---------------------WORD CLOUD---------------------
 """

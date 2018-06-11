@@ -356,6 +356,46 @@ class BarChart():
         #
         # Close connection to graph db
         gi.close()
+    #
+    def draw_top_n_foul_words(self, save_path):
+        """
+        Plots a bar graph of top n foul words, ranked by highest occurrence of foul word usage
+
+        :param save_path:   Path where to save html plot
+        :return:
+        """
+        #
+        # Establishes connection to graph database
+        gi = GraphInterface(uri=self.uri, user=self.user, password=self.password)
+        #
+        # Establish session and return cursor
+        with gi.get_driver().session() as session:
+            cursor = session.read_transaction(Transactions.load_top_foul_viewers)
+        #
+        # Plot visualization from cursor
+        word_name, foul_word_count = [], []
+        for rec in cursor:
+            word_name.append(rec['word_name'])
+            foul_word_count.append(rec['foul_word_count'])
+        data = Data([
+            Bar(
+                x=word_name,
+                y=foul_word_count,
+                name='Foul Word Distribution'
+            )
+        ])
+        layout = go.Layout(
+            barmode='group',
+            title="Top Foul Words",
+            xaxis=dict(title="Foul Words"),
+            yaxis=dict(title="Foul Word Count")
+        )
+        config = None
+        fig = go.Figure(data=data, layout=layout)
+        plot(fig, config=config, filename=save_path)
+        #
+        # Close connection to graph db
+        gi.close()
 #
 class Transactions():
     @staticmethod
@@ -389,3 +429,7 @@ class Transactions():
     @staticmethod
     def load_top_foul_genre(tx):
         return tx.run(Cypher.cypher_foul_word_genre())
+    #
+    @staticmethod
+    def load_top_n_foul_words(tx):
+        return tx.run(Cypher.cypher_top_n_foul_words())

@@ -55,7 +55,7 @@ class TreeGraph():
                     json_nodes_string += '{"id":"' + str(word[i]) + '" ,"group":4}'
                 else:
                     json_nodes_string += '{"id":"' + str(word[i]) + '" ,"group":5}'
-            json_edges_string += '{"source":"' + str(word[i]) + '","target":"' + str(viewer[i]) + '", "value":"' + str(comment_count[i]*4) + '"}'
+            json_edges_string += '{"source":"' + str(word[i]) + '","target":"' + str(viewer[i]) + '", "value":"' + str(comment_count[i]) + '"}'
             if i != len(word)-1:
                 json_nodes_string += ','
                 json_edges_string += ','

@@ -148,3 +148,13 @@ class Cypher():
                     "w.foul_flag as foul_flag "
                     "order by comment_count desc "
                     "limit 100;")
+        #
+    @staticmethod
+    def cypher_top_n_foul_words():
+        return """
+               match((w:word)-[u:utters]-(s:streamer)),
+                    ((w:word)-[c:comments]-(v:viewer)) 
+               where w.foul_flag=true 
+               return w.name as word_name, count(w) as foul_word_count 
+               order by foul_word_count desc;
+               """

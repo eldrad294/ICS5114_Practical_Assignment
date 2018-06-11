@@ -23,7 +23,7 @@ class MainTopology(Topology):
     print('Starting Topology..')
     video_spout_parallel_degree = 1
     text_spout_parallel_degree = 1
-    video_decoder_parallel_degree = 1
+    video_decoder_parallel_degree = 4
     text_decoder_parallel_degreee = 1
     graph_writer_parallel_degree = 2
     #
