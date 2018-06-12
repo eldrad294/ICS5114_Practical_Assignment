@@ -1,9 +1,0 @@
-symbol,date,price
-kafka,Jan 2000,3.53
-neo4j,Feb 2000,0.60
-producer1,Mar 2000,15.06
-storm,Apr 2000,52.70
-kafka,May 2000,20.64
-neo4j,Jun 2000,0.59
-producer1,Jul 2000,44.26
-storm,Aug 2000,65.40

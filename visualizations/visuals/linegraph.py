@@ -20,14 +20,14 @@ class LineGraph():
         :return:
         """
         df = self.__load_data_txt(load_path)
-        x = np.linspace(0, 510, 510) #510 minutes
+        x = np.linspace(0, 1140, 1140) #1140 minutes
         df_kafka = df[df['NAME']=='kafka']
         df_storm = df[df['NAME']=='storm']
         df_neo4j = df[df['NAME']=='neo4j']
-        df_producer2 = df[df['NAME'] == 'producer2']
-        df_producer3 = df[df['NAME'] == 'producer3']
-        df_producer4 = df[df['NAME'] == 'producer4']
-        df_producer5 = df[df['NAME'] == 'producer5']
+        df_producer6 = df[df['NAME'] == 'producer6']
+        df_producer7 = df[df['NAME'] == 'producer7']
+        df_producer8 = df[df['NAME'] == 'producer8']
+        df_producer9 = df[df['NAME'] == 'producer9']
         #
         data = Data([
             go.Scatter(
@@ -50,28 +50,28 @@ class LineGraph():
             ),
             go.Scatter(
                 x=x,
-                y=df_producer2['CPU %'],
+                y=df_producer6['CPU %'],
                 mode='lines',
-                name='Producer2 CPU Usage'
+                name='producer6 CPU Usage'
             )
             ,
             go.Scatter(
                 x=x,
-                y=df_producer3['CPU %'],
+                y=df_producer7['CPU %'],
                 mode='lines',
-                name='Producer3 CPU Usage'
+                name='producer7 CPU Usage'
             ),
             go.Scatter(
                 x=x,
-                y=df_producer4['CPU %'],
+                y=df_producer8['CPU %'],
                 mode='lines',
-                name='Producer4 CPU Usage'
+                name='producer8 CPU Usage'
             ),
             go.Scatter(
                 x=x,
-                y=df_producer5['CPU %'],
+                y=df_producer9['CPU %'],
                 mode='lines',
-                name='Producer5 CPU Usage'
+                name='producer9 CPU Usage'
             )
         ])
         layout = go.Layout(
@@ -90,14 +90,14 @@ class LineGraph():
         :return:
         """
         df = self.__load_data_txt(load_path)
-        x = np.linspace(0, 510, 510) #510 minutes
+        x = np.linspace(0, 1140, 1140) #1140 minutes
         df_kafka = df[df['NAME'] == 'kafka']
         df_storm = df[df['NAME'] == 'storm']
         df_neo4j = df[df['NAME'] == 'neo4j']
-        df_producer2 = df[df['NAME'] == 'producer2']
-        df_producer3 = df[df['NAME'] == 'producer3']
-        df_producer4 = df[df['NAME'] == 'producer4']
-        df_producer5 = df[df['NAME'] == 'producer5']
+        df_producer6 = df[df['NAME'] == 'producer6']
+        df_producer7 = df[df['NAME'] == 'producer7']
+        df_producer8 = df[df['NAME'] == 'producer8']
+        df_producer9 = df[df['NAME'] == 'producer9']
         #
         data = Data([
             go.Scatter(
@@ -120,28 +120,28 @@ class LineGraph():
             ),
             go.Scatter(
                 x=x,
-                y=df_producer2['MEM %'],
+                y=df_producer6['MEM %'],
                 mode='lines',
-                name='Producer2 MEM Usage'
+                name='producer6 MEM Usage'
             )
             ,
             go.Scatter(
                 x=x,
-                y=df_producer3['MEM %'],
+                y=df_producer7['MEM %'],
                 mode='lines',
-                name='Producer3 MEM Usage'
+                name='producer7 MEM Usage'
             ),
             go.Scatter(
                 x=x,
-                y=df_producer4['MEM %'],
+                y=df_producer8['MEM %'],
                 mode='lines',
-                name='Producer4 MEM Usage'
+                name='producer8 MEM Usage'
             ),
             go.Scatter(
                 x=x,
-                y=df_producer5['MEM %'],
+                y=df_producer9['MEM %'],
                 mode='lines',
-                name='Producer5 MEM Usage'
+                name='producer9 MEM Usage'
             )
         ])
         layout = go.Layout(
@@ -160,14 +160,14 @@ class LineGraph():
         :return:
         """
         df = self.__load_data_txt(load_path)
-        x = np.linspace(0, 510, 510) #510 minutes
+        x = np.linspace(0, 1140, 1140) #1140 minutes
         df_kafka = df[df['NAME'] == 'kafka']
         df_storm = df[df['NAME'] == 'storm']
         df_neo4j = df[df['NAME'] == 'neo4j']
-        df_producer2 = df[df['NAME'] == 'producer2']
-        df_producer3 = df[df['NAME'] == 'producer3']
-        df_producer4 = df[df['NAME'] == 'producer4']
-        df_producer5 = df[df['NAME'] == 'producer5']
+        df_producer6 = df[df['NAME'] == 'producer6']
+        df_producer7 = df[df['NAME'] == 'producer7']
+        df_producer8 = df[df['NAME'] == 'producer8']
+        df_producer9 = df[df['NAME'] == 'producer9']
         #
         data = Data([
             go.Scatter(
@@ -190,28 +190,28 @@ class LineGraph():
             ),
             go.Scatter(
                 x=x,
-                y=df_producer2['MEM USAGE / LIMIT'].apply(self.__convert_to_kb),
+                y=df_producer6['MEM USAGE / LIMIT'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer2 MEM Usage'
+                name='producer6 MEM Usage'
             )
             ,
             go.Scatter(
                 x=x,
-                y=df_producer3['MEM USAGE / LIMIT'].apply(self.__convert_to_kb),
+                y=df_producer7['MEM USAGE / LIMIT'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer3 MEM Usage'
+                name='producer7 MEM Usage'
             ),
             go.Scatter(
                 x=x,
-                y=df_producer4['MEM USAGE / LIMIT'].apply(self.__convert_to_kb),
+                y=df_producer8['MEM USAGE / LIMIT'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer4 MEM Usage'
+                name='producer8 MEM Usage'
             ),
             go.Scatter(
                 x=x,
-                y=df_producer5['MEM USAGE / LIMIT'].apply(self.__convert_to_kb),
+                y=df_producer9['MEM USAGE / LIMIT'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer5 MEM Usage'
+                name='producer9 MEM Usage'
             )
         ])
         layout = go.Layout(
@@ -230,14 +230,14 @@ class LineGraph():
         :return:
         """
         df = self.__load_data_txt(load_path)
-        x = np.linspace(0, 510, 510)  # 510 minutes
+        x = np.linspace(0, 1140, 1140)  # 1140 minutes
         df_kafka = df[df['NAME'] == 'kafka']
         df_storm = df[df['NAME'] == 'storm']
         df_neo4j = df[df['NAME'] == 'neo4j']
-        df_producer2 = df[df['NAME'] == 'producer2']
-        df_producer3 = df[df['NAME'] == 'producer3']
-        df_producer4 = df[df['NAME'] == 'producer4']
-        df_producer5 = df[df['NAME'] == 'producer5']
+        df_producer6 = df[df['NAME'] == 'producer6']
+        df_producer7 = df[df['NAME'] == 'producer7']
+        df_producer8 = df[df['NAME'] == 'producer8']
+        df_producer9 = df[df['NAME'] == 'producer9']
         #
         data = Data([
             go.Scatter(
@@ -260,28 +260,28 @@ class LineGraph():
             ),
             go.Scatter(
                 x=x,
-                y=df_producer2['NET I/O'].apply(self.__convert_to_kb),
+                y=df_producer6['NET I/O'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer2 NET I/O Usage'
+                name='producer6 NET I/O Usage'
             )
             ,
             go.Scatter(
                 x=x,
-                y=df_producer3['NET I/O'].apply(self.__convert_to_kb),
+                y=df_producer7['NET I/O'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer3 NET I/O Usage'
+                name='producer7 NET I/O Usage'
             ),
             go.Scatter(
                 x=x,
-                y=df_producer4['NET I/O'].apply(self.__convert_to_kb),
+                y=df_producer8['NET I/O'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer4 NET I/O Usage'
+                name='producer8 NET I/O Usage'
             ),
             go.Scatter(
                 x=x,
-                y=df_producer5['NET I/O'].apply(self.__convert_to_kb),
+                y=df_producer9['NET I/O'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer5 NET I/O Usage'
+                name='producer9 NET I/O Usage'
             )
         ])
         layout = go.Layout(
@@ -300,14 +300,14 @@ class LineGraph():
         :return:
         """
         df = self.__load_data_txt(load_path)
-        x = np.linspace(0, 510, 510)  # 510 minutes
+        x = np.linspace(0, 1140, 1140)  # 1140 minutes
         df_kafka = df[df['NAME'] == 'kafka']
         df_storm = df[df['NAME'] == 'storm']
         df_neo4j = df[df['NAME'] == 'neo4j']
-        df_producer2 = df[df['NAME'] == 'producer2']
-        df_producer3 = df[df['NAME'] == 'producer3']
-        df_producer4 = df[df['NAME'] == 'producer4']
-        df_producer5 = df[df['NAME'] == 'producer5']
+        df_producer6 = df[df['NAME'] == 'producer6']
+        df_producer7 = df[df['NAME'] == 'producer7']
+        df_producer8 = df[df['NAME'] == 'producer8']
+        df_producer9 = df[df['NAME'] == 'producer9']
         #
         data = Data([
             go.Scatter(
@@ -330,28 +330,28 @@ class LineGraph():
             ),
             go.Scatter(
                 x=x,
-                y=df_producer2['BLOCK I/O'].apply(self.__convert_to_kb),
+                y=df_producer6['BLOCK I/O'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer2 BLOCK I/O Usage'
+                name='producer6 BLOCK I/O Usage'
             )
             ,
             go.Scatter(
                 x=x,
-                y=df_producer3['BLOCK I/O'].apply(self.__convert_to_kb),
+                y=df_producer7['BLOCK I/O'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer3 BLOCK I/O Usage'
+                name='producer7 BLOCK I/O Usage'
             ),
             go.Scatter(
                 x=x,
-                y=df_producer4['BLOCK I/O'].apply(self.__convert_to_kb),
+                y=df_producer8['BLOCK I/O'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer4 BLOCK I/O Usage'
+                name='producer8 BLOCK I/O Usage'
             ),
             go.Scatter(
                 x=x,
-                y=df_producer5['BLOCK I/O'].apply(self.__convert_to_kb),
+                y=df_producer9['BLOCK I/O'].apply(self.__convert_to_kb),
                 mode='lines',
-                name='Producer5 BLOCK I/O Usage'
+                name='producer9 BLOCK I/O Usage'
             )
         ])
         layout = go.Layout(
@@ -432,7 +432,7 @@ class LineGraph():
         Loads data from text file
         :return:
         """
-        data = pd.read_fwf(load_path, sep=" ")
+        data = pd.read_fwf(load_path, sep=' ')
         return data.fillna('')
     #
     def __load_data_csv(self, load_path, column_names):

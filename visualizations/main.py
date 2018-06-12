@@ -1,8 +1,8 @@
-from visualizations.visuals.piechart import PieChart
-from visualizations.visuals.barchart import BarChart
-from visualizations.visuals.wordcloud import WordCloudChart
-from visualizations.visuals.linegraph import LineGraph
-from visualizations.visuals.treegraph import TreeGraph
+from visuals.piechart import PieChart
+from visuals.barchart import BarChart
+from visuals.wordcloud import WordCloudChart
+from visuals.linegraph import LineGraph
+from visuals.treegraph import TreeGraph
 #
 """
 User Defined Parameters
@@ -14,6 +14,8 @@ tree_graph_viewer_name=None
 uri = "bolt://51.145.136.202:7687"
 user = "neo4j"
 password = "lol123"
+# user = None
+# password = None
 """
 Parameter Scripts: DO NOT CHANGE BELOW THIS LINE
 ------------------------------------------------
@@ -67,7 +69,7 @@ except Exception as e:
 """
 #---------------------LINE GRAPH---------------------
 """
-load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/JohnOliverDockerStats.txt"
+load_path = "/home/gabriel/ICS5114_Practical_Assignment/visualizations/data/producer1"
 lg.draw_resource_graph_CPU_percentage(load_path=load_path, save_path=save_path + "CPU_Resource_Percentage_Consumption.html")
 #
 lg.draw_resource_graph_MEM_USAGE_percentage(load_path=load_path, save_path=save_path + "Main_Memory_Resource_Percentage_Consumption.html")

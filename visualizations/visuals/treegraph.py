@@ -1,5 +1,5 @@
-from visualizations.utils.graph_connector import GraphInterface
-from visualizations.utils.cypher import Cypher
+from utils.graph_connector import GraphInterface
+from utils.cypher import Cypher
 from plotly.offline import plot
 from plotly.graph_objs import *
 import plotly.graph_objs as go
