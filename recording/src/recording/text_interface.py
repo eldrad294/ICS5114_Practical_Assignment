@@ -200,6 +200,16 @@ class TwitchBot(bot.SingleServerIRCBot):
     Twitch Bot Logic
     """
     def __init__(self, username, client_id, token, channel, producer_handler, kafka_config, kafka_topic):
+        """
+        Connects to the Twitch Channel
+        :param username:
+        :param client_id:
+        :param token:
+        :param channel:
+        :param producer_handler:
+        :param kafka_config:
+        :param kafka_topic:
+        """
         self.client_id = client_id
         self.token = token
         self.channel = '#' + channel
@@ -221,6 +231,12 @@ class TwitchBot(bot.SingleServerIRCBot):
         bot.SingleServerIRCBot.__init__(self, [(server, port, 'oauth:' + token)], username, username)
 
     def on_welcome(self, c, e):
+        """
+        This method is called when the bot connects to the streaming channel
+        :param c:
+        :param e:
+        :return:
+        """
         print('Joining ' + self.channel)
 
         # You must request specific capabilities before you can use them

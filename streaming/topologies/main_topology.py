@@ -16,7 +16,7 @@ nltk.download('wordnet')
 
 class MainTopology(Topology):
     """
-    Storm Topology
+    Storm Topology - This class is the starting point for Stream Initialization
     """
     #
     # variable declaration

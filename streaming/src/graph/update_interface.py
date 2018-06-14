@@ -11,6 +11,12 @@ class UpdateInterface(BasicInterface):
         BasicInterface.__init__(self, uri, user, password)
     #
     def increment_node(self, node_type, node_name):
+        """
+        Updates graph edge by 1
+        :param node_type:
+        :param node_name:
+        :return:
+        """
         node_type = node_type.lower()
         node_name = node_name.lower()
         #

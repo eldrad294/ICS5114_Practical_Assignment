@@ -22,10 +22,11 @@ class CreateInterface(BasicInterface):
         This function oversees creation of nodes. It ensures that
         only nodes of the following types are created:
 
-        * streamer
-        * viewer
-        * genre
-        * word
+        * STREAMER
+        * VIEWER
+        * GENRE
+        * WORD
+        * PLATFORM
 
         The function also ensures to avoid duplicated creation
         of nodes by utilizing the MERGE keyword.
@@ -64,6 +65,28 @@ class CreateInterface(BasicInterface):
         return bookmark
     #
     def merge_relationship(self, node_type_1, node_name_1, node_type_2, node_name_2, relationship):
+        """
+        This function oversees creation of relationships. It ensures that
+        only relationships of the following types are created:
+
+        * UTTERS
+        * COMMENTS
+        * FEATURES
+        * FOLLOWS
+        * PARTAKES
+        * SUBSCRIBES
+        * USES
+
+        The function also ensures to avoid duplicated creation
+        of relationships by utilizing the MERGE keyword.
+
+        :param node_type_1:
+        :param name_name_1:
+        :param node_type_2:
+        :param node_name_2:
+        :param relationship:
+        :return:
+        """
         #
         #saved_bookmarks = [] # To collect session bookmarks (causal chaining)
         node_type_1 = node_type_1.lower()

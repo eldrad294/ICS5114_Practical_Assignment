@@ -18,6 +18,11 @@ class BDATextProcessing:
 
     @staticmethod
     def __stop_word_removal(str_input):
+        """
+        Removes stop words from input tuple stream
+        :param str_input:
+        :return:
+        """
         result = []
         stop_words = set(stopwords.words('english'))
 
@@ -29,6 +34,11 @@ class BDATextProcessing:
 
     @staticmethod
     def __word_stemming(str_input):
+        """
+        Applies Porter Stemming on input tuple stream
+        :param str_input:
+        :return:
+        """
         result = []
         ps = PorterStemmer()
 
@@ -39,6 +49,11 @@ class BDATextProcessing:
 
     @staticmethod
     def __word_lemmatizing(str_input):
+        """
+        Applies Word Lemmatizing on input tuple stream
+        :param str_input:
+        :return:
+        """
         result = []
         lemmatizer = WordNetLemmatizer()
 

@@ -143,6 +143,13 @@ class ProducerHandler:
             thread.start()
 
     def add_task(self, data, kafka_config, kafka_topic):
+        """
+        Callable method which adds a video segment to the upload queue. Ensures appropriate mutex handling of task_queue
+        :param data:
+        :param kafka_config:
+        :param kafka_topic:
+        :return:
+        """
         task = ProducerTask(data, kafka_config, kafka_topic)
 
         self.__mutex.acquire()
@@ -153,6 +160,13 @@ class ProducerHandler:
 
     @staticmethod
     def __work(task_queue, mutex, producer):
+        """
+        Offloads work from task_queue through appropriate mutex acquiring
+        :param task_queue:
+        :param mutex:
+        :param producer:
+        :return:
+        """
         while True:
             mutex.acquire()
             try:

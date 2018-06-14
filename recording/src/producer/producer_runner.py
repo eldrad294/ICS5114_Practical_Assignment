@@ -35,6 +35,10 @@ class ProducerRunner:
         self.__initialize_producer()
 
     def start_producer(self):
+        """
+        Initiates producer execution, dependent on what type of producer to be started
+        :return:
+        """
         print('>> ProducerRunner --> Start')
         if self.__recording_config_container.get_src_type() == 0:
             # Video live streaming
@@ -52,6 +56,10 @@ class ProducerRunner:
             raise ValueError('Invalid source type')
 
     def __load_producer_params(self):
+        """
+        Retrieves config parameters for current producer run
+        :return:
+        """
         print('>> ProducerRunner --> Load config')
         self.__stream_offset = int(self.__load_param('ProducerRunner', 'stream_offset', 'StreamOffset_EvnVarName'))
         self.__kafka_connection_strings = self.__load_param('ProducerRunner', 'kafka_connection_strings',
@@ -85,6 +93,10 @@ class ProducerRunner:
         return result
 
     def __initialize_producer(self):
+        """
+        Retrieves config value from json file "input_channels.json"
+        :return:
+        """
         print('>> ProducerRunner --> Initialization')
         # Loads config from input_channels.json
         config_iface = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
@@ -113,6 +125,12 @@ class ProducerRunner:
         print('<< ProducerRunner --> Initialization')
 
     def __video_live_streaming(self):
+        """
+        This method ensures an infinite execution of online-livestreaming footage.
+        Recorded footage (defgault of 30 seconds per segment, is then pushed onto a parallel thread to be uploaded
+        on Google Console)
+        :return:
+        """
         # Initiates streamlink, record ongoing live-stream footage locally
         print('>> ProducerRunner --> Video live streaming')
         while True:
@@ -127,6 +145,11 @@ class ProducerRunner:
                 print('__video_live_streaming --> capture_and_return() returned None')
 
     def __video_retrieval_youtube(self):
+        """
+        This method contains logic for downloading YouTube videos, segmenting the content locally into segments (30s),
+        and uploading these segment on Google Console.
+        :return:
+        """
         # Initiates a call to a number of local video files and splits them into several files
         print('>> ProducerRunner --> YouTube video live streaming')
         video_paths = self.__recording_iface.download_and_segment()
