@@ -22,4 +22,3 @@ class BDATimer:
         """
         seconds = int((int(time.time() * 1000) - self.__tick_before) / 1000)
         print(seconds)
-

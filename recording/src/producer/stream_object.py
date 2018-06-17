@@ -31,8 +31,8 @@ class StreamObject:
         self.text = text
         self.detail_dict = {"platform": self.platform,
                             "source_url": self.src_url,
-                            "cloud_bucket_name":self.cloud_bucket_name,
-                            "cloud_bucket_path":self.cloud_bucket_path,
+                            "cloud_bucket_name": self.cloud_bucket_name,
+                            "cloud_bucket_path": self.cloud_bucket_path,
                             "file_path": self.file_path,
                             "channel": self.channel,
                             "genre": self.genre,

@@ -1,16 +1,24 @@
 class StreamObject:
     """
-    Object which will form the basis off all stream messages
-    produced and offloaded downstream through the pipeline.
+    Object which will form the basis off all stream messages produced and offloaded downstream through the pipeline.
 
-    This object type is intended to be serialized and pushed onto
-    the Kafka broker, which will eventually be picked by the
-    Storm Spout/ Kapfka Consumer, de-serialized and pushed down
-    the pipeline into Storm.
+    This object type is intended to be serialized and pushed onto the Kafka broker, which will eventually be picked by
+    the Storm Spout/ Kapfka Consumer, de-serialized and pushed down the pipeline into Storm.
     """
-    #
-    def __init__(self, platform, src_url, channel, genre, time_stamp,
-                 file_path, cloud_bucket_name, cloud_bucket_path, text=None):
+    def __init__(self, platform, src_url, channel, genre, time_stamp, file_path, cloud_bucket_name, cloud_bucket_path,
+                 text=None):
+        """
+        Constructor
+        :param platform:            Retrieved from config_object
+        :param src_url:             Retrieved from config_object
+        :param channel:             Retrieved from config_object
+        :param genre:               Retrieved from config_object
+        :param time_stamp:          Retrieved from config_object
+        :param file_path:           Set to 'None' if extracting text
+        :param cloud_bucket_name:   Set to 'None' if extracting text
+        :param cloud_bucket_path:   Set to 'None' if extracting text
+        :param text:
+        """
         self.platform = platform
         self.src_url = src_url
         self.channel = channel
@@ -20,25 +28,26 @@ class StreamObject:
         self.cloud_bucket_path = cloud_bucket_path
         self.time_stamp = time_stamp
         self.text = text
-        self.detail_dict = { "platform": self.platform,
-                             "source_url": self.src_url,
-                             "cloud_bucket_name":self.cloud_bucket_name,
-                             "cloud_bucket_path":self.cloud_bucket_path,
-                             "file_path": self.file_path,
-                             "channel": self.channel,
-                             "genre": self.genre,
-                             "time_stamp": self.time_stamp,
-                             "text": self.text}
-    #
+        self.detail_dict = {"platform": self.platform,
+                            "source_url": self.src_url,
+                            "cloud_bucket_name":self.cloud_bucket_name,
+                            "cloud_bucket_path":self.cloud_bucket_path,
+                            "file_path": self.file_path,
+                            "channel": self.channel,
+                            "genre": self.genre,
+                            "time_stamp": self.time_stamp,
+                            "text": self.text}
+
     def get_details(self, key=None):
-        """"
-        Returns instance details in the form of a dictionary
+        """
+        :param key: Optional ID, if unspecified, all the dictionary collection will be returned
+        :return:    Returns instance details in the form of a dictionary
         """
         if key is None:
             return self.detail_dict
         else:
             return self.detail_dict[key]
-    #
+
     def display_details(self):
         """
         Pretty print instance details
@@ -51,19 +60,3 @@ class StreamObject:
               "\nChanel: " + str(self.channel) +
               "\nGenre: " + str(self.genre) +
               "\nTime Stamp: " + str(self.time_stamp))
-    #
-    # def __getstate__(self):
-    #     """
-    #     This method is called when the class instance becomes pickled
-    #     :return:
-    #     """
-    #     state = self.__dict__.copy()
-    #     return state
-    # #
-    # def __setstate__(self, state):
-    #     """
-    #     This method is called when the class instance becomes de-pickled
-    #     :param state:
-    #     :return:
-    #     """
-    #     self.__dict__.update(state)

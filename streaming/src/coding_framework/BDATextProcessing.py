@@ -72,21 +72,20 @@ class BDATextProcessing:
         :return: result_stripped:
         """
         result, result_stripped = [], []
-        stripped_symbols = ("}","{","[","]","?",":","!","/",";",".",",",
-                            "(",")","#","$","%","^","&","*","~","-","'",
-                            "+","-","\'","\\","\b","\t","\n","\r","\f",
-                            "\"","\\uFEFF","`")
-        #
+        stripped_symbols = ("}", "{", "[", "]", "?", ":", "!", "/", ";", ".", ",", "(", ")", "#", "$", "%", "^", "&",
+                            "*", "~", "-", "'", "+", "-", "\'", "\\", "\b", "\t", "\n", "\r", "\f", "\"", "\\uFEFF",
+                            "`")
+
         for word in str_input:
             temp_word = word
             for char in stripped_symbols:
                 temp_word = temp_word.replace(char, "")
             result_stripped.append(temp_word)
-        #
+
         for word in result_stripped:
             if len(word) > 1:
                 result.append(word)
-        #
+
         return result
 
 ###########################################################################

@@ -1,30 +1,26 @@
-#
-# Module Imports
+import json
+import os
 from streamparse import Spout
 from coding_framework.BDAConfigParser import g_config
 from kafka.consumer import Consumer # Module purposely starting from kafka.consum...
-import json
-import os
-#
+
+
 class TextRecorder(Spout):
     """
     Storm Spout Logic
 
-    Responsible for offloading streaming objects containing
-    text data (both real-time and prerecorded).
+    Responsible for offloading streaming objects containing text data (both real-time and prerecorded).
     """
-    #
     # Grouping Mechanism
     outputs = ['text']
-    #
+
     def initialize(self, stormconf, context):
         """
         Storm Spout 'constructor method'
-        :param storm_conf:
-        :param context:
-        :return:
+        :param storm_conf: Unused param
+        :param context:    Unused param
+        :return:           None
         """
-        #
         # Script Parameters
         # Connection strings used to connect to a number of Kafka Brokers
         kafka_connection_strings = os.environ.get('kafka_connection_strings')
@@ -45,13 +41,13 @@ class TextRecorder(Spout):
 
         kafka_topic = "text"  # Kafka topic which this produces will subscribe to
         kafka_consumer_group = "testgroup"  # Kafka consumer group name for balanced consumers
-        #
+
         self.log("Initiating Text KafkaSpout..")
-        #
+
         # Creating an instance of the consumer logic, and connecting with brokers
         consumer = Consumer()
         consumer.connect(kafka_connection_strings)
-        #
+
         # Establishing balanced consumer connection.
         self.bconsumer = consumer.set_balanced_consumer(topic=kafka_topic,
                                                         consumer_group=kafka_consumer_group,
@@ -59,28 +55,24 @@ class TextRecorder(Spout):
                                                         auto_commit_enable=True,
                                                         reset_offset_on_start=True)
         self.log("Balanced Consumer (Text) Established.")
-    #
+
     def next_tuple(self):
         """
-        Submitter method for Spout, emits captured
-        and segmented text down the pipeline
-        :return:
+        Submitter method for Spout, emits captured and segmented text down the pipeline
+        :return: None
         """
         try:
-            #
-            # Consumes message from Kafka Broker. 'block'
-            # parameter must be set to false or otherwise
-            # will hog Storm Spout and get timed out
+            # Consumes message from Kafka Broker. 'block' parameter must be set to false or otherwise will hog Storm
+            # Spout and get timed out
             message = self.bconsumer.consume(block=False)
             if not message:
                 # nothing to emit
                 return
             self.log("Message offloaded from consumer..")
-            #
+
             # De-serializes kafka message value
             message = message.value.decode()
-            #stream_obj = message.replace("'", "\"")
-            #self.log(message)
+
             stream_obj = json.loads(message)
         except ImportError as e:
             self.log(str(e))
@@ -88,12 +80,11 @@ class TextRecorder(Spout):
         except Exception as e:
             self.log(str(e) + " Viewer [" + str(stream_obj['viewer']) + "] ,Text [" + str(stream_obj['text']) + "]")
             return
-        #
-        # Stream_obj (which is now represented as a dictionary)
-        # is pushed down stream through Storm, towards awaiting
+
+        # Stream_obj (which is now represented as a dictionary) is pushed down stream through Storm, towards awaiting
         # text_decoder bolts
         if not stream_obj:
             return
-        #
+
         self.emit([json.dumps(stream_obj)])
         self.log("Object de-pickled and pushed downstream - " + str(stream_obj['viewer']))
