@@ -1,0 +1,429 @@
+{
+  "streams":[
+  {
+    "platform":"youtube",
+    "src":["https://www.youtube.com/watch?v=p7zFrbf5ib4"],
+    "channel":"Next of Ken",
+    "genre":["swearing","Gordon Ramsay"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/geekandsundry"],
+    "channel":"GeekandSundry",
+    "genre":["tabletop_gaming",
+             "entertainment",
+             "roleplay",
+             "dnd"],
+    "type":"video"
+  },
+  {
+    "platform":"youtube",
+    "src":[
+      "https://www.youtube.com/watch?v=Kye2oX-b39E&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
+      "https://www.youtube.com/watch?v=fpbOEoRrHyU&index=2&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
+      "https://www.youtube.com/watch?v=DlJEt2KU33I&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=3",
+      "https://www.youtube.com/watch?v=WA0wKeokWUU&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=4",
+      "https://www.youtube.com/watch?v=G2W41pvvZs0&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=5",
+      "https://www.youtube.com/watch?v=LfgSEwjAeno&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=6",
+      "https://www.youtube.com/watch?v=_Pz3syET3DY&index=7&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
+      "https://www.youtube.com/watch?v=1Y1ya-yF35g&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=8",
+      "https://www.youtube.com/watch?v=E_F5GxCwizc&index=9&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
+      "https://www.youtube.com/watch?v=PDylgzybWAw&index=10&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh"
+    ],
+    "channel":"Last Week Tonight With John Oliver",
+    "genre":[
+      "HBO",
+      "John Oliver",
+      "Death Penalty",
+      "Net Neutrality",
+      "FIFA",
+      "World Cup",
+      "Dr. Oz",
+      "Nutritional Supplements",
+      "Season1",
+      "Uganda",
+      "Pepe Juliana Onziema",
+      "Wealth Gap",
+      "Prison",
+      "Nuclear Weapons",
+      "Native Advertisement",
+      "Predatory Lending"
+    ],
+    "type":"video"
+  },
+  {
+    "platform":"youtube",
+    "src":[
+      "https://www.youtube.com/watch?v=Kye2oX-b39E",
+      "https://www.youtube.com/watch?v=fpbOEoRrHyU",
+      "https://www.youtube.com/watch?v=DlJEt2KU33I",
+      "https://www.youtube.com/watch?v=WA0wKeokWUU",
+      "https://www.youtube.com/watch?v=G2W41pvvZs0",
+      "https://www.youtube.com/watch?v=LfgSEwjAeno",
+      "https://www.youtube.com/watch?v=_Pz3syET3DY",
+      "https://www.youtube.com/watch?v=1Y1ya-yF35g",
+      "https://www.youtube.com/watch?v=E_F5GxCwizc",
+      "https://www.youtube.com/watch?v=PDylgzybWAw"
+    ],
+    "channel":"Last Week Tonight With John Oliver",
+    "genre":[
+      "HBO",
+      "John Oliver",
+      "Death Penalty",
+      "Net Neutrality",
+      "FIFA",
+      "World Cup",
+      "Dr. Oz",
+      "Nutritional Supplements",
+      "Season1",
+      "Uganda",
+      "Pepe Juliana Onziema",
+      "Wealth Gap",
+      "Prison",
+      "Nuclear Weapons",
+      "Native Advertisement",
+      "Predatory Lending"
+    ],
+    "type":"text"
+  },
+  {
+    "platform":"youtube",
+    "src":[
+      "https://www.youtube.com/watch?v=KUdHIatS36A&index=11&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
+      "https://www.youtube.com/watch?v=P8pjd1QEA0c&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=12",
+      "https://www.youtube.com/watch?v=-YkLPxQp_y0&index=13&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
+      "https://www.youtube.com/watch?v=oDPCmmZifE8&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=14",
+      "https://www.youtube.com/watch?v=K4NRJoCNHIs&index=15&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh",
+      "https://www.youtube.com/watch?v=3kEpZWGgJks&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=16",
+      "https://www.youtube.com/watch?v=QplQL5eAxlY&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=17",
+      "https://www.youtube.com/watch?v=MepXBJjsNxs&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=18",
+      "https://www.youtube.com/watch?v=aIMgfBZrrZ8&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=19",
+      "https://www.youtube.com/watch?v=9PK-netuhHA&list=PLjdfbL5LrCRiKMbwY3JiPX90aWPJcr5Zh&index=20"
+    ],
+    "channel":"Last Week Tonight With John Oliver",
+    "genre":[
+      "HBO",
+      "John Oliver",
+      "Fergusson",
+      "MO & Police Militarization",
+      "Student Debt",
+      "Scottish Independence",
+      "Miss America Pageant",
+      "Drones",
+      "Civil Forfeiture",
+      "Translators",
+      "Sugar",
+      "State Legislature and ALEC",
+      "The Lottery"
+    ],
+    "type":"video"
+  },
+  {
+    "platform":"youtube",
+    "src":[
+      "https://www.youtube.com/watch?v=KUdHIatS36A",
+      "https://www.youtube.com/watch?v=P8pjd1QEA0c",
+      "https://www.youtube.com/watch?v=-YkLPxQp_y0",
+      "https://www.youtube.com/watch?v=oDPCmmZifE8",
+      "https://www.youtube.com/watch?v=K4NRJoCNHIs",
+      "https://www.youtube.com/watch?v=3kEpZWGgJks",
+      "https://www.youtube.com/watch?v=QplQL5eAxlY",
+      "https://www.youtube.com/watch?v=MepXBJjsNxs",
+      "https://www.youtube.com/watch?v=aIMgfBZrrZ8",
+      "https://www.youtube.com/watch?v=9PK-netuhHA"
+    ],
+    "channel":"Last Week Tonight With John Oliver",
+    "genre":[
+      "HBO",
+      "John Oliver",
+      "Fergusson",
+      "MO & Police Militarization",
+      "Student Debt",
+      "Scottish Independence",
+      "Miss America Pageant",
+      "Drones",
+      "Civil Forfeiture",
+      "Translators",
+      "Sugar",
+      "State Legislature and ALEC",
+      "The Lottery"
+    ],
+    "type":"text"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/geekandsundry"],
+    "channel":"GeekandSundry",
+    "genre":["tabletop_gaming",
+             "entertainment",
+             "roleplay",
+             "games"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/geekandsundry"],
+    "channel":"GeekandSundry",
+    "genre":["tabletop_gaming",
+             "entertainment",
+             "roleplay",
+             "games"],
+    "type":"text"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/streamerhouse"],
+    "channel":"summit1g",
+    "genre":["realm_royale",
+             "entertainment",
+             "games",
+             "video_games"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/streamerhouse"],
+    "channel":"summit1g",
+    "genre":["realm_royale",
+             "entertainment",
+             "games",
+             "video_games"],
+    "type":"text"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/ninja"],
+    "channel":"ninja",
+    "genre":["realm_royale",
+             "entertainment",
+             "games",
+             "video_games"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/ninja"],
+    "channel":"ninja",
+    "genre":["realm_royale",
+             "entertainment",
+             "games",
+             "video_games"],
+    "type":"text"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/forsen"],
+    "channel":"forsen",
+    "genre":["Starcraft",
+             "Hearthstone",
+             "playerunknown_battlegrounds"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/forsen"],
+    "channel":"forsen",
+    "genre":["Starcraft",
+             "Hearthstone",
+             "playerunknown_battlegrounds"],
+    "type":"text"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/esl_sc2"],
+    "channel":"ESL",
+    "genre":["starcraft2",
+             "entertainment",
+             "e-sport",
+             "strategy"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/riotgames"],
+    "channel":"riotgames",
+    "genre":["MOBA",
+             "video_game",
+             "5v5",
+             "entertainment",
+             "e-sport",
+             "league_of_legends"],
+    "type":"text"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/neuro"],
+    "channel":"Neuro",
+    "genre":["starcraft2",
+             "strategy_gaming",
+             "entertainment",
+             "video_game",
+             "legacy_of_the_void",
+             "e-sport"],
+    "type":"video"
+  },
+  {
+    "platform":"youtube",
+    "src":["https://www.youtube.com/watch?v=lLWEXRAnQd0",
+           "https://www.youtube.com/watch?v=kJFB6rH3z2A"],
+    "channel":"BobRoss",
+    "genre":["painting",
+             "entertainment"],
+    "type":"video"
+  },
+  {
+    "platform":"youtube",
+    "src":[
+      "https://www.youtube.com/watch?v=BSjee-ond7w"],
+    "channel":"BobRoss",
+    "genre":["painting",
+             "entertainment"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/dreamhackcs"],
+    "channel":"DreamHackCS",
+    "genre":["fps",
+             "e_sport",
+             "csgo",
+             "moba",
+             "league_of_legends",
+             "video_game"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/cohhcarnage"],
+    "channel":"CohhCarnage",
+    "genre":["video_game",
+             "entertainment"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/totalbiscuit"],
+    "channel":"TotalBiscuit",
+    "genre":["Gaming Discussion",
+           "game_review",
+           "entertainment"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/nathanias"],
+    "channel":"Nathanias",
+    "genre":["Starcraft2",
+             "strategy_gaming",
+             "entertainment",
+             "video_game",
+             "starcraft2",
+             "legacy_of_the_void"],
+    "type":"video"
+  },
+  {
+    "platform":"youtube_live",
+    "src":["https://www.youtube.com/watch?v=-cr2_8JP0R4"],
+    "channel":"ChapterMasterValrak",
+    "genre":["warhammer40k",
+             "tabletop_gaming"],
+    "type":"video"
+  },
+  {
+    "platform":"twitch_tv",
+    "src":["https://www.twitch.tv/nl_kripp"],
+    "channel":"nl_kripp",
+    "genre":["entertainment",
+             "video_game",
+             "hearthstone"],
+    "type":"video"
+  },
+  {
+    "platform": "youtube_live",
+    "src": ["https://www.youtube.com/watch?v=XOacA3RYrXk"],
+    "channel": "sky_news",
+    "genre": [
+      "live_news",
+      "debate"],
+    "type":"video"
+  },
+  {
+    "platform": "twitch_tv",
+    "src": ["https://www.youtube.com/watch?v=XOacA3RYrXk"],
+    "channel": "riot_games",
+    "genre": [
+      "video_game",
+      "moba",
+      "league_of_legends"],
+    "type":"video"
+  },
+  {
+    "platform": "youtube_live",
+    "src": ["https://www.youtube.com/watch?v=9kfx7VBPj0w"],
+    "channel": "pokerstars",
+    "genre": [
+      "poker",
+      "montecarlo"],
+    "type":"video"
+  },
+  {
+    "platform": "facebook_live",
+    "src": ["https://www.facebook.com/ChelseaFC/videos/10156562907487259/"],
+    "channel": "chelsea_football_club",
+    "genre": [
+      "live_interview",
+      "football",
+      "chelsea"],
+    "type":"video"
+  },
+  {
+    "platform": "youtube_live",
+    "src": ["https://www.youtube.com/watch?v=Ah04R0okNbQ"],
+    "channel": "euronews",
+    "genre": [
+      "live_news"],
+    "type":"video"
+  },
+  {
+    "platform": "youtube",
+    "src":["https://www.youtube.com/watch?v=7t0BAkiQi2k"],
+    "channel": "winterseo",
+    "genre": [
+      "warhammer40k",
+      "review",
+      "deathwatch",
+      "codex"],
+    "type":"video"
+  },
+  {
+    "platform": "youtube",
+    "src":["https://www.youtube.com/watch?v=nqvlcZ_g0z8"],
+    "channel": "Fox Business",
+    "genre": [
+      "president",
+      "Trump",
+      "Iran",
+      "nuclear"],
+    "type":"text"
+  },
+  {
+    "platform": "youtube",
+    "src":["https://www.youtube.com/watch?v=sCUueUYH2KI"],
+    "channel": "winterseo",
+    "genre": [
+      "warhammer40k",
+      "review",
+      "battlereport",
+      "tyranids",
+      "deathguard"],
+    "type":"text"
+  },
+  {
+  "platform":"youtube",
+  "src":["https://www.youtube.com/watch?v=IYfgvS0FA7U"],
+  "channel":"LastWeekTonight",
+  "genre":["Venezuela", "politics"],
+  "type":"video"
+  }
+]}
