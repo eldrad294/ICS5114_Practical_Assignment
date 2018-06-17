@@ -1,13 +1,11 @@
-#
-# Module Imports
-from pykafka import KafkaClient, SslConfig
-from recording.src.producer.kafka_interface import KafkaInterface
-from recording.src.speech_recognition.BDAGoogleStorage import BDAGoogleStorageConvertUpload
-from recording.src.producer.stream_object import StreamObject
 import os
 import time
 import threading
 import json
+from pykafka import KafkaClient, SslConfig
+from recording.src.producer.kafka_interface import KafkaInterface
+from recording.src.speech_recognition.BDAGoogleStorage import BDAGoogleStorageConvertUpload
+from recording.src.producer.stream_object import StreamObject
 
 
 class Producer(KafkaInterface):
@@ -22,81 +20,78 @@ class Producer(KafkaInterface):
         KafkaInterface.__init__(self)
         self.client = None
         self.__threadLock = threading.Lock()
-    #
+
     def connect(self, address, ssl_config=None):
         """
         Attempts to connect to Kafka brokers
-        :param address:
-        :return:
+        :param address:    Kafka connection string
+        :param ssl_config: SSL configuration
+        :return:           None
         """
         # Formats connection string in the form of 127.0.0.1:9092,127.0.0.1:9090,...
         connection_string = ","
         connection_string = connection_string.join(address)
+
         try:
             print("Producer attempting to connect to Kafka brokers at " + connection_string + " ...")
             if ssl_config is None:
                 self.client = KafkaClient(hosts=connection_string)
             else:
-                self.client = KafkaClient(hosts=connection_string,
-                                          ssl_config=ssl_config)
-            print("Producer connected to Kafka broker at these addresses ["+connection_string+"]")
+                self.client = KafkaClient(hosts=connection_string, ssl_config=ssl_config)
+            print("Producer connected to Kafka broker at these addresses [" + connection_string + "]")
         except Exception as e:
             print(str(e))
-    #
+
     def connect_ssl(self, address, cafile, certfile, keyfile, password):
         """
         Uses an SSL connection to connect to Kafka Broker
-        :param address:
-        :param cafile:
-        :param certfile:
-        :param keyfile:
-        :param password:
-        :return:
+        :param address:  Kafka connection string
+        :param cafile:   CA certificate file
+        :param certfile: Client certificate
+        :param keyfile:  Client private key
+        :param password: Password for private key
+        :return:         None
         """
         config = SslConfig(cafile=cafile,
                            certfile=certfile,
                            keyfile=keyfile,
                            password=password)
-        #
+
         self.connect(address=address,
                      ssl_config=config)
-    #
+
     def list_topics(self):
         """
         Gets list of topics from Kafka broker.
-        WARNING: This method is likely to be incompatible
-        with python 3.x
-        :return:
+        WARNING: This method is likely to be incompatible with python 3.x
+        :return:         Kafka topics object
         """
         return self.client.topics
-    #
+
     def get_topic(self, topic):
         """
-        Gets a particular topic from Kafka broker, and
-        returns an encoded version of the topic
-        :param topic:
-        :return:
+        Gets a particular topic from Kafka broker and returns an encoded version of the topic
+        :param topic:    Kafka topic string
+        :return:         Kafka topic object
         """
-        return self.client.topics[topic.encode()] #topic string is converted to bytes to appease Kafka
-    #
+        # Topic string is converted to bytes to appease Kafka
+        return self.client.topics[topic.encode()]
+
     def produce_message(self, topic, stream_object):
         """
         Pushes a stream_object onto a Kafka broker, as defined by the topic.
         Operation is thread safe.
-        :param topic:
-        :param stream_object:
-        :return:
+        :param topic:         Kafka topic
+        :param stream_object: Kafka stream object
+        :return:              None
         """
-        #
         # Serializes stream object
         self.__threadLock.acquire()
         try:
-            #
             # Object is serialized as a dictionary
             string_stream_object = json.dumps(stream_object.get_details())
             serialized_stream_object = string_stream_object.encode('utf-8')
             with self.get_topic(topic).get_sync_producer() as producer:
-                #
                 # Pushes serialized object onto Kafka broker
                 producer.produce(serialized_stream_object)
                 print("stream_object submitted to Kafka broker with topic [" + str(topic) + "]..")
@@ -111,8 +106,16 @@ class ProducerTask:
     task_kafka_config = None
     task_kafka_topic = None
     ###################
+    """
+    Class encapsulating a producer task
+    """
 
     def __init__(self, data, kafka_config, kafka_topic):
+        """
+        :param data:         Task data
+        :param kafka_config: Task Kafka config
+        :param kafka_topic:  Task Kafka topic
+        """
         self.task_data = data
         self.task_kafka_config = kafka_config
         self.task_kafka_topic = kafka_topic
@@ -126,8 +129,15 @@ class ProducerHandler:
     __mutex = None
     __worker_threads = None
     ###################
+    """
+    Class encapsulating the producer upload multi-threaded logic
+    """
 
     def __init__(self, kafka_producer_ref, upload_thread_count: int):
+        """
+        :param kafka_producer_ref:  Reference to a Kafka instance
+        :param upload_thread_count: Upload thread count
+        """
         self.__kafka_producer_ref = kafka_producer_ref
         self.__task_queue = []
         self.__mutex = threading.Lock()
@@ -145,9 +155,9 @@ class ProducerHandler:
     def add_task(self, data, kafka_config, kafka_topic):
         """
         Callable method which adds a video segment to the upload queue. Ensures appropriate mutex handling of task_queue
-        :param data:
-        :param kafka_config:
-        :param kafka_topic:
+        :param data:         Task data
+        :param kafka_config: Task Kafka config
+        :param kafka_topic:  Task Kafka topic
         :return:
         """
         task = ProducerTask(data, kafka_config, kafka_topic)
@@ -161,10 +171,11 @@ class ProducerHandler:
     @staticmethod
     def __work(task_queue, mutex, producer):
         """
-        Offloads work from task_queue through appropriate mutex acquiring
-        :param task_queue:
-        :param mutex:
-        :param producer:
+        Offloads work from task_queue through appropriate mutex acquiring. This static method spins in an infinite loop
+        and is intended to being executed in a separate thread.
+        :param task_queue: Entire Kafka task queue
+        :param mutex:      Mutex
+        :param producer:   Producer instance
         :return:
         """
         while True:
@@ -186,9 +197,7 @@ class ProducerHandler:
     @staticmethod
     def __produce_message(data, kafka_producer, kafka_config, kafka_topic):
         """
-        ProducerHandler entry point:
-        1. Initiates a separate thread.
-        2. Delegates work to the thread. No thread management is done.
+        Method delegates the current task to the appropriate methods, based on the associated Kafka topic.
         :param data:           Absolute path to video file or list made of [authors, comments]
         :param kafka_producer: Kafka producer
         :param kafka_config:   Kafka configuration
@@ -206,9 +215,7 @@ class ProducerHandler:
     @staticmethod
     def __process_file(data, kafka_producer, kafka_config, kafka_topic):
         """
-        1. Converts the input video file into FLAC audio format (48000Hz, 1-channel).
-        2. Uploads resulting file to Google Storage.
-        3. Posts the resulting task to Kafka.
+        Method processes the Kafka task and posts it to Kafka
         :param data:           Absolute path to video file OR [author, comment]
         :param kafka_producer: Kafka producer
         :param kafka_config:   Kafka configuration
@@ -216,14 +223,19 @@ class ProducerHandler:
         :return:               None
         """
         if kafka_topic == "video":
+            # 1. Converts the input video file into FLAC audio format (48000Hz, 1-channel).
+            # 2. Uploads resulting file to Google Storage.
+            # 3. Posts the resulting task to Kafka.
             cloud_url_tuple = ProducerHandler.__convert_upload(data)
             ProducerHandler.__post_kafka(data=data,
                                          kafka_producer=kafka_producer,
                                          kafka_config=kafka_config,
                                          kafka_topic=kafka_topic,
                                          cloud_url_tuple=cloud_url_tuple)
-            os.remove(data) # Remove segmented file from disk
+            # Remove segmented file from disk
+            os.remove(data)
         elif kafka_topic == "text":
+            # No task processing is required, post directly to Kafka.
             ProducerHandler.__post_kafka(data=data,
                                          kafka_producer=kafka_producer,
                                          kafka_config=kafka_config,
@@ -237,7 +249,7 @@ class ProducerHandler:
         """
         Convert media file to FLAC and upload to Google Storage platform.
         :param data: Absolute path to video file
-        :return:           (BucketName, BlobPath)
+        :return:     (BucketName, BlobPath)
         """
         gs_convert_upload = BDAGoogleStorageConvertUpload(data)
         return gs_convert_upload.upload_file()
@@ -279,6 +291,6 @@ class ProducerHandler:
                                          text=str(data[1]))
         else:
             raise ValueError('Unsupported Kafka Topic! Aborting..')
-        #
+
         # Submits message to Kafka broker
         kafka_producer.produce_message(topic=kafka_topic, stream_object=stream_object)

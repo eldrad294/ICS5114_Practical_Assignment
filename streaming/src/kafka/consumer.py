@@ -1,18 +1,16 @@
-#
-# Module Imports
 from pykafka import KafkaClient, SslConfig
 from pykafka.common import OffsetType
 from kafka.kafka_interface import KafkaInterface
-#
+
+
 class Consumer(KafkaInterface):
     """
     Class encapsulating consumer functionality
     """
-    #
     def __init__(self):
         KafkaInterface.__init__(self)
         self.client = None
-    #
+
     def connect(self, address, ssl_config=None):
         """
         Attempts to connect to Kafka brokers
@@ -32,7 +30,7 @@ class Consumer(KafkaInterface):
             print("Consumer connected to Kafka broker at these addresses ["+connection_string+"]")
         except Exception as e:
             print(str(e))
-    #
+
     def connect_ssl(self, address, cafile, certfile, keyfile, password):
         """
         Uses an SSL connection to connect to Kafka Broker
@@ -47,27 +45,25 @@ class Consumer(KafkaInterface):
                            certfile=certfile,
                            keyfile=keyfile,
                            password=password)
-        #
+
         self.connect(address=address,
                      ssl_config=config)
-    #
+
     def list_topics(self):
         """
         Gets list of topics from Kafka broker.
-        WARNING: This method is likely to be incompatible
-        with python 3.x
+        WARNING: This method is likely to be incompatible with python 3.x
         :return:
         """
         return self.client.topics
-    #
+
     def get_topic(self, topic):
         """
-        Gets a particular topic from Kafka broker, and
-        returns an encoded version of the topic
+        Gets a particular topic from Kafka broker and returns an encoded version of the topic
         :param topic:
         :return:
         """
-        # topic string is converted to bytes to appease Kafka
+        # Topic string is converted to bytes to appease Kafka
         return self.client.topics[topic.encode('utf-8')]
     #
     def set_simple_consumer(self, topic):

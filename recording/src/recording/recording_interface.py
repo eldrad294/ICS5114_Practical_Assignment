@@ -1,30 +1,24 @@
-#
-# Module imports
 import shlex
-from recording.src.constants import path_consts as pc
 import datetime, subprocess, re, math
+from recording.src.constants import path_consts as pc
 from pytube import YouTube
-#
+
+
 class RecordingInterface:
     """
-    This class contains the logic required to monitor and
-    record data from the varied platforms which the system
-    will read from. It has 2 modes to interpret and record
-    video data:
+    This class contains the logic required to monitor and record data from the varied platforms which the system will
+    read from. It has 2 modes to interpret and record video data:
 
-    1) Utilizes ffmpeg to split a video into several smaller
-    ones. This functionality is reserved for pre-recorded footage
-    which is downloaded, segmented locally into smaller chuncks,
-    to be eventually pushed down the pipeline.
+    1) Utilizes ffmpeg to split a video into several smaller ones. This functionality is reserved for pre-recorded
+    footage which is downloaded, segmented locally into smaller chunks, to be eventually pushed down the pipeline.
 
-    2) Utilizes the Streamlink command line
-    tool, to connect to a streaming online source
-    and saves it as segmented videos/audio locally.
+    2) Utilizes the Streamlink command line tool, to connect to a streaming online source and saves it as segmented
+    videos/audio locally.
 
     This class will operate on data pulled off the config_interface.
     """
-    #
-    def __init__(self, config_obj, segment_time_span=300, extension='wav', quality='worst', video_buffer_path=pc.DIR_VIDEO_BUFFER):
+    def __init__(self, config_obj, segment_time_span=300, extension='wav', quality='worst',
+                 video_buffer_path=pc.DIR_VIDEO_BUFFER):
         """
         Default constructor
 
@@ -39,30 +33,26 @@ class RecordingInterface:
         self.extension = extension
         self.quality = quality
         self.video_buffer_path = video_buffer_path
-    #
+
     def capture_and_save_indefinetly(self):
         """
-        Calls a never ending loop on the capture_and_save method
-        :return:
+        Calls an infinite loop on the capture_and_save method
+        :return: None
         """
-        #
         while True:
             self.capture_and_save()
-    #
+
     def capture_and_save(self):
         """
-        Recording logic, using the streamlink CLI tool.
-        All captured footage is saved to disk. Footage
-        time is dicated by the segment_time_span_parameter
-        parameter
-        :return:
+        Recording logic, using the streamlink CLI tool. All captured footage is saved to disk. Footage time is
+        determined by the segment_time_span_parameter parameter
+        :return: None
         """
         print("Initiating file segmentation..")
         segmented_file_name = self.get_segmented_file_name()
         try:
             output = self.stream_link_wrapper(segmented_file_name)
-            #
-            if (output.returncode == 0):
+            if output.returncode == 0:
                 print("File [" + segmented_file_name + "] has been shipped to [" + self.video_buffer_path + "]")
         except subprocess.TimeoutExpired:
             pass
@@ -72,12 +62,11 @@ class RecordingInterface:
             print("Capture method aborted in an unhandled manner!\n")
             print(str(e))
             exit(1)
-    #
+
     def capture_and_return(self):
         """
-        Similar to the capture_and_save method, but returns the
-        recorded file path.
-        :return:
+        Similar to the capture_and_save method, but returns the recorded file path.
+        :return: Path to file
         """
         print("Initiating file segmentation..")
         segmented_file_name = self.get_segmented_file_name()
@@ -103,11 +92,12 @@ class RecordingInterface:
             print("Capture method aborted in an unhandled manner!\n")
             print(str(e))
             return None
-    #
+
     def stream_link_wrapper(self, segmented_file_name):
         """
         Method which encapsulates the streamlink tools
-        :return:
+        :param segmented_file_name: Segment file name
+        :return:                    Handle to the spawned OS process
         """
         command = "streamlink -o " + \
                   self.video_buffer_path + \
@@ -115,23 +105,20 @@ class RecordingInterface:
                   " " + self.config_obj.get_details()['src'][0] + \
                   " " + self.quality
         return subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
-    #
+
     def get_segmented_file_name(self):
         """
-        Returns a unique file name for segmented file
-        :return:
+        :return: Returns a unique file name for segmented file
         """
         obj = self.config_obj.get_details()
         return str(obj['channel']) + "_" + \
                str(obj['platform']) + "_" + \
                self.get_time_stamp() + \
                "." + str(self.extension)
-    #
+
     def get_time_stamp(self):
         """
-        Returns timestamp of following format:
-        eg: 2018319161339
-        :return:
+        :return: Returns timestamp of the format: 2018319161339
         """
         currentDT = datetime.datetime.now()
         return str(currentDT.year) + \
@@ -140,22 +127,20 @@ class RecordingInterface:
                str(currentDT.hour) + \
                str(currentDT.minute) + \
                str(currentDT.second)
-    #
+
     def get_video(self, video_path):
         """
+        This function will copy the file content as binary data into memory.
         NB: Beware using this method on large files!
-        This function will copy the file content as
-        binary data into memory.
-        :param video_path:
-        :return:
+        :param video_path: Path to video file
+        :return:           File content representation in memory
         """
-        #
         # Opening for [r]eading as [b]inary
         with open(video_path, "rb") as file:
             data = file.read()
             file.close()
         return data
-    #
+
     def download_and_segment(self):
         """
         Wrapper function for downloading and segmenting of youtube videos
@@ -163,13 +148,12 @@ class RecordingInterface:
         """
         local_video_paths = self.__download_videos()
         return self.__segment_local_videos(local_video_paths=local_video_paths)
-    #
+
     def __clean_downloaded_videos(self, title_name):
         """
         Cleans video name from illegal characters
-
-        :param title_name:
-        :return:
+        :param title_name: Video title
+        :return:           Cleaned version of the video title
         """
         illegal_characters = ('"', "'", "\\", "/", ",", ".", "&", "%", " ", "+","-","#","$","!","?",":","(",")","^","@","~","*","<",">")
         return_string = []
@@ -177,11 +161,11 @@ class RecordingInterface:
             if char not in illegal_characters:
                 return_string.append(char)
         return "".join(return_string)
-    #
+
     def __download_videos(self):
         """
         Downloads videos from youtube src
-        :return:
+        :return: List of paths to the downloaded video files
         """
         local_paths = []
         print("Initiating YouTube Connection..")
@@ -190,37 +174,32 @@ class RecordingInterface:
             stream = yt.streams.filter(resolution='144p').first()
             print("Downloading content at " + pc.PARENT_DIR + "/src/video_buffer..")
             title = self.__clean_downloaded_videos(yt.title)
-            stream.download(output_path=pc.PARENT_DIR+"/src/video_buffer/",filename=title)
-            #print(pc.PARENT_DIR + "/src/video_buffer/" + yt.title + ".3gpp")
+            stream.download(output_path=pc.PARENT_DIR+"/src/video_buffer/", filename=title)
             local_paths.append(pc.PARENT_DIR + "/src/video_buffer/" + title + ".3gpp")
         return local_paths
-    #
-    def __segment_local_videos(self,local_video_paths):
+
+    def __segment_local_videos(self, local_video_paths):
         """
         Segments a number local videos
-        :param file path where the content was downloaded
-        :return:
+        :param local_video_paths: File path where the content was downloaded
+        :return:                  List of video file paths
         """
         video_paths = []
         length_regexp = 'Duration: (\d{2}):(\d{2}):(\d{2})\.\d+,'
         re_length = re.compile(length_regexp)
-        #
+
         print("Initiating file segmentation..")
         for i, file_path in enumerate(local_video_paths):
             segmented_file_name = file_path
             print("Segmenting [" + segmented_file_name + "]")
-            #
+
             if self.segment_time_span <= 0:
                 print("Split length can't be 0")
                 raise SystemExit
-            #
+
             cmd = "ffmpeg -i '" + segmented_file_name + "' 2>&1 | grep Duration"
-            output = subprocess.Popen(cmd,
-                                      shell=True,
-                                      stdout=subprocess.PIPE
-                                      ).stdout.read()
-            print(cmd)
-            print(output)
+            output = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE ).stdout.read()
+
             matches = re_length.search(str(output))
             if matches:
                 video_length = int(matches.group(1)) * 3600 + \
@@ -230,22 +209,24 @@ class RecordingInterface:
             else:
                 print("Can't determine video length for [" + segmented_file_name + "]")
                 raise SystemExit
-            #
+
             split_count = math.ceil(video_length / float(self.segment_time_span))
-            if (split_count == 1):
+            if split_count == 1:
                 print("Video length is less then the target split length.")
                 raise SystemExit
-            #
+
             split_cmd = "ffmpeg -i '" + segmented_file_name + "' -vcodec copy "
-            #
+
             for n in range(int(split_count)):
                 split_str = ""
                 if n == 0:
                     split_start = 0
                 else:
                     split_start = self.segment_time_span * n
-                #
-                segmented_file_name = pc.PARENT_DIR + "/src/video_buffer/" + str(i) + str(n) + "_" + self.get_segmented_file_name() #Ensures a unique file_name for the segmented file on disk
+
+                # Ensures a unique file_name for the segmented file on disk
+                segmented_file_name = pc.PARENT_DIR + "/src/video_buffer/" + str(i) + str(n) + "_" + \
+                                      self.get_segmented_file_name()
                 split_str += " -ss " + str(split_start) + " -t " + str(self.segment_time_span) + \
                              " '" + segmented_file_name + "'"
                 try:

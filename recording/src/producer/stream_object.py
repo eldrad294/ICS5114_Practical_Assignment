@@ -1,19 +1,14 @@
 class StreamObject:
     """
-    Object which will form the basis off all stream messages
-    produced and offloaded downstream through the pipeline.
+    Object which will form the basis off all stream messages produced and offloaded downstream through the pipeline.
 
-    This object type is intended to be serialized and pushed onto
-    the Kafka broker, which will eventually be picked by the
-    Storm Spout/ Kafka Consumer, de-serialized and pushed down
-    the pipeline into Storm.
+    This object type is intended to be serialized and pushed onto the Kafka broker, which will eventually be picked by
+    the Storm Spout/ Kafka Consumer, de-serialized and pushed down the pipeline into Storm.
     """
-    #
     def __init__(self, platform, src_url, channel, genre, time_stamp,
                  file_path, cloud_bucket_name, cloud_bucket_path, viewer=None, text=None):
         """
         Default Constructor
-
         :param platform:          Retrieved from config_object
         :param src_url:           Retrieved from config_object
         :param channel:           Retrieved from config_object
@@ -34,26 +29,28 @@ class StreamObject:
         self.time_stamp = time_stamp
         self.viewer = viewer
         self.text = text
-        self.detail_dict = { "platform": self.platform,
-                             "source_url": self.src_url,
-                             "cloud_bucket_name":self.cloud_bucket_name,
-                             "cloud_bucket_path":self.cloud_bucket_path,
-                             "file_path": self.file_path,
-                             "channel": self.channel,
-                             "genre": self.genre,
-                             "time_stamp": self.time_stamp,
-                             "viewer": self.viewer,
-                             "text": self.text}
-    #
+        self.detail_dict = {"platform": self.platform,
+                            "source_url": self.src_url,
+                            "cloud_bucket_name":self.cloud_bucket_name,
+                            "cloud_bucket_path":self.cloud_bucket_path,
+                            "file_path": self.file_path,
+                            "channel": self.channel,
+                            "genre": self.genre,
+                            "time_stamp": self.time_stamp,
+                            "viewer": self.viewer,
+                            "text": self.text}
+
     def get_details(self, key=None):
-        """"
-        Returns instance details in the form of a dictionary
+        """
+        :param key: Optional ID, if unspecified, all the dictionary collection will be returned
+        :return:    Returns instance details in the form of a dictionary
+
         """
         if key is None:
             return self.detail_dict
         else:
             return self.detail_dict[key]
-    #
+
     def display_details(self):
         """
         Pretty print instance details
@@ -68,19 +65,3 @@ class StreamObject:
               "\nTime Stamp: " + str(self.time_stamp) +
               "\nViewer: " + str(self.viewer) +
               "\nText: " + str(self.text))
-    #
-    # def __getstate__(self):
-    #     """
-    #     This method is called when the class instance becomes pickled
-    #     :return:
-    #     """
-    #     state = self.__dict__.copy()
-    #     return state
-    # #
-    # def __setstate__(self, state):
-    #     """
-    #     This method is called when the class instance becomes de-pickled
-    #     :param state:
-    #     :return:
-    #     """
-    #     self.__dict__.update(state)

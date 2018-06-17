@@ -64,11 +64,3 @@ class BDATextProcessing:
             result.append(lemmatizer.lemmatize(word))
 
         return result
-
-
-###########################################################################
-# Code usage example:
-# data = "look it's hardly been 48 hours and much is still unknown but there are few things we can say for certain and this is when it actually helps to be on HBO where those things can be saved without restraint because after the many necessary and appropriate moments of Silence moment of premium cable profanity so here is where things stand first as of now we know this attack was carried out by gigantic fucking assholes unconscionable flaming ass holes possibly possibly working with other fucking All Souls definitely working in service open Audiology second I'm just saying French is going to enjoy and I'll tell you why if you were in a war of culture and lifestyle with frogs good fucking luck  bring your bankruptcy geology will bring Jean-Paul Sartre fine wine go buy cigarettes Camembert macarons proof on the fucking croquembouche  to trust you just pulled a philosophy of rigorous self-abnegation to a pastry fight my friends you are fuc  what is a French Freedom Tower  so tell the people of France all thoughts are truly with you and I do not doubt they'll be more to say on all of this as events on spool but for now we are going to continue"
-# result = BDATextProcessing.simplify_text(data)
-# print(result)
-###########################################################################

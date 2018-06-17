@@ -1,5 +1,3 @@
-#
-# Module imports
 from recording.src.recording.config_interface import ConfigInterface
 from recording.src.recording.recording_interface import RecordingInterface
 from recording.src.recording.text_interface import TextInterface
@@ -7,11 +5,13 @@ from recording.src.constants import path_consts as pc
 from recording.src.producer.producer import Producer, ProducerHandler
 from recording.src.coding_framework.BDAConfigParser import g_config
 import os
-#
+
 """
 This script is intended to run on producer nodes. The producer node will be responsible for capturing and submission of
 data onto the Kafka Broker.
 """
+
+
 class ProducerRunner:
     ###################
     # Private members
@@ -29,6 +29,9 @@ class ProducerRunner:
     __producer = None
     __producer_handler = None
     ###################
+    """
+    Class encapsulating the producer entry point.
+    """
 
     def __init__(self):
         self.__load_producer_params()
@@ -37,7 +40,7 @@ class ProducerRunner:
     def start_producer(self):
         """
         Initiates producer execution, dependent on what type of producer to be started
-        :return:
+        :return: None
         """
         print('>> ProducerRunner --> Start')
         if self.__recording_config_container.get_src_type() == 0:
@@ -58,7 +61,7 @@ class ProducerRunner:
     def __load_producer_params(self):
         """
         Retrieves config parameters for current producer run
-        :return:
+        :return: None
         """
         print('>> ProducerRunner --> Load config')
         self.__stream_offset = int(self.__load_param('ProducerRunner', 'stream_offset', 'StreamOffset_EvnVarName'))
@@ -100,7 +103,7 @@ class ProducerRunner:
         print('>> ProducerRunner --> Initialization')
         # Loads config from input_channels.json
         config_iface = ConfigInterface(input_channels_path=pc.FILE_INPUT_CHANNELS)
-        #
+
         if config_iface.get_input_channels()[self.__stream_offset].type == self.__kafka_topic_video:
             self.__recording_iface = RecordingInterface(
                 config_obj=config_iface.get_input_channels()[self.__stream_offset],
@@ -127,9 +130,9 @@ class ProducerRunner:
     def __video_live_streaming(self):
         """
         This method ensures an infinite execution of online-livestreaming footage.
-        Recorded footage (defgault of 30 seconds per segment, is then pushed onto a parallel thread to be uploaded
-        on Google Console)
-        :return:
+        Recorded footage (default of 30 seconds per segment, is then pushed onto a parallel thread to be uploaded on
+        Google Console)
+        :return: None
         """
         # Initiates streamlink, record ongoing live-stream footage locally
         print('>> ProducerRunner --> Video live streaming')
@@ -148,7 +151,7 @@ class ProducerRunner:
         """
         This method contains logic for downloading YouTube videos, segmenting the content locally into segments (30s),
         and uploading these segment on Google Console.
-        :return:
+        :return: None
         """
         # Initiates a call to a number of local video files and splits them into several files
         print('>> ProducerRunner --> YouTube video live streaming')
@@ -165,8 +168,7 @@ class ProducerRunner:
     def __text_retrieval_youtube(self):
         """
         Initiates a call to YouTube page, and retrieves all comments and comment threads using YouTube api
-
-        :return:
+        :return: None
         """
         print('>> ProducerRunner --> YouTube text retrieval')
         comments = self.__recording_iface.get_youtube_comments(youtube_api_result_limit=self.__youtube_api_result_limit)
@@ -178,17 +180,16 @@ class ProducerRunner:
 
     def __text_retrieval_twitch(self):
         """
-        Initiates IRC connection to Twitch TV streaming channel.
-        Call is blocking, and will only return upon termination
+        Initiates IRC connection to Twitch TV streaming channel. Call is blocking, and will only return upon termination
         of the producer.
-
-        :return:
+        :return: None
         """
         print('>> ProducerRunner --> Twitch.Tv text retrieval')
         self.__recording_iface.start_twitch_bot(producer_handler=self.__producer_handler,
                                                 kafka_config=self.__recording_config_container.get_details(),
                                                 kafka_topic=self.__kafka_topic_text)
         print('<< ProducerRunner --> Twitch.TV text retrieval')
-#
+
+
 producer_runner = ProducerRunner()
 producer_runner.start_producer()
