@@ -1,31 +1,22 @@
-#
-# Module Imports
 from graph.graph_entities import GraphEntities
-#
+
+
 class CreateTransactionFunctions(object):
     """
-    This class contains a number of transactions functions,
-    focused on creation of nodes and relationships in the
-    graph. The Merge statement is utilized to avoid duplication
-    of Nodes/Relationships in the graph.
+    This class contains a number of transactions functions, focused on creation of nodes and relationships in the graph.
+    The Merge statement is utilized to avoid duplication of Nodes/Relationships in the graph.
 
-    According to Neo4j official docs, Transaction functions
-    are the recommended form for containing transactional units
-    of work. This form requires minimal boilerplate code and
-    allows for a clear separation of database queries and
+    According to Neo4j official docs, Transaction functions are the recommended form for containing transactional units
+    of work. This form requires minimal boilerplate code and allows for a clear separation of database queries and
     application logic.
-
-    Node Transaction Functions:
     """
-    #
     @staticmethod
     def add_streamer(tx, name):
         """
         Add Streamer Node
-        :param self:
-        :param tx:
+        :param tx:   GraphDB transaction
         :param name: Streamer Node Name
-        :return:
+        :return:     None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         cql = "MERGE (s:"+supported_nodes[0]+" {name:$name,type:'" + supported_nodes[0] + "'}) " \
@@ -34,49 +25,45 @@ class CreateTransactionFunctions(object):
             tx.run(cql, name=name)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
     def add_viewer(tx, name):
         """
         Add Viewer Node
-        :param self:
-        :param tx:
+        :param tx:   GraphDB transaction
         :param name: Viewer Node Name
-        :return:
+        :return:     None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (v:" + supported_nodes[1] + " {name:$name,type:'" + supported_nodes[1] + "'}) " \
-              "RETURN v;"
+        cql = "MERGE (v:" + supported_nodes[1] + " {name:$name,type:'" + supported_nodes[1] + "'}) RETURN v;"
         try:
             tx.run(cql, name=name)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
     def add_genre(tx, name):
         """
         Add Genre Node
-        :param self:
-        :param tx:
+        :param tx:   GraphDB transaction
         :param name: Genre Node Name
-        :return:
+        :return:     None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (g:" + supported_nodes[2] + " {name:$name,type:'" + supported_nodes[2] + "'}) " \
-              "RETURN g;"
+        cql = "MERGE (g:" + supported_nodes[2] + " {name:$name,type:'" + supported_nodes[2] + "'}) RETURN g;"
         try:
             tx.run(cql, name=name)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
     def add_word(tx, name, foul_flag):
         """
         Add Word Node
-        :param tx:
-        :param name: Word Node Name
+        :param tx:        GraphDB transaction
+        :param name:      Word Node Name
         :param foul_flag: Denotes whether word is considered foul language
-        :return:
+        :return:          None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         cql = "MERGE (w:" + supported_nodes[3] + " {name:$name,foul_flag:$foul_flag,type:'" + supported_nodes[3] + "'}) " \
@@ -85,24 +72,22 @@ class CreateTransactionFunctions(object):
             tx.run(cql, name=name, foul_flag=foul_flag)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
     def add_platform(tx, name):
         """
         Add Platform Node
-        :param self:
-        :param tx:
+        :param tx:   GraphDB transaction
         :param name: Platform Node Name
-        :return:
+        :return:     None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
-        cql = "MERGE (w:" + supported_nodes[4] + "{name:$name,type:'" + supported_nodes[4] + "'}) " \
-                                                 "RETURN w;"
+        cql = "MERGE (w:" + supported_nodes[4] + "{name:$name,type:'" + supported_nodes[4] + "'}) RETURN w;"
         try:
             tx.run(cql, name=name)
         except Exception as e:
             print(str(e))
-    #
+
     """
     Relationship Transaction Functions:
     """
@@ -110,11 +95,11 @@ class CreateTransactionFunctions(object):
     def add_uterrance(tx, name1, name2):
         """
         Add Utterance Relationship
-        :param tx:
+            merge (w:Word{name:"Hello"}) on create set w.count = 0 on match set w.count = w.count + 1 return w;
+        :param tx:    GraphDB transaction
         :param name1: Streamer Node Name
         :param name2: Word Node Name
-        :return:
-        merge (w:Word{name:"Hello"}) on create set w.count = 0 on match set w.count = w.count + 1 return w;
+        :return:      None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         supported_relationships = GraphEntities.get_supported_relationship_types()
@@ -129,15 +114,15 @@ class CreateTransactionFunctions(object):
             tx.run(cql, name1=name1, name2=name2)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
     def add_comment(tx, name1, name2):
         """
         Add Comment Relationship
-        :param tx:
+        :param tx:    GraphDB transaction
         :param name1: Viewer Node Name
         :param name2: Word Node Name
-        :return:
+        :return:      None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         supported_relationships = GraphEntities.get_supported_relationship_types()
@@ -153,15 +138,15 @@ class CreateTransactionFunctions(object):
             tx.run(cql, name1=name1, name2=name2)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
     def add_features(tx, name1, name2):
         """
         Add Feature Relationship
-        :param tx:
+        :param tx:    GraphDB transaction
         :param name1: Word Node Name
         :param name2: Genre Node Name
-        :return:
+        :return:      None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         supported_relationships = GraphEntities.get_supported_relationship_types()
@@ -174,15 +159,15 @@ class CreateTransactionFunctions(object):
             tx.run(cql, name1=name1, name2=name2)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
     def add_follows(tx, name1, name2):
         """
         Add Follows Relationship
-        :param tx:
+        :param tx:    GraphDB transaction
         :param name1: Viewer Node Name
         :param name2: Genre Node Name
-        :return:
+        :return:      None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         supported_relationships = GraphEntities.get_supported_relationship_types()
@@ -195,15 +180,15 @@ class CreateTransactionFunctions(object):
             tx.run(cql, name1=name1, name2=name2)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
     def add_partakes(tx, name1, name2):
         """
         Add Partakes Relationship
-        :param tx:
+        :param tx:    GraphDB transaction
         :param name1: Streamer Node Name
         :param name2: Genre Node Name
-        :return:
+        :return:      None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         supported_relationships = GraphEntities.get_supported_relationship_types()
@@ -216,15 +201,15 @@ class CreateTransactionFunctions(object):
             tx.run(cql, name1=name1, name2=name2)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
     def add_subscribes(tx, name1, name2):
         """
         Add Subscribe Relationship
-        :param tx:
+        :param tx:    GraphDB transaction
         :param name1: Viewer Node Name
         :param name2: Streamer Node Name
-        :return:
+        :return:      None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         supported_relationships = GraphEntities.get_supported_relationship_types()
@@ -237,15 +222,15 @@ class CreateTransactionFunctions(object):
             tx.run(cql, name1=name1, name2=name2)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
     def add_uses(tx, name1, name2):
         """
         Add Uses Relationship
-        :param tx:
+        :param tx:    GraphDB transaction
         :param name1: Streamer Node Name
         :param name2: Platform Node Name
-        :return:
+        :return:      None
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         supported_relationships = GraphEntities.get_supported_relationship_types()
@@ -262,26 +247,21 @@ class CreateTransactionFunctions(object):
 #
 class DeleteTransactionFunctions:
     """
-    This class contains a number of transactions functions,
-    focused on deletion of nodes and relationships in the
-    graph.
+    This class contains a number of transactions functions, focused on deletion of nodes and relationships in the graph.
 
-    According to Neo4j official docs, Transaction functions
-    are the recommended form for containing transactional units
-    of work. This form requires minimal boilerplate code and
-    allows for a clear separation of database queries and
+    According to Neo4j official docs, Transaction functions are the recommended form for containing transactional units
+    of work. This form requires minimal boilerplate code and allows for a clear separation of database queries and
     application logic.
 
     Relationship Transaction Functions:
     """
-    #
     @staticmethod
     def delete_node(tx, node_value, node_type):
         """
         Delete node and all respective relationships
-        :param tx:
-        :param node_value:
-        :param node_type:
+        :param tx:         GraphDB transaction
+        :param node_value: GraphDB node value
+        :param node_type:  GraphDB node type
         :return:
         """
         cql = "MATCH(n:" + node_type + "{name:$node_value}) DETACH DELETE(n);"
@@ -289,19 +269,22 @@ class DeleteTransactionFunctions:
             tx.run(cql, node_value=node_value)
         except Exception as e:
             print(str(e))
-    #
+
     @staticmethod
-    def delete_relationship(tx, node_value_1=None, node_value_2=None, node_type_1=None, node_type_2=None, relationship=None):
+    def delete_relationship(tx, node_value_1=None, node_value_2=None, node_type_1=None, node_type_2=None,
+                            relationship=None):
         """
         Delete Utterance Relationship, based on input nodes
-        :param tx:
-        :param name1: Streamer Node Name
-        :param name2: Word Node Name
-        :return:
+        :param tx:           GraphDB transaction
+        :param node_value_1: GraphDB node_1 value - Streamer
+        :param node_value_2: GraphDB node_2 value - Word
+        :param node_type_1:  GraphDB node_1 type  - Streamer
+        :param node_type_2:  GraphDB node_2 type  - Word
+        :param relationship: GraphDB nodes relationship
+        :return:             None
         """
         if node_value_1 is None and node_type_1 is None:
-            cql = "MATCH ()-[u:" + relationship + "]-(w:" + node_type_2 + "{name:$node_value_2}) " \
-                  "DELETE u;"
+            cql = "MATCH ()-[u:" + relationship + "]-(w:" + node_type_2 + "{name:$node_value_2}) DELETE u;"
             try:
                 tx.run(cql, node_value_2=node_value_2)
             except Exception as e:
@@ -314,23 +297,20 @@ class DeleteTransactionFunctions:
             except Exception as e:
                 print(str(e))
         else:
-            cql = "MATCH (s:" + node_type_1 + "{name:$node_value_1})-[u:" + relationship + "]-(w:" + node_type_2 + "{name:$node_value_2}) " \
-                  "DELETE u;"
+            cql = "MATCH (s:" + node_type_1 + "{name:$node_value_1})-[u:" + relationship + "]-(w:" + node_type_2 + \
+                  "{name:$node_value_2}) DELETE u;"
             try:
                 tx.run(cql, node_value_1=node_value_1, node_value_2=node_value_2)
             except Exception as e:
                 print(str(e))
-    #
+
+
 class UpdateTransactionFunctions:
     """
-    This class contains a number of transactions functions,
-    focused on updating of nodes and relationships in the
-    graph.
+    This class contains a number of transactions functions, focused on updating of nodes and relationships in the graph.
 
-    According to Neo4j official docs, Transaction functions
-    are the recommended form for containing transactional units
-    of work. This form requires minimal boilerplate code and
-    allows for a clear separation of database queries and
+    According to Neo4j official docs, Transaction functions are the recommended form for containing transactional units
+    of work. This form requires minimal boilerplate code and allows for a clear separation of database queries and
     application logic.
 
     Relationship Transaction Functions:
@@ -338,14 +318,11 @@ class UpdateTransactionFunctions:
     @staticmethod
     def increment_word_node(tx, name):
         """
-        Add Word Node
-        :param self:
-        :param tx:
-        :param tx:
-        :param name: Word Node Name
+        Increment word node count
+            merge (w:Word{name:"Hello"}) on create set w.count = 0 on match set w.count = w.count + 1 return w;
+        :param tx:   GraphDB transaction
+        :param name: GraphDB node name - Word
         :return:
-
-        merge (w:Word{name:"Hello"}) on create set w.count = 0 on match set w.count = w.count + 1 return w;
         """
         supported_nodes = GraphEntities.get_supported_node_types()
         cql = "MERGE (w:" + supported_nodes[3] + \
